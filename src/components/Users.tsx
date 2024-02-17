@@ -1,3 +1,4 @@
+import { UpdateRoleModal } from "@/modals";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -5,6 +6,7 @@ export const Users = () => {
   const transactions = ["", ""];
   const [state, setState] = useState({
     modal: false,
+    changeRoleModal: false,
   });
 
   const updateState = (payload: any) => {
@@ -70,13 +72,34 @@ export const Users = () => {
                     : "opacity-0 invisible mt-[5rem]"
                 } animation overflow-y-auto`}
               >
-                <p className="cursor-pointer p-4">Change Role</p>
-                <p className="cursor-pointer p-4 border-t text-failure-text">Deactivate</p>
+                <p
+                  onClick={() =>
+                    updateState({
+                      changeRoleModal: true,
+                      modal: false,
+                    })
+                  }
+                  className="cursor-pointer p-4"
+                >
+                  Change Role
+                </p>
+                <p className="cursor-pointer p-4 border-t text-failure-text">
+                  Deactivate
+                </p>
               </div>
             </div>
           </div>
         );
       })}
+
+      <UpdateRoleModal
+        showModal={state?.changeRoleModal}
+        closeModal={() =>
+          updateState({
+            changeRoleModal: false,
+          })
+        }
+      />
     </div>
   );
 };
