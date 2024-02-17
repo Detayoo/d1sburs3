@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --primary-black: #343434;
+  --primary-wine: #802530;
+  --light-wine: #ffeff4;
+  --light-text: #948D90;
+  --deep-green: #021b0f;
+  --border-gray: #cccccc;
+  --otp-gray: #343a4040;
+  --disabled-btn: #a7e7c8;
+  --overlay: #00000099;
+  --faint-green: #ebfff7;
+  --faint-gray: #eeeeee;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: var(--primary-black);
+  font-family: "Onest-Regular";
+  padding: 0;
+  margin: 0;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  @font-face {
+    font-family: "Onest-Regular";
+    src: url("/fonts/Onest-Regular.ttf");
+  }
+  @font-face {
+    font-family: "Onest-Medium";
+    src: url("/fonts/Onest-Medium.ttf");
+  }
+  @font-face {
+    font-family: "Onest-SemiBold";
+    src: url("/fonts/Onest-SemiBold.ttf");
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: rgb(250, 250, 250);
+    box-shadow: inset 1px 2px #ccc;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 20rem;
+  }
+
+  .otp__container {
+    @apply w-full h-[60px] flex items-center gap-x-6 p-0;
+  }
+
+  .otp__container div {
+    @apply w-[60px] h-full p-0;
+  }
+
+  .otp__input {
+    @apply w-[65px] h-[65px] border-otp-gray border-[1px] rounded-[4px] outline-none bg-white text-[24px] p-0 m-0 !important;
+  }
+
+  .otp__container input:valid {
+    @apply border-otp-gray !important;
+  }
+
+  .otp__container input[value=""] {
+    @apply border-otp-gray !important;
+  }
+
+  .otp__container input:focus {
+    @apply border-otp-gray !important;
+  }
+  .error {
+    @apply text-red-500 text-sm;
+  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-transition-delay: 9999999999999999999999999s !important;
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+.animation {
+  transition: all 0.3s ease-in-out;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
