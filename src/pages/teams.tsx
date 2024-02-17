@@ -39,7 +39,7 @@ const Teams = () => {
 
         <PrimaryButton title="+ Invite Teams" className="ml-auto" />
       </div>
-      {renderBody()}
+      <div className="mt-9">{renderBody()}</div>
     </DashboardLayout>
   );
 };

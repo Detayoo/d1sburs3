@@ -9,7 +9,7 @@
   --primary-black: #343434;
   --primary-wine: #802530;
   --light-wine: #ffeff4;
-  --light-text: #948D90;
+  --light-text: #948d90;
   --deep-green: #021b0f;
   --border-gray: #cccccc;
   --otp-gray: #343a4040;
@@ -17,6 +17,10 @@
   --overlay: #00000099;
   --faint-green: #ebfff7;
   --faint-gray: #eeeeee;
+  --success-bg: #eafff5;
+  --success-text: #00974e;
+  --failure-text: #c00000;
+  --failure-bg: #fceded;
 }
 
 @media (prefers-color-scheme: dark) {

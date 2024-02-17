@@ -26,6 +26,10 @@ const config: Config = {
         "faint-gray": "var(--faint-gray)",
         "light-wine": "var(--light-wine)",
         "light-text": "var(--light-text)",
+        "success-bg": "var(--success-bg)",
+        "success-text": "var(--success-text)",
+        "failure-text": "var(--failure-text)",
+        "failure-bg": "var(--failure-bg)",
       },
       fontFamily: {
         "Onest-Regular": "Onest-Regular",
