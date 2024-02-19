@@ -27,14 +27,7 @@ export const UpdateRoleModal = ({ showModal, closeModal }) => {
           </div>
 
           <Formik initialValues={{ role: "" }} onSubmit={() => {}}>
-            {({
-              values,
-              errors,
-              setFieldValue,
-              touched,
-              isSubmitting,
-              isValid,
-            }) => (
+            {({ values, errors }) => (
               <Form className="mt-[32px]">
                 <SelectField
                   name="role"

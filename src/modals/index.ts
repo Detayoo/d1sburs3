@@ -5,3 +5,4 @@ export { ImagePreview } from "./ImagePreview";
 export { CompleteOnboarding } from "./CompleteOnboarding";
 
 export { UpdateRoleModal } from "./UpdateRoleModal";
+export { InviteTeamMember } from "./InviteTeamMember";

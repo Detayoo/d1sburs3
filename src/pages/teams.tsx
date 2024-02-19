@@ -1,3 +1,6 @@
+import Image from "next/image";
+import { useState } from "react";
+
 import {
   DashboardLayout,
   PrimaryButton,
@@ -5,11 +8,12 @@ import {
   Invites,
   Users,
 } from "@/components";
-import { useState } from "react";
+import { InviteTeamMember } from "@/modals";
 
 const Teams = () => {
   const [activeTab, setActiveTab] = useState("users");
   const tabs = ["users", "invites"];
+  const [showInviteModal, setShowInviteModal] = useState(false);
   const renderBody = () => {
     switch (activeTab) {
       case "invites":
@@ -37,9 +41,30 @@ const Teams = () => {
           </p>
         ))}
 
-        <PrimaryButton title="+ Invite Teams" className="ml-auto" />
+        <PrimaryButton
+          onClick={() => {
+            setShowInviteModal(true);
+          }}
+          title={
+            <div className="flex gap-x-2 items-center">
+              <Image
+                src="/icons/add.svg"
+                alt="add icon"
+                width={16}
+                height={16}
+              />
+              Invite Teams
+            </div>
+          }
+          className="ml-auto"
+        />
       </div>
       <div className="mt-9">{renderBody()}</div>
+
+      <InviteTeamMember
+        showModal={showInviteModal}
+        closeModal={() => setShowInviteModal(false)}
+      />
     </DashboardLayout>
   );
 };

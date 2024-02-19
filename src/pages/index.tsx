@@ -32,17 +32,6 @@ const RegistrationPage = () => {
       >
         {({ values, errors, touched }) => (
           <Form autoComplete="off" className="mt-5 flex flex-col">
-            <TextField
-              type="text"
-              name="email"
-              htmlFor="email"
-              label="Email address"
-              values={values.email}
-              error={errors.email && touched.email}
-              divClass="mt-6"
-              placeholder="Enter your email address"
-            />
-
             <PasswordField
               type={showPassword ? "text" : "password"}
               name="password"
