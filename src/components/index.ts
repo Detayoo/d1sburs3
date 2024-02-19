@@ -16,3 +16,5 @@ export * from "./BalanceCard";
 export * from "./TransactionPin";
 export * from "./Users";
 export * from "./Invites";
+export * from "./Profile";
+export * from "./ChangePassword";
