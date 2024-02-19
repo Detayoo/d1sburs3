@@ -8,34 +8,23 @@ export const AuthenticationLayout = ({
   children: React.ReactNode;
 }) => {
   return (
-    <div className="w-full bg-white flex justify-between items-center h-screen px-[40px] py-[40px]">
-      <div className="w-[44%] flex flex-col h-full">
-        <div
-          onClick={() => Router.push("/login")}
-          className="flex gap-[10px] items-center justify-self-start cursor-pointer"
-        >
+    <div className="w-full bg-white flex items-center h-screen">
+      <div className="flex flex-col w-[50%] h-full">
+        <div className="py-4">
           <Image
-            src="/icons/stripestack-logo.svg"
-            alt="stripestack logo"
-            width={50}
+            className="ml-[100px]"
+            width={125}
             height={50}
+            alt="logo"
+            src="/images/logo.png"
           />
-          <p className="font-Onest-SemiBold text-[24px] text-primary-wine">
-            stripestack
-          </p>
         </div>
-
-        <div className="ml-[70px] mt-6 flex-1 flex flex-col justify-center">
-          {children}
+        <div className="relative flex-1 h-full w-full self-stretch">
+          <Image src="/images/auth-picture.png" alt="" layout="fill" />
         </div>
       </div>
-      <div className="flex justify-center items-center bg-deep-green w-[45%] h-full rounded-[20px] py-40">
-        <Image
-          src="/images/stripestack-large-logo.png"
-          alt="stripestack image"
-          width={400}
-          height={400}
-        />
+      <div className="w-[50%] flex flex-col h-full justify-center px-[100px]">
+        {children}
       </div>
     </div>
   );

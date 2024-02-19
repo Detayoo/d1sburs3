@@ -15,9 +15,12 @@ const LoginPage = () => {
   return (
     <AuthenticationLayout>
       <Title name="Login" />
-      <p className="text-[32px] font-Onest-Medium">Welcome back</p>
-      <p className="text-[16px] mt-[10px]">
-        Log in to your stripestack account to proceed
+      <p className="text-[28px] font-Onest-Medium text-primary-black">
+        Welcome to KCMFB LIMITED
+      </p>
+      <p className="text-[16px] mt-[10px] text-[#343A40B2]">
+        Please enter your correct login credentials to gain access to your
+        dashboard. 🚀
       </p>
 
       <Formik initialValues={{ email: "", password: "" }} onSubmit={() => {}}>
@@ -47,27 +50,11 @@ const LoginPage = () => {
               divClass="mt-6"
             />
 
-            <p
-              onClick={() => Router.push("/forgot-password")}
-              className="text-primary-wine text-sm font-Onest-Medium mt-3 cursor-pointer"
-            >
-              Forgot your password?
-            </p>
-
             <PrimaryButton
               title="Login"
               image="/icons/arrow-right.svg"
-              className="w-full mt-8"
+              className="w-full mt-12"
             />
-            <div className="flex gap-x-2 mt-[20px] justify-center text-sm font-Onest-Medium">
-              <p>Don&apos;t have an account?</p>
-              <p
-                onClick={() => Router.push("/register")}
-                className="text-primary-wine font-Onest-Medium cursor-pointer"
-              >
-                Create account
-              </p>
-            </div>
           </Form>
         )}
       </Formik>
