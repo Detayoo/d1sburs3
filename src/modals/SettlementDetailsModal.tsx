@@ -31,7 +31,7 @@ export const SettlementDetailsModal = ({
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p>Date and Time</p>
-            <div className="font-Onest-Medium flex flex-col gap-y-[11px] text-right">
+            <div className="font-InterTight-Medium flex flex-col gap-y-[11px] text-right">
               <p>28th August 2023</p>
               <p className="uppercase">4:59 pm</p>
             </div>
@@ -51,31 +51,31 @@ export const SettlementDetailsModal = ({
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p>Settlement Account</p>
-            <div className="font-Onest-Medium flex flex-col gap-y-[11px] text-right">
+            <div className="font-InterTight-Medium flex flex-col gap-y-[11px] text-right">
               <p className="uppercase">Ayobami Walters</p>
               <p>First bank | 1234567890</p>
             </div>
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p>Amount</p>
-            <p className="uppercase font-Onest-Medium">
+            <p className="uppercase font-InterTight-Medium">
               &#8358;{formatMoney("1200000")}
             </p>
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p>Transaction Charge</p>
-            <p className="uppercase font-Onest-Medium">
+            <p className="uppercase font-InterTight-Medium">
               &#8358;{formatMoney("1000")}
             </p>
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p>Transaction Type</p>
-            <p className="uppercase font-Onest-Medium">Card Transfer</p>
+            <p className="uppercase font-InterTight-Medium">Card Transfer</p>
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p>Transaction Ref.</p>
             <div className="flex gap-x-2">
-              <p className="uppercase font-Onest-Medium">JWT123561276 </p>
+              <p className="uppercase font-InterTight-Medium">JWT123561276 </p>
               <Image width={11} height={12} alt="copy" src="/icons/copy.svg" />
             </div>
           </div>

@@ -29,7 +29,7 @@ export const PrimaryButton = ({
       type={type}
       className={`${textColor ? textColor : "text-white"} ${
         bgColor && bgColor
-      } ${disabled ? "bg-disabled-btn" : "bg-primary-wine"} ${
+      } ${disabled ? "bg-primary-wine opacity-50" : "bg-primary-wine"} ${
         borderColor ? borderColor : "border-primary-wine"
       } px-10 py-[12px] text-[14px] font-[300] rounded-[3px] inline-flex justify-center items-center gap-[5px] focus:outline-none ${className}`}
       onClick={onClick}

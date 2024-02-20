@@ -27,11 +27,11 @@ export const UploadBatchModal = ({
   return (
     <ModalContainer showModal={showModal} closeModal={closeModal}>
       <div
-        className={`absolute z-[100] w-[30rem] h-screen top-0 bg-white ${
+        className={`absolute z-[100] w-[30rem] h-screen top-0 bg-white flex ${
           showModal ? "right-0" : "right-[-30rem]"
         } animation overflow-y-auto`}
       >
-        <div className="pt-[70px] pb-[30px] px-[25px] bg-white text-sm z-[100]">
+        <div className="pt-[70px] pb-[30px] px-[25px] text-sm z-[100] w-full h-full">
           <div className="flex justify-between items-center pb-[32px] border-b">
             <p className="text-[20px] text-primary-wine">Upload Batch</p>
             <Image
@@ -47,60 +47,65 @@ export const UploadBatchModal = ({
             initialValues={initialValues}
             onSubmit={handleSubmit}
           >
-            {({ values, errors, touched, setFieldValue, setFieldTouched }) => {
+            {({ values, errors, touched, setFieldValue, resetForm }) => {
               console.log(values.file, "file");
               return (
-                <Form className="mt-8 flex flex-col gap-y-6 h-full">
-                  <div className="flex flex-col gap-y-2">
-                    <p className="text-[#471C2A] text-sm">Upload CSV</p>
-
-                    <UploadField
-                      name="file"
-                      htmlFor="file"
-                      value={values?.file}
-                      onChange={(e) => {
-                        if (e.target.value) {
-                          setFieldValue("file", e.target.files[0]);
+                <Form className="mt-8 h-[70vh] flex-1 flex flex-col gap-y-6 justify-between">
+                  <div>
+                    <div className="flex flex-col gap-y-2">
+                      <p className="text-[#471C2A] text-sm">Upload CSV</p>
+                      <UploadField
+                        name="file"
+                        htmlFor="file"
+                        value={values?.file}
+                        onChange={(e) => {
+                          if (e.target.value) {
+                            setFieldValue("file", e.target.files[0]);
+                          }
+                          e.target.value = "";
+                        }}
+                        changeFile={() => setFieldValue("file", null)}
+                        fileText={`${values?.file?.name} selected`}
+                        fileSize={fileSizeInMB(values?.file?.size)}
+                        accept=".png, .jpeg, .pdf, .jpg"
+                        hideContent
+                        titleText={
+                          <>
+                            Drag and drop or{" "}
+                            <span className="text-primary-wine font-InterTight-SemiBold">
+                              Choose file{" "}
+                            </span>
+                            to upload <br />
+                            CSV no more than 20MB
+                          </>
                         }
-                        e.target.value = "";
-                      }}
-                      changeFile={() => setFieldValue("file", null)}
-                      fileText={`${values?.file?.name} selected`}
-                      fileSize={fileSizeInMB(values?.file?.size)}
-                      accept=".png, .jpeg, .pdf, .jpg"
-                      hideContent
-                      titleText={
-                        <>
-                          Drag and drop or{" "}
-                          <span className="text-primary-wine font-[500]">
-                            Choose file{" "}
-                          </span>
-                          to upload <br />
-                          CSV no more than 20MB
-                        </>
-                      }
+                      />
+                    </div>
+
+                    <TextField
+                      type="text"
+                      name="batchName"
+                      htmlFor="batchName"
+                      label="Batch Name"
+                      values={values.batchName}
+                      error={errors.batchName && touched.batchName}
+                      placeholder="Enter batch name"
+                      divClass="text-[#471C2A] mt-6"
                     />
                   </div>
 
-                  <TextField
-                    type="text"
-                    name="batchName"
-                    htmlFor="batchName"
-                    label="Batch Name"
-                    values={values.batchName}
-                    error={errors.batchName && touched.batchName}
-                    placeholder="Enter batch name"
-                    divClass="text-[#471C2A]"
-                  />
-
-                  <div className="flex items-center gap-x-[14px] mt-[100px]">
+                  <div className="flex items-center gap-x-[14px]">
                     <PrimaryButton
+                      onClick={() => {
+                        resetForm();
+                        closeModal();
+                      }}
                       title="Cancel"
                       className="w-[30%] border border-primary-wine"
                       bgColor="bg-white"
                       textColor="text-primary-wine"
                     />
-                    <PrimaryButton title="Import" className="flex-1" />
+                    <PrimaryButton title="Import" className="flex-1" disabled />
                   </div>
                 </Form>
               );

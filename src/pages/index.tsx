@@ -19,7 +19,7 @@ const RegistrationPage = () => {
   return (
     <AuthenticationLayout>
       <Title name="Register" />
-      <p className="text-[32px] font-Onest-Medium">
+      <p className="text-[32px] font-InterTight-Medium">
         Let&apos;s get you started
       </p>
       <p className="text-[16px] mt-[10px]">
@@ -51,11 +51,11 @@ const RegistrationPage = () => {
               image="/icons/arrow-right.svg"
               className="w-full mt-8"
             />
-            <div className="flex gap-x-2 mt-[20px] justify-center text-sm font-Onest-Medium">
+            <div className="flex gap-x-2 mt-[20px] justify-center text-sm font-InterTight-Medium">
               <p>Already have an account?</p>
               <p
                 onClick={() => Router.push("/login")}
-                className="text-primary-wine font-Onest-Medium cursor-pointer"
+                className="text-primary-wine font-InterTight-Medium cursor-pointer"
               >
                 Login
               </p>

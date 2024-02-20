@@ -32,7 +32,7 @@ export const TransactionsDetailsModal = ({
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p>Transaction Reference</p>
             <div className="flex gap-x-2">
-              <p className="uppercase font-Onest-Medium">JWT123561276 </p>
+              <p className="uppercase font-InterTight-Medium">JWT123561276 </p>
               <Image
                 width={11}
                 height={12}
@@ -44,19 +44,19 @@ export const TransactionsDetailsModal = ({
 
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p>Account Name</p>
-            <p className="uppercase font-Onest-Medium">Adedigba Peter</p>
+            <p className="uppercase font-InterTight-Medium">Adedigba Peter</p>
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p>Account Number</p>
-            <p className="uppercase font-Onest-Medium">1234567890</p>
+            <p className="uppercase font-InterTight-Medium">1234567890</p>
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p>Bank Name</p>
-            <p className="uppercase font-Onest-Medium">GTBANK</p>
+            <p className="uppercase font-InterTight-Medium">GTBANK</p>
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p>Amount</p>
-            <p className="uppercase font-Onest-Medium">
+            <p className="uppercase font-InterTight-Medium">
               &#8358;{formatMoney("1200000")}
             </p>
           </div>
@@ -71,7 +71,7 @@ export const TransactionsDetailsModal = ({
 
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p>Session ID</p>
-            <p className="uppercase font-Onest-Medium">
+            <p className="uppercase font-InterTight-Medium">
               1000003465789445346345667724567345
             </p>
           </div>

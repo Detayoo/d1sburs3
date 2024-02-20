@@ -25,7 +25,7 @@ export const MakeSettlementModal = ({
         return (
           <div>
             <div className="flex justify-between items-center">
-              <p className="text-[16px] font-Onest-Medium">
+              <p className="text-[16px] font-InterTight-Medium">
                 Select Wallet To Send From
               </p>
               <Image
@@ -52,11 +52,11 @@ export const MakeSettlementModal = ({
                 src="/icons/naira.svg"
               />
               <div className="flex flex-col gap-y-1">
-                <p className="text-sm font-Onest-Medium">Nigerian Naira</p>
+                <p className="text-sm font-InterTight-Medium">Nigerian Naira</p>
                 <p className="text-[13px]">NGN</p>
               </div>
               <div className="flex flex-col gap-y-1 ml-auto text-right">
-                <p className="text-sm font-Onest-Medium">
+                <p className="text-sm font-InterTight-Medium">
                   NGN {formatMoney("2313454568189")}
                 </p>
                 <p className="text-[13px]">Wallet Balance</p>
@@ -76,13 +76,13 @@ export const MakeSettlementModal = ({
                 src="/icons/dollar.svg"
               />
               <div className="flex flex-col gap-y-1">
-                <p className="text-sm font-Onest-Medium">
+                <p className="text-sm font-InterTight-Medium">
                   United States Dollar
                 </p>
                 <p className="text-[13px]">USD</p>
               </div>
               <div className="flex flex-col gap-y-1 ml-auto text-right">
-                <p className="text-sm font-Onest-Medium">
+                <p className="text-sm font-InterTight-Medium">
                   USD {formatMoney("68189.2")}
                 </p>
                 <p className="text-[13px]">Wallet Balance</p>
@@ -93,7 +93,7 @@ export const MakeSettlementModal = ({
       case "enter-amount":
         return (
           <div>
-            <p className="font-Onest-Medium text-base">
+            <p className="font-InterTight-Medium text-base">
               Enter a portion of the total amount you want to withdraw
             </p>
             <p className="mt-7 text-[13px]">Amount</p>
@@ -134,12 +134,14 @@ export const MakeSettlementModal = ({
                 height={45}
                 width={45}
               />
-              <p className="text-base font-Onest-Medium">Confirm Transaction</p>
+              <p className="text-base font-InterTight-Medium">
+                Confirm Transaction
+              </p>
               <p className="invisible">Hey</p>
             </div>
 
             <div className="py-[30px] px-[15px] mt-5 rounded-[10px] bg-white drop-shadow shadow-[#ABABAB26]">
-              <p className="text-center text-base text-primary-wine font-Onest-SemiBold">
+              <p className="text-center text-base text-primary-wine font-InterTight-SemiBold">
                 {walletType} {formatMoney(amount)}
               </p>
               <p className="text-[12px] text-center mt-[10px]">
@@ -148,17 +150,17 @@ export const MakeSettlementModal = ({
               <div className="flex flex-col divide-y mt-4">
                 <div className="flex justify-between text-[12px] py-4">
                   <p>Settlement Name</p>
-                  <p className="uppercase font-Onest-Medium">
+                  <p className="uppercase font-InterTight-Medium">
                     Tunde Idris Rilwan
                   </p>
                 </div>
                 <div className="flex justify-between text-[12px] py-4">
                   <p>Account Number</p>
-                  <p className="font-Onest-Medium">1234567890</p>
+                  <p className="font-InterTight-Medium">1234567890</p>
                 </div>
                 <div className="flex justify-between text-[12px] pt-4">
                   <p>Settlement Bank</p>
-                  <p className="font-Onest-Medium">Guaranty Trust Bank</p>
+                  <p className="font-InterTight-Medium">Guaranty Trust Bank</p>
                 </div>
               </div>
             </div>
@@ -180,7 +182,7 @@ export const MakeSettlementModal = ({
               height={80}
             />
 
-            <p className="text-[20px] font-Onest-Medium mt-7">
+            <p className="text-[20px] font-InterTight-Medium mt-7">
               Enter Transaction Pin
             </p>
 

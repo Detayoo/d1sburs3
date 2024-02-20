@@ -14,7 +14,7 @@ const LoginPage = () => {
   return (
     <AuthenticationLayout>
       <Title name="Login" />
-      <p className="text-[28px] font-Onest-Medium text-primary-black">
+      <p className="text-[28px] font-InterTight-Medium text-primary-black">
         Welcome to KCMFB LIMITED
       </p>
       <p className="text-[16px] mt-[10px] text-[#343A40B2]">

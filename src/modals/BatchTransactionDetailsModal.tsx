@@ -31,7 +31,7 @@ export const BatchTransactionsDetailsModal = ({
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p>Batch Reference</p>
             <div className="flex gap-x-2">
-              <p className="uppercase font-Onest-Medium">JWT123561276 </p>
+              <p className="uppercase font-InterTight-Medium">JWT123561276 </p>
               <Image
                 width={11}
                 height={12}
@@ -43,27 +43,27 @@ export const BatchTransactionsDetailsModal = ({
 
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p>Batch Name</p>
-            <p className="font-Onest-Medium">Batch 24152</p>
+            <p className="font-InterTight-Medium">Batch 24152</p>
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray w-full">
             <p className="w-[60%]">Total No. of Successful Transactions</p>
-            <p className="uppercase font-Onest-Medium">40</p>
+            <p className="uppercase font-InterTight-Medium">40</p>
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p className="w-[60%]">Total No. of Failed Transactions</p>
-            <p className="uppercase font-Onest-Medium">40</p>
+            <p className="uppercase font-InterTight-Medium">40</p>
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p className="w-[60%]">Total No. of Transactions</p>
-            <p className="uppercase font-Onest-Medium">80</p>
+            <p className="uppercase font-InterTight-Medium">80</p>
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p>Initiated By</p>
-            <p className="capitalize font-Onest-Medium">Abbey Lanre</p>
+            <p className="capitalize font-InterTight-Medium">Abbey Lanre</p>
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p>Approved By</p>
-            <p className="capitalize font-Onest-Medium">Shonubi Lanre</p>
+            <p className="capitalize font-InterTight-Medium">Shonubi Lanre</p>
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p>Initiation Time</p>

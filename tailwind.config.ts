@@ -33,9 +33,9 @@ const config: Config = {
         "light-green": "var(--light-green)",
       },
       fontFamily: {
-        "Onest-Regular": "Onest-Regular",
-        "Onest-Medium": "Onest-Medium",
-        "Onest-SemiBold": "Onest-SemiBold",
+        "InterTight-Regular": "InterTight-Regular",
+        "InterTight-Medium": "InterTight-Medium",
+        "InterTight-SemiBold": "InterTight-SemiBold",
       },
     },
   },

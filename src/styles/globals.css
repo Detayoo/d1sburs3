@@ -34,7 +34,7 @@
 
 body {
   color: var(--primary-black);
-  font-family: "Onest-Regular";
+  font-family: "InterTight-Regular";
   padding: 0;
   margin: 0;
 }
@@ -47,16 +47,16 @@ body {
 
 @layer base {
   @font-face {
-    font-family: "Onest-Regular";
-    src: url("/fonts/Onest-Regular.ttf");
+    font-family: "InterTight-Regular";
+    src: url("/fonts/InterTight-Regular.ttf");
   }
   @font-face {
-    font-family: "Onest-Medium";
-    src: url("/fonts/Onest-Medium.ttf");
+    font-family: "InterTight-Medium";
+    src: url("/fonts/InterTight-Medium.ttf");
   }
   @font-face {
-    font-family: "Onest-SemiBold";
-    src: url("/fonts/Onest-SemiBold.ttf");
+    font-family: "InterTight-SemiBold";
+    src: url("/fonts/InterTight-SemiBold.ttf");
   }
 
   ::-webkit-scrollbar {
