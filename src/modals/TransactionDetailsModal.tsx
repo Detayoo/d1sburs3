@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { ModalContainer, PrimaryButton } from "@/components";
-import { formatMoney } from "@/helpers";
+import { formatMoney } from "@/utils";
 
 export const TransactionsDetailsModal = ({
   showModal,

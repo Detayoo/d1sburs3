@@ -1,12 +1,12 @@
 import Image from "next/image";
 import React from "react";
 import { usePathname } from "next/navigation";
-import { routes } from "@/helpers/routes";
+import { routes } from "@/utils/routes";
 import Link from "next/link";
 
 export const Sidebar = () => {
   const pathname = usePathname();
-  const ActiveLink = (href: string) => pathname.startsWith(href);
+  const ActiveLink = (href: string) => pathname?.startsWith(href);
   return (
     <div className="w-[20%] h-full flex flex-col bg-white">
       <div className="w-full h-[90px] flex justify-center items-center">

@@ -30,6 +30,7 @@ const config: Config = {
         "success-text": "var(--success-text)",
         "failure-text": "var(--failure-text)",
         "failure-bg": "var(--failure-bg)",
+        "light-green": "var(--light-green)",
       },
       fontFamily: {
         "Onest-Regular": "Onest-Regular",

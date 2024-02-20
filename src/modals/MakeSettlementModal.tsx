@@ -2,7 +2,7 @@ import { useState } from "react";
 import Image from "next/image";
 
 import { ModalContainer, OTPField, PrimaryButton } from "@/components";
-import { formatMoney } from "@/helpers";
+import { formatMoney } from "@/utils";
 
 export const MakeSettlementModal = ({
   showModal,

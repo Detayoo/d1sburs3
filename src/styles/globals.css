@@ -21,6 +21,7 @@
   --success-text: #00974e;
   --failure-text: #c00000;
   --failure-bg: #fceded;
+  --light-green: #27ae60;
 }
 
 @media (prefers-color-scheme: dark) {

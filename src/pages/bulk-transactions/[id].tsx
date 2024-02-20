@@ -9,6 +9,7 @@ import {
   DateComponent,
 } from "@/components";
 import { TransactionsDetailsModal } from "@/modals";
+import { formatMoney } from "@/utils";
 
 const transactions: any = ["", "", ""];
 
@@ -26,8 +27,8 @@ const Transactions = () => {
 
   return (
     <>
-      <Title name="Bulk Transactions" />
-      <DashboardLayout pageName="Bulk Transactions">
+      <Title name="Transactions" />
+      <DashboardLayout pageName="Transactions">
         <div className="bg-[#FBFCFF] py-6">
           <div className="flex justify-between items-center">
             <div className="bg-inherit border border-primary-black/30 flex items-center px-2 gap-x-2 h-10 rounded-[3px] w-[30%]">
@@ -124,7 +125,7 @@ const Transactions = () => {
 
           <div className="bg-white mt-[33px]">
             <div className="flex justify-between items-center px-[30px] py-[20px]">
-              <p className="text-primary-wine text-[15px]">Bulk Transaction</p>
+              <p className="text-primary-wine text-[15px]">Transactions</p>
               <div className="px-[20px] py-[12px] flex gap-x-2 items-center bg-[#FFEFF4] rounded-[3px]  cursor-pointer relative">
                 <Image
                   src="/icons/filter-icon.svg"
@@ -145,10 +146,13 @@ const Transactions = () => {
 
             <div>
               <div className="bg-light-wine h-10 w-full uppercase text-[#303030] text-[12px] flex items-center px-[30px] justify-between">
-                <p className="w-[30%]">batch reference</p>
-                <p className="w-[20%]">file name</p>
-                <p className="w-[15%]">time</p>
-                <p className="w-[15%]">status</p>
+                <p className="w-[14%]">date & time</p>
+                <p className="w-[15%]">account name</p>
+                <p className="w-[15%]">account no</p>
+                <p className="w-[12%]">amount</p>
+                <p className="w-[28%]">transaction ref.</p>
+                <p className="w-[10%]">status</p>
+                <p className="w-[10%] text-right">action</p>
               </div>
               {transactions?.map((transaction, index) => {
                 return (
@@ -156,15 +160,29 @@ const Transactions = () => {
                     key={index}
                     className="h-12 w-full text-light-text text-[12px] flex items-center px-[30px] justify-between"
                   >
-                    <p className="w-[30%]">6unx0q8e34a85izb6unx0q8e34v1sr</p>
-                    <p className="w-[20%] text-primary-wine">
-                      20_October_2024_ Batch.csv
-                    </p>
-                    <p className="w-[15%]">12-08-2023 02:24pm</p>
-                    <div className="w-[15%] flex gap-x-1 items-center">
-                      <div className="rounded-[50%] h-[10px] w-[10px] bg-light-text" />
-                      <p>New</p>
+                    <p className="w-[14%]">12-08-2023 02:24pm</p>
+                    <p className="w-[15%] capitalize">Ayomide Babalola</p>
+                    <p className="w-[15%]">0123456718</p>
+                    <p className="w-[12%]">&#8358;{formatMoney("450000")}</p>
+                    <div className="w-[28%] flex gap-x-1 break-words">
+                      <p className="text-primary-wine">
+                        JWQ45230987199QHJIS765SGSVBJ67
+                      </p>
+                      <Image
+                        src="/icons/copy-icon.svg"
+                        alt="copy icon"
+                        width={12}
+                        height={12}
+                        className="cursor-pointer"
+                      />
                     </div>
+                    <div className="w-[10%] flex gap-x-1 items-center">
+                      <div className="rounded-[50%] h-[10px] w-[10px] bg-light-green" />
+                      <p className="text-light-green">Approved</p>
+                    </div>
+                    <p className="w-[10%] underline text-primary-wine text-right cursor-pointer">
+                      View
+                    </p>
                   </div>
                 );
               })}
