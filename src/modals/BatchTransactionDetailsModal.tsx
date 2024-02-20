@@ -1,9 +1,8 @@
 import Image from "next/image";
 
 import { ModalContainer, PrimaryButton } from "@/components";
-import { formatMoney } from "@/utils";
 
-export const TransactionsDetailsModal = ({
+export const BatchTransactionsDetailsModal = ({
   showModal,
   closeModal,
 }: {
@@ -19,7 +18,7 @@ export const TransactionsDetailsModal = ({
       >
         <div className="pt-[70px] pb-[30px] px-[25px] bg-white text-sm z-[100]">
           <div className="flex justify-between items-center mb-[60px]">
-            <p className="text-[20px]">Transaction Details</p>
+            <p className="text-[20px]">Transaction Invoice</p>
             <Image
               onClick={closeModal}
               src="/icons/close-modal-icon.svg"
@@ -30,7 +29,7 @@ export const TransactionsDetailsModal = ({
             />
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
-            <p>Transaction Reference</p>
+            <p>Batch Reference</p>
             <div className="flex gap-x-2">
               <p className="uppercase font-Onest-Medium">JWT123561276 </p>
               <Image
@@ -43,47 +42,46 @@ export const TransactionsDetailsModal = ({
           </div>
 
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
-            <p>Account Name</p>
-            <p className="uppercase font-Onest-Medium">Adedigba Peter</p>
+            <p>Batch Name</p>
+            <p className="uppercase font-Onest-Medium">Batch 24152</p>
+          </div>
+          <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray w-full">
+            <p className="w-[60%]">Total No. of Successful Transactions</p>
+            <p className="uppercase font-Onest-Medium">40</p>
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
-            <p>Account Number</p>
-            <p className="uppercase font-Onest-Medium">1234567890</p>
+            <p className="w-[60%]">Total No. of Failed Transactions</p>
+            <p className="uppercase font-Onest-Medium">40</p>
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
-            <p>Bank Name</p>
-            <p className="uppercase font-Onest-Medium">GTBANK</p>
+            <p className="w-[60%]">Total No. of Transactions</p>
+            <p className="uppercase font-Onest-Medium">80</p>
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
-            <p>Amount</p>
-            <p className="uppercase font-Onest-Medium">
-              &#8358;{formatMoney("1200000")}
-            </p>
-          </div>
-
-          <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
-            <p>Status</p>
-            <div className="flex gap-x-1 items-center">
-              <div className="rounded-[50%] h-[10px] w-[10px] bg-light-green" />
-              <p className="text-light-green">Approved</p>
-            </div>
-          </div>
-
-          <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
-            <p>Session ID</p>
-            <p className="uppercase font-Onest-Medium">
-              1000003465789445346345667724567345
-            </p>
+            <p>Initiated By</p>
+            <p className="uppercase font-Onest-Medium">Abbey Lanre</p>
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
-            <p>Date & Time</p>
-
+            <p>Approved By</p>
+            <p className="uppercase font-Onest-Medium">Shonubi Lanre</p>
+          </div>
+          <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
+            <p>Initiation Time</p>
             <p className="">12-08-2023 02:24pm</p>
+          </div>
+          <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
+            <p>Time of Approval</p>
+            <p className="">12-08-2023 04:24pm</p>
           </div>
 
           <PrimaryButton
-            title="Download Transaction Details"
-            className="mt-[100px] w-full"
+            title="Download Report"
+            className="mt-[60px] w-full border border-primary-wine"
+          />
+          <PrimaryButton
+            title="See Transactions List"
+            className="mt-4 w-full bg-white border border-primary-wine"
+            textColor="text-primary-wine"
           />
         </div>
       </div>
