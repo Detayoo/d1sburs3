@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+
 import { ModalContainer } from "@/components";
 
 export const ImagePreview = ({

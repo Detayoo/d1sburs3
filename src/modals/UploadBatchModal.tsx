@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Form, Formik, FormikValues } from "formik";
 
 import {
   ModalContainer,
@@ -6,7 +7,6 @@ import {
   TextField,
   UploadField,
 } from "@/components";
-import { Form, Formik, FormikValues } from "formik";
 import { fileSizeInMB } from "@/utils";
 
 export const UploadBatchModal = ({

@@ -1,9 +1,9 @@
-import Image from "next/image";
 import React from "react";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { routes } from "@/utils/routes";
 import Link from "next/link";
 
+import { routes } from "@/utils";
 export const Sidebar = () => {
   const pathname = usePathname();
   const ActiveLink = (href: string) => pathname?.startsWith(href);

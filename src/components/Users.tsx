@@ -1,7 +1,7 @@
-import { UpdateRoleModal } from "@/modals";
 import Image from "next/image";
 import { useState } from "react";
 
+import { UpdateRoleModal } from "@/modals";
 export const Users = () => {
   const transactions = ["", "", "", ""];
   const [state, setState] = useState({

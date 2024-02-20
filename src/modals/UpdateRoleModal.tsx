@@ -1,7 +1,7 @@
 import Image from "next/image";
+import { Form, Formik } from "formik";
 
 import { ModalContainer, PrimaryButton, SelectField } from "@/components";
-import { Form, Formik } from "formik";
 
 export const UpdateRoleModal = ({ showModal, closeModal }) => {
   return (
