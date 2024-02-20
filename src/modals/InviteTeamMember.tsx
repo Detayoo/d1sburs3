@@ -41,7 +41,7 @@ export const InviteTeamMember = ({ showModal, closeModal }) => {
                   htmlFor="firstName"
                   label="First name"
                   values={values.firstName}
-                  error={errors.firstName && touched.email}
+                  error={errors.firstName && touched.firstName}
                   divClass="mt-6"
                   placeholder="Enter first name"
                 />

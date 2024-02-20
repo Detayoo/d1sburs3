@@ -1,0 +1,113 @@
+import Image from "next/image";
+
+import {
+  ModalContainer,
+  PrimaryButton,
+  TextField,
+  UploadField,
+} from "@/components";
+import { Form, Formik, FormikValues } from "formik";
+import { fileSizeInMB } from "@/utils";
+
+export const UploadBatchModal = ({
+  showModal,
+  closeModal,
+}: {
+  showModal: boolean;
+  closeModal: () => void;
+}) => {
+  const initialValues = {
+    file: "",
+    batchName: "",
+  };
+
+  const handleSubmit = async (values: FormikValues) => {
+    console.log(values);
+  };
+  return (
+    <ModalContainer showModal={showModal} closeModal={closeModal}>
+      <div
+        className={`absolute z-[100] w-[30rem] h-screen top-0 bg-white ${
+          showModal ? "right-0" : "right-[-30rem]"
+        } animation overflow-y-auto`}
+      >
+        <div className="pt-[70px] pb-[30px] px-[25px] bg-white text-sm z-[100]">
+          <div className="flex justify-between items-center pb-[32px] border-b">
+            <p className="text-[20px] text-primary-wine">Upload Batch</p>
+            <Image
+              onClick={closeModal}
+              src="/icons/close-modal-icon.svg"
+              alt="close modal icon"
+              width={16}
+              height={16}
+            />
+          </div>
+          <Formik
+            enableReinitialize
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
+          >
+            {({ values, errors, touched, setFieldValue, setFieldTouched }) => {
+              console.log(values.file, "file");
+              return (
+                <Form className="mt-8 flex flex-col gap-y-6 h-full">
+                  <div className="flex flex-col gap-y-2">
+                    <p className="text-[#471C2A] text-sm">Upload CSV</p>
+
+                    <UploadField
+                      name="file"
+                      htmlFor="file"
+                      value={values?.file}
+                      onChange={(e) => {
+                        if (e.target.value) {
+                          setFieldValue("file", e.target.files[0]);
+                        }
+                        e.target.value = "";
+                      }}
+                      changeFile={() => setFieldValue("file", null)}
+                      fileText={`${values?.file?.name} selected`}
+                      fileSize={fileSizeInMB(values?.file?.size)}
+                      accept=".png, .jpeg, .pdf, .jpg"
+                      hideContent
+                      titleText={
+                        <>
+                          Drag and drop or{" "}
+                          <span className="text-primary-wine font-[500]">
+                            Choose file{" "}
+                          </span>
+                          to upload <br />
+                          CSV no more than 20MB
+                        </>
+                      }
+                    />
+                  </div>
+
+                  <TextField
+                    type="text"
+                    name="batchName"
+                    htmlFor="batchName"
+                    label="Batch Name"
+                    values={values.batchName}
+                    error={errors.batchName && touched.batchName}
+                    placeholder="Enter batch name"
+                    divClass="text-[#471C2A]"
+                  />
+
+                  <div className="flex items-center gap-x-[14px] mt-[100px]">
+                    <PrimaryButton
+                      title="Cancel"
+                      className="w-[30%] border border-primary-wine"
+                      bgColor="bg-white"
+                      textColor="text-primary-wine"
+                    />
+                    <PrimaryButton title="Import" className="flex-1" />
+                  </div>
+                </Form>
+              );
+            }}
+          </Formik>
+        </div>
+      </div>
+    </ModalContainer>
+  );
+};

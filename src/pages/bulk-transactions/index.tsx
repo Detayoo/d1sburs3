@@ -12,6 +12,7 @@ import {
 import {
   BatchTransactionsDetailsModal,
   TransactionsDetailsModal,
+  UploadBatchModal,
 } from "@/modals";
 
 const transactions: any = ["", "", ""];
@@ -25,6 +26,7 @@ const Transactions = () => {
     endDate: new Date(),
   });
   const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [showUploadModal, setShowUploadModal] = useState(false);
 
   const handleExport = () => {};
 
@@ -56,7 +58,10 @@ const Transactions = () => {
                 bgColor="bg-[#FFEFF4] text-[#802530]"
               />
               <div className="flex gap-x-2 items-center rounded-[3px] bg-primary-wine py-[12px] px-4 cursor-pointer relative">
-                <div className="flex gap-x-2 items-center rounded-[3px]  cursor-pointer relative">
+                <div
+                  onClick={() => setShowUploadModal(true)}
+                  className="flex gap-x-2 items-center rounded-[3px]  cursor-pointer relative"
+                >
                   <Image
                     src="/icons/upload-icon.svg"
                     alt="upload icon"
@@ -64,63 +69,6 @@ const Transactions = () => {
                     height={20}
                   />
                   <p className="text-white text-sm">Upload Batch</p>
-                  <div
-                    className={`absolute top-10 right-0 w-[300px] bg-white z-30 py-8 px-6 rounded-[5px] border border-primary-black/10 animation ${
-                      showExportModal
-                        ? "opacity-100 visible mt-0"
-                        : "opacity-0 invisible mt-5"
-                    }`}
-                  >
-                    <div className="flex flex-col gap-y-6 w-full bg-inherit">
-                      <div className="w-full">
-                        <label
-                          className={`inline-block text-[14px] text-subtext-black mb-1`}
-                        >
-                          Start Date
-                        </label>
-                        <DateComponent
-                          selected={exportObj?.startDate}
-                          name="startDate"
-                          placeholder="DD/MM/YYYY"
-                          format="dd/MM/yyyy"
-                          onChange={(date: Date) => {
-                            setExportObj({
-                              ...exportObj,
-                              startDate: date,
-                            });
-                          }}
-                          maxDate={new Date()}
-                        />
-                      </div>
-
-                      <div className="w-full">
-                        <label
-                          className={`inline-block text-[14px] text-subtext-black mb-1`}
-                        >
-                          End Date
-                        </label>
-                        <DateComponent
-                          selected={exportObj?.endDate}
-                          name="endDate"
-                          placeholder="DD/MM/YYYY"
-                          format="dd/MM/yyyy"
-                          onChange={(date: Date) => {
-                            setExportObj({
-                              ...exportObj,
-                              endDate: date,
-                            });
-                          }}
-                          minDate={exportObj?.startDate}
-                          maxDate={new Date()}
-                        />
-                      </div>
-                      <PrimaryButton
-                        title="Export"
-                        className="h-10"
-                        onClick={handleExport}
-                      />
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -166,7 +114,10 @@ const Transactions = () => {
                       20_October_2024_ Batch.csv
                     </p>
                     <p className="w-[15%]">12-08-2023 02:24pm</p>
-                    <div onClick={()=> setShowDetailsModal(true)} className="w-[15%] flex gap-x-1 items-center">
+                    <div
+                      onClick={() => setShowDetailsModal(true)}
+                      className="w-[15%] flex gap-x-1 items-center"
+                    >
                       <div className="rounded-[50%] h-[10px] w-[10px] bg-light-text" />
                       <p>New</p>
                     </div>
@@ -188,6 +139,10 @@ const Transactions = () => {
       <BatchTransactionsDetailsModal
         showModal={showDetailsModal}
         closeModal={() => setShowDetailsModal(false)}
+      />
+      <UploadBatchModal
+        showModal={showUploadModal}
+        closeModal={() => setShowUploadModal(false)}
       />
     </>
   );

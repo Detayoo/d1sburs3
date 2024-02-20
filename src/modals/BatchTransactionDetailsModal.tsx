@@ -43,7 +43,7 @@ export const BatchTransactionsDetailsModal = ({
 
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p>Batch Name</p>
-            <p className="uppercase font-Onest-Medium">Batch 24152</p>
+            <p className="font-Onest-Medium">Batch 24152</p>
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray w-full">
             <p className="w-[60%]">Total No. of Successful Transactions</p>
@@ -59,11 +59,11 @@ export const BatchTransactionsDetailsModal = ({
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p>Initiated By</p>
-            <p className="uppercase font-Onest-Medium">Abbey Lanre</p>
+            <p className="capitalize font-Onest-Medium">Abbey Lanre</p>
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p>Approved By</p>
-            <p className="uppercase font-Onest-Medium">Shonubi Lanre</p>
+            <p className="capitalize font-Onest-Medium">Shonubi Lanre</p>
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p>Initiation Time</p>

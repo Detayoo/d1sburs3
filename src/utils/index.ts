@@ -1,4 +1,5 @@
 export { maskEmail } from "./maskEmail";
+export * from "./helpers";
 
 export const formatMoney = (text: string, isMoney?: boolean): string => {
   if (isMoney) {
