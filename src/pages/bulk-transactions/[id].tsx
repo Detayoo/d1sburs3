@@ -180,7 +180,10 @@ const Transactions = () => {
                       <div className="rounded-[50%] h-[10px] w-[10px] bg-light-green" />
                       <p className="text-light-green">Approved</p>
                     </div>
-                    <p className="w-[10%] underline text-primary-wine text-right cursor-pointer">
+                    <p
+                      onClick={() => setShowDetailsModal(true)}
+                      className="w-[10%] underline text-primary-wine text-right cursor-pointer"
+                    >
                       View
                     </p>
                   </div>
@@ -198,6 +201,7 @@ const Transactions = () => {
           />
         </div>
       </DashboardLayout>
+
       <TransactionsDetailsModal
         showModal={showDetailsModal}
         closeModal={() => setShowDetailsModal(false)}

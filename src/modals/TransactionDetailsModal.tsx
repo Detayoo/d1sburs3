@@ -19,7 +19,7 @@ export const TransactionsDetailsModal = ({
       >
         <div className="pt-[70px] pb-[30px] px-[25px] bg-white text-sm z-[100]">
           <div className="flex justify-between items-center mb-[60px]">
-            <p className="text-[20px]">Transaction Summary</p>
+            <p className="text-[20px]">Transaction Details</p>
             <Image
               onClick={closeModal}
               src="/icons/close-modal-icon.svg"
@@ -30,31 +30,29 @@ export const TransactionsDetailsModal = ({
             />
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
-            <p>Date and Time</p>
-            <div className="font-Onest-Medium flex flex-col gap-y-[11px] text-right">
-              <p>28th August 2023</p>
-              <p className="uppercase">4:59 pm</p>
-            </div>
-          </div>
-          <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
-            <p>Currency Name</p>
-            <div className="flex items-center gap-[5px] text-right">
+            <p>Transaction Ref.</p>
+            <div className="flex gap-x-2">
+              <p className="uppercase font-Onest-Medium">JWT123561276 </p>
               <Image
-                width={24}
-                height={24}
-                alt="currency"
-                src="/icons/naira.svg"
+                width={11}
+                height={12}
+                alt="copy"
+                src="/icons/copy-icon.svg"
               />
-
-              <p>NGN</p>
             </div>
           </div>
+
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
-            <p>Beneficiary</p>
-            <div className="font-Onest-Medium flex flex-col gap-y-[11px] text-right">
-              <p className="uppercase">Ayobami Walters</p>
-              <p>First bank | 1234567890</p>
-            </div>
+            <p>Account Name</p>
+            <p className="uppercase font-Onest-Medium">Adedigba Peter</p>
+          </div>
+          <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
+            <p>Account Number</p>
+            <p className="uppercase font-Onest-Medium">1234567890</p>
+          </div>
+          <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
+            <p>Bank Name</p>
+            <p className="uppercase font-Onest-Medium">GTBANK</p>
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p>Amount</p>
@@ -62,25 +60,29 @@ export const TransactionsDetailsModal = ({
               &#8358;{formatMoney("1200000")}
             </p>
           </div>
+
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
-            <p>Transaction Charge</p>
+            <p>Status</p>
+            <div className="flex gap-x-1 items-center">
+              <div className="rounded-[50%] h-[10px] w-[10px] bg-light-green" />
+              <p className="text-light-green">Approved</p>
+            </div>
+          </div>
+
+          <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
+            <p>Session ID</p>
             <p className="uppercase font-Onest-Medium">
-              &#8358;{formatMoney("1000")}
+              1000003465789445346345667724567345
             </p>
           </div>
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
-            <p>Transaction Type</p>
-            <p className="uppercase font-Onest-Medium">Card Transfer</p>
+            <p>Date & Time</p>
+
+            <p className="">12-08-2023 02:24pm</p>
           </div>
-          <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
-            <p>Transaction Ref.</p>
-            <div className="flex gap-x-2">
-              <p className="uppercase font-Onest-Medium">JWT123561276 </p>
-              <Image width={11} height={12} alt="copy" src="/icons/copy.svg" />
-            </div>
-          </div>
+
           <PrimaryButton
-            title="Download Receipt"
+            title="Download Transaction Details"
             className="mt-[100px] w-full"
           />
         </div>
