@@ -7,7 +7,7 @@ import {
   TextField,
   UploadField,
 } from "@/components";
-import { fileSizeInMB } from "@/utils";
+import { fileSizeInMB, importBatchSchema } from "@/utils";
 
 export const UploadBatchModal = ({
   showModal,
@@ -46,8 +46,17 @@ export const UploadBatchModal = ({
             enableReinitialize
             initialValues={initialValues}
             onSubmit={handleSubmit}
+            validationSchema={importBatchSchema}
           >
-            {({ values, errors, touched, setFieldValue, resetForm }) => {
+            {({
+              values,
+              errors,
+              touched,
+              setFieldValue,
+              resetForm,
+              isValid,
+              dirty,
+            }) => {
               console.log(values.file, "file");
               return (
                 <Form className="mt-8 h-[70vh] flex-1 flex flex-col gap-y-6 justify-between">
@@ -67,7 +76,7 @@ export const UploadBatchModal = ({
                         changeFile={() => setFieldValue("file", null)}
                         fileText={`${values?.file?.name} selected`}
                         fileSize={fileSizeInMB(values?.file?.size)}
-                        accept=".png, .jpeg, .pdf, .jpg"
+                        accept=".csv"
                         hideContent
                         titleText={
                           <>
@@ -109,7 +118,7 @@ export const UploadBatchModal = ({
                       // loading={true}
                       title="Import"
                       className="flex-1"
-                      disabled
+                      disabled={!(isValid && dirty)}
                     />
                   </div>
                 </Form>

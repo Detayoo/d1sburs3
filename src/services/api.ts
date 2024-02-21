@@ -10,7 +10,7 @@ export const baseApi = axios.create({
   },
 });
 
-export const authenticatedApi = (): any => {
+export const authenticatedApi = () => {
   const token = localStorage.getItem("TOKEN");
   const instance = axios.create({
     baseURL: config.SERVER_URL,

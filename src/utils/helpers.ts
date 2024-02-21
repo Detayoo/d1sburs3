@@ -33,3 +33,19 @@ export const appErrorHandler = (error: unknown) => {
     return error;
   }
 };
+
+export const appServerError = (error: unknown, defaultErrorMessage: string) => {
+  if (error instanceof AxiosError) {
+    const message = error.response?.data?.message;
+
+    if (message) {
+      return message;
+    } else {
+      return defaultErrorMessage;
+    }
+  } else if (error instanceof Error) {
+    return error?.message || defaultErrorMessage;
+  } else {
+    return defaultErrorMessage;
+  }
+};
