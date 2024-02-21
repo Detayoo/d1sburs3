@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
+import { toast } from "react-toastify";
 
 import {
   DashboardLayout,
@@ -48,6 +49,7 @@ const Transactions = () => {
 
             <div className="flex items-center gap-x-4">
               <PrimaryButton
+                onClick={() => toast.success("Yeahhhh, i work")}
                 title="Download Template"
                 bgColor="bg-[#FFEFF4] text-[#802530]"
               />
