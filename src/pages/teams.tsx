@@ -9,6 +9,7 @@ import {
   Users,
 } from "@/components";
 import { InviteTeamMember } from "@/modals";
+import { AuthenticatedRoute } from "@/utils";
 
 const Teams = () => {
   const getField = () => {
@@ -87,4 +88,4 @@ const Teams = () => {
   );
 };
 
-export default Teams;
+export default AuthenticatedRoute(Teams);

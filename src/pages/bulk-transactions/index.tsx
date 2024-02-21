@@ -9,6 +9,7 @@ import {
   Title,
 } from "@/components";
 import { BatchTransactionsDetailsModal, UploadBatchModal } from "@/modals";
+import { AuthenticatedRoute } from "@/utils";
 
 const transactions: any = ["", "", ""];
 
@@ -111,7 +112,9 @@ const Transactions = () => {
 
           <div className="bg-white mt-[33px]">
             <div className="flex justify-between items-center px-[30px] py-[20px]">
-              <p className="text-[#471C2A] text-[15px] font-InterTight-Medium">Bulk Transactions</p>
+              <p className="text-[#471C2A] text-[15px] font-InterTight-Medium">
+                Bulk Transactions
+              </p>
               <div className="px-[20px] py-[12px] flex gap-x-2 items-center bg-[#FFEFF4] rounded-[3px]  cursor-pointer relative">
                 <Image
                   src="/icons/filter-icon.svg"
@@ -154,4 +157,4 @@ const Transactions = () => {
   );
 };
 
-export default Transactions;
+export default AuthenticatedRoute(Transactions);

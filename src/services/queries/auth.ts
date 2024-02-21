@@ -9,7 +9,7 @@ export const loginFn = async ({
     password: string;
   };
 }) => {
-  const { data } = await baseApi.post<ILoginResponse>("/auth/login", payload);
+  const { data } = await baseApi.post<ILoginResponse>("/auth", payload);
 
   return data;
 };

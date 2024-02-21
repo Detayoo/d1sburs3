@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Router from "next/router";
 import { Formik, Form, FormikValues } from "formik";
 import { useMutation } from "@tanstack/react-query";
 
@@ -11,14 +12,20 @@ import {
 } from "@/components";
 import { loginSchema } from "@/utils";
 import { loginFn } from "@/services";
+import { useAuth } from "@/contexts";
 
 const LoginPage = () => {
+  const { setToken, setAuthUser, user } = useAuth();
+
+  console.log(user, "user is");
   const [showPassword, setShowPassword] = useState(false);
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationFn: loginFn,
     onSuccess: (data) => {
-      console.log(data);
+      setToken(data?.token);
+      setAuthUser(data?.user);
+      Router.push("/bulk-transactions");
     },
     onError: (error) => {},
   });
@@ -77,12 +84,12 @@ const LoginPage = () => {
             />
 
             <PrimaryButton
+              loading={isPending}
+              disabled={!(isValid && dirty)}
               type="submit"
-              // onClick={() => Router.push("/bulk-transactions")}
               title="Login"
               image="/icons/arrow-right.svg"
               className="w-full mt-12"
-              disabled={!(isValid && dirty)}
             />
           </Form>
         )}

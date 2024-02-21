@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { ChangePassword, DashboardLayout, Profile, Title } from "@/components";
+import { AuthenticatedRoute } from "@/utils";
 
 const Settings = () => {
   const getField = () => {
@@ -62,4 +63,4 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default AuthenticatedRoute(Settings);

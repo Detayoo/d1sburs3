@@ -1,19 +1,13 @@
 import { useState } from "react";
 import Image from "next/image";
 
-import {
-  DashboardLayout,
-  Pagination,
-  PrimaryButton,
-  Title,
-  DateComponent,
-} from "@/components";
+import { DashboardLayout, Pagination, Title } from "@/components";
 import { TransactionsDetailsModal } from "@/modals";
-import { formatMoney } from "@/utils";
+import { AuthenticatedRoute, formatMoney } from "@/utils";
 
 const transactions: any = ["", "", ""];
 
-const Transactions = () => {
+const BulkTransactions = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selected, setSelected] = useState({});
   const [showExportModal, setShowExportModal] = useState(false);
@@ -32,7 +26,9 @@ const Transactions = () => {
         <div className="bg-[#FBFCFF] py-4">
           <div className="bg-white">
             <div className="flex justify-between items-center px-[30px] py-[20px]">
-              <p className="text-[#471C2A] text-[15px] font-InterTight-Medium">Transactions</p>
+              <p className="text-[#471C2A] text-[15px] font-InterTight-Medium">
+                Transactions
+              </p>
               <div className="px-[20px] py-[12px] flex gap-x-2 items-center bg-[#FFEFF4] rounded-[3px]  cursor-pointer relative">
                 <Image
                   src="/icons/filter-icon.svg"
@@ -117,4 +113,4 @@ const Transactions = () => {
   );
 };
 
-export default Transactions;
+export default AuthenticatedRoute(BulkTransactions);
