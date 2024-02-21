@@ -32,7 +32,7 @@ const Transactions = () => {
         <div className="bg-[#FBFCFF] py-4">
           <div className="bg-white">
             <div className="flex justify-between items-center px-[30px] py-[20px]">
-              <p className="text-primary-wine text-[15px]">Transactions</p>
+              <p className="text-[#471C2A] text-[15px] font-InterTight-Medium">Transactions</p>
               <div className="px-[20px] py-[12px] flex gap-x-2 items-center bg-[#FFEFF4] rounded-[3px]  cursor-pointer relative">
                 <Image
                   src="/icons/filter-icon.svg"
@@ -40,10 +40,10 @@ const Transactions = () => {
                   width={16}
                   height={16}
                 />
-                <p className="text-sm text-primary-wine">Filter by</p>
+                <p className="text-sm text-[#471C2A]">Filter by</p>
 
                 <Image
-                  src="/icons/chevron-icon.svg"
+                  src="/icons/wine-chevron.svg"
                   alt="chevron icon"
                   width={16}
                   height={16}

@@ -151,3 +151,11 @@ input[type="number"] {
   border-top-color: var(--primary-wine);
   animation: spin 0.5s linear infinite;
 }
+.small_spinner {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: var(--primary-wine);
+  animation: spin 0.5s linear infinite;
+}

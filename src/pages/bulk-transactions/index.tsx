@@ -3,6 +3,7 @@ import Image from "next/image";
 
 import {
   DashboardLayout,
+  ListLoader,
   Pagination,
   PrimaryButton,
   Title,
@@ -23,6 +24,46 @@ const Transactions = () => {
   const [showUploadModal, setShowUploadModal] = useState(false);
 
   const handleExport = () => {};
+
+  const isLoading = false;
+
+  const renderContent = () => {
+    if (isLoading) {
+      return <ListLoader />;
+    }
+    return (
+      <>
+        <div className="bg-light-wine h-10 w-full uppercase text-[#303030] text-[12px] flex items-center px-[30px] justify-between">
+          <p className="w-[30%]">batch reference</p>
+          <p className="w-[20%]">file name</p>
+          <p className="w-[15%]">time</p>
+          <p className="w-[15%]">status</p>
+        </div>
+        {transactions?.map((transaction, index) => {
+          return (
+            <div
+              onClick={() => {
+                setSelected(transaction);
+                setShowDetailsModal(true);
+              }}
+              key={index}
+              className="h-12 w-full text-light-text text-[12px] flex items-center px-[30px] justify-between cursor-pointer"
+            >
+              <p className="w-[30%]">6unx0q8e34a85izb6unx0q8e34v1sr</p>
+              <p className="w-[20%] text-primary-wine">
+                20_October_2024_ Batch.csv
+              </p>
+              <p className="w-[15%]">12-08-2023 02:24pm</p>
+              <div className="w-[15%] flex gap-x-1 items-center">
+                <div className="rounded-[50%] h-[10px] w-[10px] bg-light-text" />
+                <p>New</p>
+              </div>
+            </div>
+          );
+        })}
+      </>
+    );
+  };
 
   return (
     <>
@@ -70,7 +111,7 @@ const Transactions = () => {
 
           <div className="bg-white mt-[33px]">
             <div className="flex justify-between items-center px-[30px] py-[20px]">
-              <p className="text-primary-wine text-[15px]">Bulk Transaction</p>
+              <p className="text-[#471C2A] text-[15px] font-InterTight-Medium">Bulk Transactions</p>
               <div className="px-[20px] py-[12px] flex gap-x-2 items-center bg-[#FFEFF4] rounded-[3px]  cursor-pointer relative">
                 <Image
                   src="/icons/filter-icon.svg"
@@ -78,10 +119,10 @@ const Transactions = () => {
                   width={16}
                   height={16}
                 />
-                <p className="text-sm text-primary-wine">Filter by</p>
+                <p className="text-sm text-[#471C2A]">Filter by</p>
 
                 <Image
-                  src="/icons/chevron-icon.svg"
+                  src="/icons/wine-chevron.svg"
                   alt="chevron icon"
                   width={16}
                   height={16}
@@ -89,36 +130,7 @@ const Transactions = () => {
               </div>
             </div>
 
-            <div>
-              <div className="bg-light-wine h-10 w-full uppercase text-[#303030] text-[12px] flex items-center px-[30px] justify-between">
-                <p className="w-[30%]">batch reference</p>
-                <p className="w-[20%]">file name</p>
-                <p className="w-[15%]">time</p>
-                <p className="w-[15%]">status</p>
-              </div>
-              {transactions?.map((transaction, index) => {
-                return (
-                  <div
-                    onClick={() => {
-                      setSelected(transaction);
-                      setShowDetailsModal(true);
-                    }}
-                    key={index}
-                    className="h-12 w-full text-light-text text-[12px] flex items-center px-[30px] justify-between"
-                  >
-                    <p className="w-[30%]">6unx0q8e34a85izb6unx0q8e34v1sr</p>
-                    <p className="w-[20%] text-primary-wine">
-                      20_October_2024_ Batch.csv
-                    </p>
-                    <p className="w-[15%]">12-08-2023 02:24pm</p>
-                    <div className="w-[15%] flex gap-x-1 items-center">
-                      <div className="rounded-[50%] h-[10px] w-[10px] bg-light-text" />
-                      <p>New</p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+            <div>{renderContent()}</div>
           </div>
 
           <Pagination

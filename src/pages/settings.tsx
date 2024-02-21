@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { ChangePassword, DashboardLayout, Profile } from "@/components";
+import { ChangePassword, DashboardLayout, Profile, Title } from "@/components";
 
 const Settings = () => {
   const getField = () => {
@@ -32,6 +32,7 @@ const Settings = () => {
 
   return (
     <DashboardLayout pageName="Settings">
+      <Title name="Settings" />
       <div className="py-[20px] px-[40px]">
         <p className="text-[22px] font-InterTight-Medium">Settings</p>
         <p className="text-[14px]">Manage your preferences</p>

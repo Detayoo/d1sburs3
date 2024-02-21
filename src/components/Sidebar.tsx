@@ -53,7 +53,7 @@ export const Sidebar = () => {
               />
               <p
                 className={`text-[13px] ${
-                  ActiveLink(each?.url) ? "text-white" : "text-primary-wine"
+                  ActiveLink(each?.url) ? "text-white" : "text-[#471C2A]"
                 }`}
               >
                 {each?.name}

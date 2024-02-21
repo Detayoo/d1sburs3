@@ -1,18 +1,22 @@
+import { NextComponentType, NextPageContext } from "next";
 import Router from "next/router";
+import { AppProps } from "next/app";
 
 import { useAuth } from "@/contexts";
 
-export const AuthenticatedRoute = (Component: any) => {
-  return (props: any) => {
-    const { loading, fetching, user } = useAuth();
-
+export const AuthenticatedRoute = (
+  Component: NextComponentType<NextPageContext, any, any>
+) => {
+  const { loading, fetching, user } = useAuth();
+  return (props: AppProps) => {
     if (loading || fetching) {
       return (
-        <div className="w-full h-screen bg-background pt-20 flex flex-col gap-4 items-center justify-center">
+        <div className="w-full h-screen flex flex-col items-center justify-center">
           <div className="spinner" />
         </div>
       );
     }
+
     if (user) {
       return <Component {...props} />;
     } else {

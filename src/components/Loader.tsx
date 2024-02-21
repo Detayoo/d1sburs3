@@ -11,7 +11,7 @@ export const Loader = ({ className }: { className?: string }): JSX.Element => {
 export const ListLoader = () => {
   return (
     <div className="w-full flex flex-col items-center py-32 flex-1">
-      <div className="spinner" />
+      <div className="small_spinner" />
     </div>
   );
 };
