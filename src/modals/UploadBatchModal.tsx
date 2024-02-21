@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { Form, Formik, FormikValues } from "formik";
 
@@ -7,7 +8,7 @@ import {
   TextField,
   UploadField,
 } from "@/components";
-import { fileSizeInMB, importBatchSchema } from "@/utils";
+import { fileSizeInMB, handleScrollToTop, importBatchSchema } from "@/utils";
 
 export const UploadBatchModal = ({
   showModal,
@@ -16,6 +17,8 @@ export const UploadBatchModal = ({
   showModal: boolean;
   closeModal: () => void;
 }) => {
+  const modalRef = useRef(null);
+
   const initialValues = {
     file: "",
     batchName: "",
@@ -24,9 +27,15 @@ export const UploadBatchModal = ({
   const handleSubmit = async (values: FormikValues) => {
     console.log(values);
   };
+
+  useEffect(() => {
+    handleScrollToTop(modalRef);
+  }, [showModal]);
+
   return (
     <ModalContainer showModal={showModal} closeModal={closeModal}>
       <div
+        ref={modalRef}
         className={`absolute z-[100] w-[30rem] h-screen top-0 bg-white flex ${
           showModal ? "right-0" : "right-[-30rem]"
         } animation overflow-y-auto`}

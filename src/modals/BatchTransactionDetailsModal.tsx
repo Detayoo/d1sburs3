@@ -2,6 +2,8 @@ import Image from "next/image";
 import Router from "next/router";
 
 import { ModalContainer, PrimaryButton } from "@/components";
+import { useEffect, useRef } from "react";
+import { handleScrollToTop } from "@/utils";
 
 export const BatchTransactionsDetailsModal = ({
   showModal,
@@ -10,9 +12,16 @@ export const BatchTransactionsDetailsModal = ({
   showModal: boolean;
   closeModal: () => void;
 }) => {
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+    handleScrollToTop(modalRef);
+  }, [showModal]);
+
   return (
     <ModalContainer showModal={showModal} closeModal={closeModal}>
       <div
+        ref={modalRef}
         className={`absolute z-[100] w-[30rem] h-screen top-0 bg-white ${
           showModal ? "right-0" : "right-[-30rem]"
         } animation overflow-y-auto`}

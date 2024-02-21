@@ -1,7 +1,8 @@
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 
 import { ModalContainer, PrimaryButton } from "@/components";
-import { formatMoney } from "@/utils";
+import { formatMoney, handleScrollToTop } from "@/utils";
 
 export const TransactionsDetailsModal = ({
   showModal,
@@ -10,9 +11,16 @@ export const TransactionsDetailsModal = ({
   showModal: boolean;
   closeModal: () => void;
 }) => {
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+    handleScrollToTop(modalRef);
+  }, [showModal]);
+
   return (
     <ModalContainer showModal={showModal} closeModal={closeModal}>
       <div
+        ref={modalRef}
         className={`absolute z-[100] w-[30rem] h-screen top-0 bg-white ${
           showModal ? "right-0" : "right-[-30rem]"
         } animation overflow-y-auto`}

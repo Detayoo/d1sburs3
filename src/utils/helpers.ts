@@ -1,4 +1,5 @@
 import { AxiosError } from "axios";
+import { MutableRefObject } from "react";
 
 export const excerpt = (text: string, length?: number) => {
   const strLen = length || 80;
@@ -48,4 +49,8 @@ export const appServerError = (error: unknown, defaultErrorMessage: string) => {
   } else {
     return defaultErrorMessage;
   }
+};
+
+export const handleScrollToTop = (div: MutableRefObject<any>) => {
+  div.current.scrollTop = 0;
 };
