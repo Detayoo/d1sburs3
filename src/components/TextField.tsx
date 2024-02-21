@@ -72,7 +72,7 @@ export const TextField = ({
             ? "border-red-500"
             : values
             ? "border-primary-wine"
-            : `${borderClass ? borderClass : "border-border-gray"}`
+            : `${borderClass || "border-border-gray"}`
         } border-[1px] border-border-gray focus:outline-none ${textClass}`}
       />
     ) : (
@@ -92,7 +92,7 @@ export const TextField = ({
             ? "border-red-500"
             : values
             ? "border-primary-wine"
-            : `${borderClass ? borderClass : "border-border-gray"}`
+            : `${borderClass || "border-border-gray"}`
         } border-[1px] border-border-gray focus:outline-none ${textClass}`}
       />
     )}
@@ -168,7 +168,7 @@ export const PasswordField = ({
           ? "border-red-500"
           : values
           ? "border-primary-wine"
-          : `${borderClass ? borderClass : "border-border-gray"}`
+          : `${borderClass || "border-border-gray"}`
       } border-[1px] border-border-gray flex items-center gap-1`}
     >
       {onChange ? (
@@ -200,12 +200,12 @@ export const PasswordField = ({
         />
       )}
 
-      <div
+      <button
         className="text-primary-wine text-sm cursor-pointer"
         onClick={onClick}
       >
         {toggleText}
-      </div>
+      </button>
     </div>
     <ErrorMessage name={name} className="error" component="p" />
   </div>
@@ -272,7 +272,7 @@ export const PhoneNumberField = ({
             ? "border-red-500"
             : values
             ? "border-primary-wine"
-            : `${borderClass ? borderClass : "border-border-gray"}`
+            : `${borderClass || "border-border-gray"}`
         } border-[1px] border-border-gray`}
       >
         <div className="flex items-center gap-x-2">
@@ -307,7 +307,7 @@ export const PhoneNumberField = ({
             ? "border-red-500"
             : values
             ? "border-primary-wine"
-            : `${borderClass ? borderClass : "border-border-gray"}`
+            : `${borderClass || "border-border-gray"}`
         } border-[1px] border-border-gray`}
       >
         <div className="flex items-center gap-x-2">
@@ -385,8 +385,8 @@ export const SelectField = ({
         <div
           className={`w-full h-12 rounded-[5px] text-[14px] flex items-center gap-x-3  ${
             error
-              ? `border-red-500 ${bgColor ? bgColor : "bg-white"}`
-              : `border-input-gray-border ${bgColor ? bgColor : "bg-white"}`
+              ? `border-red-500 ${bgColor || "bg-white"}`
+              : `border-input-gray-border ${bgColor || "bg-white"}`
           } border-[1px] overflow-hidden ${contentClass}`}
         >
           <Field
@@ -419,8 +419,8 @@ export const SelectField = ({
       <div
         className={`w-full h-12 rounded-[5px] text-[14px] pr-3 flex items-center gap-x-3 ${
           error
-            ? `border-red-500 ${bgColor ? bgColor : "bg-white"}`
-            : `border-input-gray-border ${bgColor ? bgColor : "bg-white"}`
+            ? `border-red-500 ${bgColor || "bg-white"}`
+            : `border-input-gray-border ${bgColor || "bg-white"}`
         } border-[1px] overflow-hidden ${contentClass}`}
       >
         <Field
