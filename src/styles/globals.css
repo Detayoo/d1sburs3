@@ -142,3 +142,12 @@ input[type="number"] {
 .Toastify__toast {
   font-family: "InterTight-Regular", sans-serif !important;
 }
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: var(--primary-wine);
+  animation: spin 0.5s linear infinite;
+}

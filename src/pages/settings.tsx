@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { ChangePassword, DashboardLayout, Profile } from "@/components";
+import { AuthenticatedRoute } from "@/utils";
 const Settings = () => {
   const getField = () => {
     if (typeof window !== "undefined" && localStorage) {
@@ -37,7 +38,7 @@ const Settings = () => {
 
         <div className="flex border-b border-b-[#D7D7D7] mt-10 gap-x-3">
           {tabs.map((tab) => (
-            <p
+            <button
               key={tab}
               onClick={() => {
                 localStorage.setItem("SETTINGS-TAB", tab);
@@ -50,7 +51,7 @@ const Settings = () => {
               }`}
             >
               {tab}
-            </p>
+            </button>
           ))}
         </div>
 
@@ -60,4 +61,4 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default AuthenticatedRoute(Settings);

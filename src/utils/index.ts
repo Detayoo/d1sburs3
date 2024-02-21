@@ -2,6 +2,7 @@ export { maskEmail } from "./maskEmail";
 export * from "./helpers";
 export * from "./routes";
 export * from "./validators";
+export * from "./AuthenticatedRoute";
 
 export const formatMoney = (text: string) => {
   return Intl.NumberFormat("NGN", {
