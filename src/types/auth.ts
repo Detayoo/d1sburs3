@@ -5,18 +5,20 @@ export interface GenericRequestResponse {
 }
 
 export interface ILoginResponse extends GenericRequestResponse {
-  user: {
-    id: string;
-    firstName: string;
-    lastName: string;
-    middleName: string;
-    email: string;
-    isActive: boolean;
-    role: string;
-    status: string;
-    createdAt: string;
-    updatedAt: string;
-    deletedAt: null | string;
+  data: {
+    user: {
+      id: string;
+      firstName: string;
+      lastName: string;
+      middleName: string;
+      email: string;
+      isActive: boolean;
+      role: string;
+      status: string;
+      createdAt: string;
+      updatedAt: string;
+      deletedAt: null | string;
+    };
+    token: string;
   };
-  token: string;
 }

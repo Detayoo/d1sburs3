@@ -152,8 +152,8 @@ input[type="number"] {
   animation: spin 0.5s linear infinite;
 }
 .small_spinner {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   border: 3px solid transparent;
   border-top-color: var(--primary-wine);

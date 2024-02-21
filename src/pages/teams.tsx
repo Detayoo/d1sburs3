@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useQueries } from "@tanstack/react-query";
 
 import {
   DashboardLayout,
@@ -9,7 +10,8 @@ import {
   Users,
 } from "@/components";
 import { InviteTeamMember } from "@/modals";
-import { AuthenticatedRoute } from "@/utils";
+import { AuthenticatedRoute, perPage } from "@/utils";
+import { getInviteListFn } from "@/services";
 
 const Teams = () => {
   const getField = () => {
@@ -30,14 +32,56 @@ const Teams = () => {
   const [activeTab, setActiveTab] = useState("");
   const tabs = ["users", "invites"];
   const [showInviteModal, setShowInviteModal] = useState(false);
+
+  const [state, setState] = useState({
+    invites: [],
+    meta: {
+      total: 0,
+    },
+    page: 1,
+  });
+
+  const updateState = (payload: any) => {
+    setState({ ...state, ...payload });
+  };
+
+  const [inviteListData] = useQueries({
+    queries: [
+      {
+        queryKey: ["invites list", state?.page],
+        queryFn: () =>
+          getInviteListFn({
+            currentPage: state?.page,
+            perPage,
+          }),
+      },
+    ],
+  });
+
+  useEffect(() => {
+    updateState({
+      invites: inviteListData?.data?.data?.invites,
+      meta: {
+        total: inviteListData?.data?.data?.totalInvites,
+      },
+    });
+  }, [inviteListData?.data?.data?.currentPage]);
+
   const renderBody = () => {
     switch (activeTab) {
       case "invites":
-        return <Invites />;
+        return (
+          <Invites
+            inviteListData={inviteListData}
+            state={state}
+            updateState={updateState}
+          />
+        );
       default:
         return <Users />;
     }
   };
+
   return (
     <DashboardLayout pageName="Teams">
       <Title name="Teams" />

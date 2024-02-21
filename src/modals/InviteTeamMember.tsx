@@ -1,7 +1,16 @@
 import Image from "next/image";
 import { Form, Formik } from "formik";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
-import { ModalContainer, PrimaryButton, TextField } from "@/components";
+import {
+  ModalContainer,
+  PrimaryButton,
+  SelectField,
+  TextField,
+} from "@/components";
+import { inviteTeamMemberFn } from "@/services";
+import { extractAppServerError } from "@/utils";
 
 export const InviteTeamMember = ({ showModal, closeModal }) => {
   const initialValues = {
@@ -9,6 +18,37 @@ export const InviteTeamMember = ({ showModal, closeModal }) => {
     lastName: "",
     middleName: "",
     email: "",
+    role: "",
+  };
+
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: inviteTeamMemberFn,
+    onSuccess: (data) => {
+      toast.success(data?.message);
+    },
+    onError: (error) => {
+      toast.error(extractAppServerError(error, "An error occurred"));
+    },
+  });
+
+  const onSubmit = async (values, { resetForm }) => {
+    const { email, firstName, lastName, middleName, role } = values;
+    try {
+      await mutateAsync({
+        payload: {
+          email,
+          firstName,
+          lastName,
+          middleName,
+          role,
+        },
+      });
+
+      resetForm();
+      closeModal();
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <ModalContainer showModal={showModal} closeModal={closeModal}>
@@ -32,7 +72,7 @@ export const InviteTeamMember = ({ showModal, closeModal }) => {
               className="cursor-pointer"
             />
           </div>
-          <Formik initialValues={initialValues} onSubmit={() => {}}>
+          <Formik initialValues={initialValues} onSubmit={onSubmit}>
             {({ values, errors, touched }) => (
               <Form className="mt-[32px]">
                 <TextField
@@ -81,8 +121,23 @@ export const InviteTeamMember = ({ showModal, closeModal }) => {
                   divClass="mt-6"
                   placeholder="Enter email address"
                 />
+                <SelectField
+                  name="role"
+                  value={values.role}
+                  label="Role"
+                  htmlFor="role"
+                  error={errors.role}
+                  divClass="mt-6"
+                >
+                  <option value="">Select role</option>
+                  <option value="ADMIN">Admin</option>
+                  <option value="APPROVER">Approver</option>
+                  <option value="INITIATOR">Initiator</option>
+                </SelectField>
 
                 <PrimaryButton
+                  loading={isPending}
+                  disabled={isPending}
                   title="Invite Team Member"
                   className="mt-10 w-full"
                 />

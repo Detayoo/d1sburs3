@@ -8,8 +8,6 @@ import React, {
 } from "react";
 import { toast } from "react-toastify";
 
-import { authenticatedApi } from "@/services";
-
 interface Children {
   children: any;
 }
@@ -17,7 +15,7 @@ interface Children {
 interface AuthContextType {
   loading: boolean;
   token: string | null;
-  user: Record<string, any> | null;
+  user: any;
 }
 
 const initialState: AuthContextType = {
@@ -64,7 +62,7 @@ export const AuthProvider = ({ children }: Children): JSX.Element => {
   const fetchUserProfile = async () => {
     try {
       //fetch user here
-      await authenticatedApi().get("/");
+      // await authenticatedApi().get("/");
       setFetching(false);
     } catch (err) {
       toast.error(err?.response?.data?.message || err?.message);

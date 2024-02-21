@@ -7,8 +7,8 @@ import { useAuth } from "@/contexts";
 export const AuthenticatedRoute = (
   Component: NextComponentType<NextPageContext, any, any>
 ) => {
-  const { loading, fetching, user } = useAuth();
   return (props: AppProps) => {
+    const { loading, fetching, user } = useAuth();
     if (loading || fetching) {
       return (
         <div className="w-full h-screen flex flex-col items-center justify-center">

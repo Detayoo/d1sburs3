@@ -86,7 +86,7 @@ export const TextField = ({
         onKeyDown={onKeyDown}
         {...rest}
         className={`w-full h-12 bg-white rounded-[5px] px-5 py-1 text-[14px] ${
-          disabled ? "bg-disabled-bg" : "bg-white"
+          disabled ? "bg-disabled-bg border-[#cccccc]" : "bg-white"
         } placeholder:text-border-gray placeholder:text-sm ${
           error
             ? "border-red-500"

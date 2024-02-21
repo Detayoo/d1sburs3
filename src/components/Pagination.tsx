@@ -6,12 +6,14 @@ export const Pagination = ({
   pageCount,
   totalRecords,
   handlePageClick,
+  forcePage
 }: {
   itemOffset: number;
   currentItems: any[];
   pageCount: number;
   totalRecords: number;
   handlePageClick: ({ selected }: { selected: any }) => void;
+  forcePage?: number;
 }) => {
   if (totalRecords === 0) {
     return null;
@@ -25,10 +27,11 @@ export const Pagination = ({
       </div>
       {pageCount >= 1 && (
         <ReactPaginate
+          forcePage={forcePage}
           breakLabel="..."
           nextLabel={<>Next &gt;</>}
           onPageChange={handlePageClick}
-          pageRangeDisplayed={3}
+          pageRangeDisplayed={5}
           pageCount={pageCount}
           previousLabel={<>&lt; Prev</>}
           renderOnZeroPageCount={null}

@@ -35,7 +35,10 @@ export const appErrorHandler = (error: unknown) => {
   }
 };
 
-export const appServerError = (error: unknown, defaultErrorMessage: string) => {
+export const extractAppServerError = (
+  error: unknown,
+  defaultErrorMessage: string
+) => {
   if (error instanceof AxiosError) {
     const message = error.response?.data?.message;
 
@@ -54,3 +57,5 @@ export const appServerError = (error: unknown, defaultErrorMessage: string) => {
 export const handleScrollToTop = (div: MutableRefObject<any>) => {
   div.current.scrollTop = 0;
 };
+
+export const perPage = 5;

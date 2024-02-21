@@ -1,4 +1,73 @@
-export const Invites = () => {
+import { format } from "date-fns";
+import { useState } from "react";
+
+import { ListLoader, Pagination } from ".";
+import { perPage } from "@/utils";
+export const Invites = ({ inviteListData, state, updateState }) => {
+  const STATUS_OBJ = {
+    isUsed: "bg-[#F9F4FF] text-primary-wine",
+    isUnused: "bg-primary-wine opacity-50 text-white",
+    isRevoked: "bg-primary-wine text-white",
+  };
+
+  const [itemOffset, setItemOffset] = useState(0);
+
+  const handlePageClick = ({ selected }) => {
+    const newOffset = (selected * perPage) % state?.meta?.total;
+    setItemOffset(newOffset);
+    updateState({
+      page: selected + 1,
+    });
+  };
+
+  const renderContent = () => {
+    if (inviteListData?.isFetching) {
+      return <ListLoader />;
+    }
+    return (
+      <>
+        {state?.invites?.map((data) => {
+          const { firstName, lastName, email } = data?.profile || {};
+          return (
+            <div className="bg-white h-12 w-full text-[#303030] text-[12px] flex items-center px-[20px] justify-between">
+              <p className="w-[15%] lowercase">
+                {data?.createdAt
+                  ? format(new Date(data?.createdAt), "dd-MM-yyyy p")
+                  : "-"}
+              </p>
+              <p className="w-[25%] capitalize">{firstName + " " + lastName}</p>
+              <p className="w-[25%]">{email}</p>
+              <p className="w-[20%] uppercase">
+                <span
+                  className={`text-center py-2 px-6 rounded-full ${
+                    data?.isUsed
+                      ? STATUS_OBJ["isUsed"]
+                      : data?.isRevoked
+                      ? STATUS_OBJ["isUnused"]
+                      : !data?.isUsed
+                      ? STATUS_OBJ["isUnused"]
+                      : ""
+                  }`}
+                >
+                  {data?.isUsed ? "Invited" : "Resend Invite"}
+                </span>
+              </p>
+            </div>
+          );
+        })}
+
+        <Pagination
+          currentItems={state?.invites}
+          handlePageClick={handlePageClick}
+          itemOffset={itemOffset}
+          pageCount={Math.ceil(state?.meta?.total / perPage)}
+          totalRecords={state?.meta?.total}
+          forcePage={itemOffset}
+        />
+      </>
+    );
+  };
+
   return (
     <div>
       <div className="bg-light-wine h-10 w-full uppercase text-[#303030] text-[12px] flex items-center px-[20px] justify-between">
@@ -7,18 +76,7 @@ export const Invites = () => {
         <p className="w-[25%]">email address</p>
         <p className="w-[20%]">status</p>
       </div>
-      <div className="bg-white h-12 w-full text-[#303030] text-[12px] flex items-center px-[20px] justify-between">
-        <p className="w-[15%]">12-08-2023 02:24pm</p>
-        <p className="w-[25%] capitalize">Lordshibby Suprememarshal</p>
-        <p className="w-[25%]">lordshibbysuprememarshal@gmail.com</p>
-        <p className="w-[20%] uppercase">
-          <span
-            className={`text-center bg-[#F9F4FF] py-2 px-6 rounded-full text-primary-wine`}
-          >
-            invited
-          </span>
-        </p>
-      </div>
+      {renderContent()}
     </div>
   );
 };
