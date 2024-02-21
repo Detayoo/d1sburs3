@@ -5,19 +5,13 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./layouts/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/modals/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "dashboard-1": "url('/images/dash-bg-1.png')",
-        "dashboard-2": "url('/images/dash-bg-2.png')",
-      },
       colors: {
         "primary-black": "var(--primary-black)",
         "primary-wine": "var(--primary-wine)",
-        "deep-green": "var(--deep-green)",
         "border-gray": "var(--border-gray)",
         "otp-gray": "var(--otp-gray)",
         "disabled-btn": "var(--disabled-btn)",

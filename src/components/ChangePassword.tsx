@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Formik } from "formik";
 import { object, string } from "yup";
-import { PasswordField } from ".";
+import { PasswordField, PrimaryButton } from ".";
 
 export const ChangePassword = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -85,9 +85,7 @@ export const ChangePassword = () => {
                     />
                   </div>
 
-                  <button className="py-[13px] px-[25px] bg-primary-wine text-white text-[14px] rounded-[40px]">
-                    Change Password
-                  </button>
+                  <PrimaryButton title="Save Changes" className="mt-3" />
                 </div>
               </Form>
             )}
