@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 import {
   DashboardLayout,
@@ -11,7 +12,22 @@ import {
 import { InviteTeamMember } from "@/modals";
 
 const Teams = () => {
-  const [activeTab, setActiveTab] = useState("users");
+  const getField = () => {
+    if (typeof window !== "undefined" && localStorage) {
+      const tab = localStorage.getItem("TEAMS-TAB");
+      if (tab) return { tab };
+      else return { tab: "users" };
+    } else {
+      return { tab: "users" };
+    }
+  };
+
+  useEffect(() => {
+    const { tab } = getField();
+    setActiveTab(tab);
+  }, []);
+
+  const [activeTab, setActiveTab] = useState("");
   const tabs = ["users", "invites"];
   const [showInviteModal, setShowInviteModal] = useState(false);
   const renderBody = () => {
@@ -28,9 +44,12 @@ const Teams = () => {
 
       <div className="flex border-b border-b-[#D7D7D7] mt-3">
         {tabs.map((tab) => (
-          <p
+          <button
             key={tab}
-            onClick={() => setActiveTab(tab)}
+            onClick={() => {
+              localStorage.setItem("TEAMS-TAB", tab);
+              setActiveTab(tab);
+            }}
             className={`w-[120px] capitalize border-b-[2px] pb-[11px] text-sm text-center self-end cursor-pointer ${
               activeTab === tab
                 ? "border-b-primary-wine text-primary-wine font-InterTight-Medium"
@@ -38,7 +57,7 @@ const Teams = () => {
             }`}
           >
             {tab}
-          </p>
+          </button>
         ))}
 
         <PrimaryButton

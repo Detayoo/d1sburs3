@@ -4,9 +4,17 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 import { routes } from "@/utils";
+import { useAuth } from "@/contexts";
 export const Sidebar = () => {
+  const { logout } = useAuth();
   const pathname = usePathname();
   const ActiveLink = (href: string) => pathname?.startsWith(href);
+
+  const clearTabs = () => {
+    localStorage.removeItem("TEAMS-TAB");
+    localStorage.removeItem("SETTINGS-TAB");
+  };
+
   return (
     <div className="w-[20%] h-full flex flex-col bg-white">
       <div className="w-full h-[90px] flex justify-center items-center">
@@ -21,12 +29,13 @@ export const Sidebar = () => {
 
       <div className="px-[30px] flex-1 mt-[60px] flex flex-col">
         <div className="flex flex-col gap-[18px]">
-          {routes?.map((each, index) => (
+          {routes?.map((each) => (
             <Link
+              onClick={clearTabs}
               className={`flex items-center gap-[20px] overflow-hidden relative px-[20px] rounded-[5px] py-[12px] ${
                 ActiveLink(each?.url) ? "bg-primary-wine" : ""
               }`}
-              key={index}
+              key={each?.url}
               href={each?.url}
             >
               <div
@@ -63,7 +72,9 @@ export const Sidebar = () => {
               src="/icons/logout.svg"
             />
 
-            <p className="text-[14px] text-primary-wine">Log Out</p>
+            <button onClick={logout} className="text-[14px] text-primary-wine">
+              Log Out
+            </button>
           </div>
         </div>
       </div>

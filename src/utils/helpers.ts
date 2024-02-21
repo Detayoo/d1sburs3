@@ -1,3 +1,5 @@
+import { AxiosError } from "axios";
+
 export const excerpt = (text: string, length?: number) => {
   const strLen = length || 80;
   if (text?.length > strLen) {
@@ -9,4 +11,25 @@ export const excerpt = (text: string, length?: number) => {
 
 export const fileSizeInMB = (bytes: number) => {
   return (bytes / 1024 / 1024).toFixed(2);
+};
+
+export const appErrorHandler = (error: unknown) => {
+  if (error instanceof AxiosError) {
+    if (error?.message.toLowerCase().includes("network error")) {
+      return "A network error occurred. Please try again";
+    }
+    if (error.response) {
+      return error.response?.data["message"] || error.response.statusText;
+    } else if (error.request) {
+      return error.request;
+    } else {
+      return "Something went wrong. Please check your internet connection and try again.";
+    }
+  }
+  if (!error) {
+    return "An error occured. Please try again!";
+  }
+  if (typeof error === "string") {
+    return error;
+  }
 };

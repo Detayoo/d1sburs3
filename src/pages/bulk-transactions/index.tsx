@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Image from "next/image";
-import { toast } from "react-toastify";
 
 import {
   DashboardLayout,
@@ -49,7 +48,6 @@ const Transactions = () => {
 
             <div className="flex items-center gap-x-4">
               <PrimaryButton
-                onClick={() => toast.success("Yeahhhh, i work")}
                 title="Download Template"
                 bgColor="bg-[#FFEFF4] text-[#802530]"
               />
@@ -101,7 +99,10 @@ const Transactions = () => {
               {transactions?.map((transaction, index) => {
                 return (
                   <div
-                    onClick={() => setShowDetailsModal(true)}
+                    onClick={() => {
+                      setSelected(transaction);
+                      setShowDetailsModal(true);
+                    }}
                     key={index}
                     className="h-12 w-full text-light-text text-[12px] flex items-center px-[30px] justify-between"
                   >
