@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import { Form, Formik } from "formik";
-import { object, string } from "yup";
+import { Form, Formik, FormikValues } from "formik";
+
 import { PasswordField, PrimaryButton } from ".";
+import { changePasswordSchema, extractAppServerError } from "@/utils";
+import { useMutation } from "@tanstack/react-query";
+import { changePasswordFn } from "@/services";
+import { toast } from "react-toastify";
 
 export const ChangePassword = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -14,14 +18,31 @@ export const ChangePassword = () => {
     confirm_password: "",
   };
 
-  const validationSchema = object().shape({
-    old_password: string().required("Old password is required"),
-    new_password: string().required("New password is required"),
-    confirm_password: string().required("Confirm your Password"),
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: changePasswordFn,
+    onSuccess: (data) => {
+      toast.success(data?.message);
+    },
+    onError: (error) => {
+      toast.error(
+        extractAppServerError(
+          error,
+          "Unable to change password, please try again"
+        )
+      );
+    },
   });
 
-  const handleSubmit = async (values: any) => {
-    console.log(values);
+  const handleSubmit = async (values: FormikValues, { resetForm }) => {
+    try {
+      await mutateAsync({
+        payload: {
+          oldPassword: values?.old_password,
+          password: values?.confirm_password,
+        },
+      });
+      resetForm();
+    } catch (error) {}
   };
 
   return (
@@ -33,10 +54,10 @@ export const ChangePassword = () => {
           <Formik
             enableReinitialize
             initialValues={initialValues}
-            validationSchema={validationSchema}
+            validationSchema={changePasswordSchema}
             onSubmit={handleSubmit}
           >
-            {({ values, errors, touched }) => (
+            {({ values, errors, touched, isValid, dirty }) => (
               <Form>
                 <div className="mt-[40px]">
                   <div className="mb-[30px]">
@@ -85,7 +106,16 @@ export const ChangePassword = () => {
                     />
                   </div>
 
-                  <PrimaryButton title="Save Changes" className="mt-3" />
+                  <PrimaryButton
+                    loading={isPending}
+                    disabled={
+                      values?.new_password !== values?.confirm_password ||
+                      isPending ||
+                      !(isValid && dirty)
+                    }
+                    title="Save Changes"
+                    className="mt-3 w-[200px]"
+                  />
                 </div>
               </Form>
             )}
