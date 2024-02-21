@@ -1,5 +1,6 @@
-import { AxiosError } from "axios";
 import { MutableRefObject } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 
 export const excerpt = (text: string, length?: number) => {
   const strLen = length || 80;
@@ -58,4 +59,4 @@ export const handleScrollToTop = (div: MutableRefObject<any>) => {
   div.current.scrollTop = 0;
 };
 
-export const perPage = 5;
+export const perPage = 3;

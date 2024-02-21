@@ -6,7 +6,7 @@ export const Pagination = ({
   pageCount,
   totalRecords,
   handlePageClick,
-  forcePage
+  forcePage,
 }: {
   itemOffset: number;
   currentItems: any[];
@@ -22,8 +22,14 @@ export const Pagination = ({
   return (
     <div className="w-full border-t border-t-[#C7C7C7] py-5 bg-transparent flex items-center justify-between gap-x-2 text-[15px]">
       <div>
-        Showing {1 + itemOffset} to {itemOffset + currentItems?.length} of{" "}
-        {totalRecords} results
+        {/* Showing {1 + itemOffset} {' '} */}
+        Showing {' '}
+        {currentItems?.length} {' '}
+        {/* to 
+        
+        {itemOffset + currentItems?.length}
+         */}
+        of {totalRecords} results
       </div>
       {pageCount >= 1 && (
         <ReactPaginate

@@ -201,6 +201,7 @@ export const PasswordField = ({
       )}
 
       <button
+        type="button"
         className="text-primary-wine text-sm cursor-pointer"
         onClick={onClick}
       >

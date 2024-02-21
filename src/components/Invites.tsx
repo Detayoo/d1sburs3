@@ -29,7 +29,10 @@ export const Invites = ({ inviteListData, state, updateState }) => {
         {state?.invites?.map((data) => {
           const { firstName, lastName, email } = data?.profile || {};
           return (
-            <div className="bg-white h-12 w-full text-[#303030] text-[12px] flex items-center px-[20px] justify-between">
+            <div
+              key={data?.id}
+              className="bg-white h-12 w-full text-[#303030] text-[12px] flex items-center px-[20px] justify-between"
+            >
               <p className="w-[15%] lowercase">
                 {data?.createdAt
                   ? format(new Date(data?.createdAt), "dd-MM-yyyy p")

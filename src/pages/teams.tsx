@@ -11,7 +11,7 @@ import {
 } from "@/components";
 import { InviteTeamMember } from "@/modals";
 import { AuthenticatedRoute, perPage } from "@/utils";
-import { getInviteListFn } from "@/services";
+import { getInviteListFn, getUsersListFn } from "@/services";
 
 const Teams = () => {
   const getField = () => {
@@ -39,19 +39,32 @@ const Teams = () => {
       total: 0,
     },
     page: 1,
+    users: [],
+    userMeta: {
+      total: 0,
+    },
+    userPage: 1,
   });
 
   const updateState = (payload: any) => {
     setState({ ...state, ...payload });
   };
 
-  const [inviteListData] = useQueries({
+  const [inviteListData, usersListData] = useQueries({
     queries: [
       {
         queryKey: ["invites list", state?.page],
         queryFn: () =>
           getInviteListFn({
             currentPage: state?.page,
+            perPage,
+          }),
+      },
+      {
+        queryKey: ["users list", state?.userPage],
+        queryFn: () =>
+          getUsersListFn({
+            currentPage: state?.userPage,
             perPage,
           }),
       },
@@ -65,7 +78,22 @@ const Teams = () => {
         total: inviteListData?.data?.data?.totalInvites,
       },
     });
-  }, [inviteListData?.data?.data?.currentPage]);
+  }, [
+    inviteListData?.data?.data?.currentPage,
+    inviteListData?.data?.data?.totalInvites,
+  ]);
+
+  useEffect(() => {
+    updateState({
+      users: usersListData?.data?.data?.users,
+      userMeta: {
+        total: usersListData?.data?.data?.totalUsers,
+      },
+    });
+  }, [
+    usersListData?.data?.data?.currentPage,
+    usersListData?.data?.data?.totalUsers,
+  ]);
 
   const renderBody = () => {
     switch (activeTab) {
@@ -78,7 +106,13 @@ const Teams = () => {
           />
         );
       default:
-        return <Users />;
+        return (
+          <Users
+            usersListData={usersListData}
+            parentState={state}
+            updateParentState={updateState}
+          />
+        );
     }
   };
 

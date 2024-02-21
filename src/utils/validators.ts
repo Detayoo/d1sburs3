@@ -9,3 +9,9 @@ export const loginSchema = object().shape({
   email: string().email("Email is invalid").required("Email is required"),
   password: string().required("Password is required"),
 });
+export const inviteTeamSchema = object().shape({
+  firstName: string().required("First name is required"),
+  lastName: string().required("Last name is required"),
+  role: string().required("Role is required"),
+  email: string().email("Email is invalid").required("Email is required"),
+});

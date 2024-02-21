@@ -41,3 +41,24 @@ export const getInviteListFn = async ({
 
   return data;
 };
+export const getUsersListFn = async ({
+  currentPage,
+  perPage,
+}: {
+  currentPage?: number;
+  perPage?: number;
+}) => {
+  const params: any = {};
+
+  if (currentPage) {
+    params.currentPage = currentPage;
+  }
+  if (perPage) {
+    params.perPage = perPage;
+  }
+  const { data } = await authenticatedApi().get("/user", {
+    params,
+  });
+
+  return data;
+};

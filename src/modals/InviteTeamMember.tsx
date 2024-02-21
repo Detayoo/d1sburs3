@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Form, Formik } from "formik";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
 import {
@@ -10,7 +10,7 @@ import {
   TextField,
 } from "@/components";
 import { inviteTeamMemberFn } from "@/services";
-import { extractAppServerError } from "@/utils";
+import { extractAppServerError, inviteTeamSchema } from "@/utils";
 
 export const InviteTeamMember = ({ showModal, closeModal }) => {
   const initialValues = {
@@ -21,9 +21,12 @@ export const InviteTeamMember = ({ showModal, closeModal }) => {
     role: "",
   };
 
+  const queryClient = useQueryClient();
+
   const { mutateAsync, isPending } = useMutation({
     mutationFn: inviteTeamMemberFn,
     onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["invites list"] });
       toast.success(data?.message);
     },
     onError: (error) => {
@@ -72,8 +75,12 @@ export const InviteTeamMember = ({ showModal, closeModal }) => {
               className="cursor-pointer"
             />
           </div>
-          <Formik initialValues={initialValues} onSubmit={onSubmit}>
-            {({ values, errors, touched }) => (
+          <Formik
+            initialValues={initialValues}
+            onSubmit={onSubmit}
+            validationSchema={inviteTeamSchema}
+          >
+            {({ values, errors, touched, isValid, dirty }) => (
               <Form className="mt-[32px]">
                 <TextField
                   type="text"
@@ -126,7 +133,7 @@ export const InviteTeamMember = ({ showModal, closeModal }) => {
                   value={values.role}
                   label="Role"
                   htmlFor="role"
-                  error={errors.role}
+                  error={errors.role && touched.role}
                   divClass="mt-6"
                 >
                   <option value="">Select role</option>
@@ -137,7 +144,7 @@ export const InviteTeamMember = ({ showModal, closeModal }) => {
 
                 <PrimaryButton
                   loading={isPending}
-                  disabled={isPending}
+                  disabled={isPending || !(isValid && dirty)}
                   title="Invite Team Member"
                   className="mt-10 w-full"
                 />
