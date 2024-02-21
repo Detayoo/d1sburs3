@@ -71,7 +71,6 @@ const LoginPage = () => {
               values={values.password}
               toggleText={showPassword ? "Hide" : "Show"}
               onClick={() => setShowPassword(!showPassword)}
-              imageClass="cursor-pointer"
               error={errors.password && touched.password}
               placeholder="Enter password"
               divClass="mt-6"

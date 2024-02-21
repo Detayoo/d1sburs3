@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { ChangePassword, DashboardLayout, Profile } from "@/components";
-import { AuthenticatedRoute } from "@/utils";
+
 const Settings = () => {
   const getField = () => {
     if (typeof window !== "undefined" && localStorage) {
@@ -61,4 +61,4 @@ const Settings = () => {
   );
 };
 
-export default AuthenticatedRoute(Settings);
+export default Settings;

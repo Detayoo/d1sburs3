@@ -134,7 +134,6 @@ export const PasswordField = ({
   textClass?: string;
   labelClass?: string;
   borderClass?: string;
-  imageClass?: string;
   onClick?: () => void;
   disabled?: boolean;
   icon?: string;
