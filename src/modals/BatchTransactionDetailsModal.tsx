@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Router from "next/router";
 
 import { ModalContainer, PrimaryButton } from "@/components";
 
@@ -79,6 +80,7 @@ export const BatchTransactionsDetailsModal = ({
             className="mt-[60px] w-full border border-primary-wine"
           />
           <PrimaryButton
+            onClick={() => Router.push(`/bulk-transactions/${1}`)}
             title="See Transactions List"
             className="mt-4 w-full bg-white border border-primary-wine"
             textColor="text-primary-wine"

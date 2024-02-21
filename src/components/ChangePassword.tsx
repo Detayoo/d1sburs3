@@ -79,7 +79,7 @@ export const ChangePassword = () => {
                       onClick={() =>
                         setShowConfirmPassword(!showConfirmPassword)
                       }
-                      label="Confrim New Password"
+                      label="Confirm New Password"
                       name="confirm_password"
                       values={values.confirm_password}
                     />

@@ -3,7 +3,6 @@ export * from "./Button";
 export * from "./TextField";
 export { Sidebar } from "./Sidebar";
 export { Header } from "./Header";
-export { BasicInfoCard } from "./BasicInfoCard";
 export * from "./Title";
 export * from "./DashboardLayout";
 export * from "./FilterComponent";

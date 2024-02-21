@@ -26,9 +26,9 @@ const Settings = () => {
             <p
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`w-[120px] capitalize border-b-[2px] pb-[11px] text-sm text-center self-end cursor-pointer ${
+              className={`w-[130px] capitalize border-b-[2px] pb-[11px] text-sm text-center self-end cursor-pointer ${
                 activeTab === tab
-                  ? "border-b-primary-wine text-primary-wine font-[500]"
+                  ? "border-b-primary-wine text-primary-wine font-InterTight-Medium"
                   : "border-b-transparent text-[#5D5D5D]"
               }`}
             >

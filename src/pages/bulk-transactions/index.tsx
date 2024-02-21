@@ -6,13 +6,8 @@ import {
   Pagination,
   PrimaryButton,
   Title,
-  DateComponent,
 } from "@/components";
-import {
-  BatchTransactionsDetailsModal,
-  TransactionsDetailsModal,
-  UploadBatchModal,
-} from "@/modals";
+import { BatchTransactionsDetailsModal, UploadBatchModal } from "@/modals";
 
 const transactions: any = ["", "", ""];
 
@@ -104,7 +99,7 @@ const Transactions = () => {
               {transactions?.map((transaction, index) => {
                 return (
                   <div
-                    // onClick={() => Router.push(`/bulk-transactions/${index}`)}
+                    onClick={() => setShowDetailsModal(true)}
                     key={index}
                     className="h-12 w-full text-light-text text-[12px] flex items-center px-[30px] justify-between"
                   >
@@ -113,10 +108,7 @@ const Transactions = () => {
                       20_October_2024_ Batch.csv
                     </p>
                     <p className="w-[15%]">12-08-2023 02:24pm</p>
-                    <div
-                      onClick={() => setShowDetailsModal(true)}
-                      className="w-[15%] flex gap-x-1 items-center"
-                    >
+                    <div className="w-[15%] flex gap-x-1 items-center">
                       <div className="rounded-[50%] h-[10px] w-[10px] bg-light-text" />
                       <p>New</p>
                     </div>
