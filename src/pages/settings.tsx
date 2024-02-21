@@ -18,7 +18,7 @@ const Settings = () => {
   return (
     <DashboardLayout pageName="Settings">
       <div className="py-[20px] px-[40px]">
-        <p className="text-[22px]">Settings</p>
+        <p className="text-[22px] font-InterTight-Medium">Settings</p>
         <p className="text-[14px]">Manage your preferences</p>
 
         <div className="flex border-b border-b-[#D7D7D7] mt-10 gap-x-3">

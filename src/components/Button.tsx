@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Loader } from "./Loader";
 
 interface ButtonProps {
   title: any;
@@ -9,6 +10,7 @@ interface ButtonProps {
   textColor?: string;
   bgColor?: string;
   borderColor?: string;
+  loading?: boolean;
   [x: string]: any;
 }
 
@@ -22,8 +24,17 @@ export const PrimaryButton = ({
   bgColor,
   borderColor,
   image,
+  loading,
   ...rest
 }: ButtonProps) => {
+  const renderTitle = () => {
+    if (loading) return <Loader />;
+    return (
+      <>
+        {title} {!!image && <Image src={image} alt="" width={21} height={21} />}
+      </>
+    );
+  };
   return (
     <button
       type={type}
@@ -36,7 +47,7 @@ export const PrimaryButton = ({
       disabled={disabled}
       {...rest}
     >
-      {title} {!!image && <Image src={image} alt="" width={21} height={21} />}
+      {renderTitle()}
     </button>
   );
 };

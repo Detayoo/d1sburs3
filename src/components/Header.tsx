@@ -4,7 +4,7 @@ export const Header = ({ pageName }) => {
   return (
     <div className="w-full bg-white flex items-center justify-between sticky left-0 top-0 h-[70px] px-[30px] pt-[23px] pb-[13px]">
       <div>
-        <p className="text-[20px] font-[500]">{pageName}</p>
+        <p className="text-[20px]">{pageName}</p>
       </div>
 
       <div className="flex gap-[10px] items-center">

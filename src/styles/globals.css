@@ -97,8 +97,15 @@ body {
   .otp__container input:focus {
     @apply border-otp-gray !important;
   }
+
   .error {
     @apply text-red-500 text-sm;
+  }
+
+  .loader__container {
+    @apply border-t-transparent border-[3px] rounded-full;
+
+    animation: spin 0.5s linear infinite;
   }
 }
 
@@ -108,6 +115,15 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-transition-delay: 9999999999999999999999999s !important;
   -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .animation {

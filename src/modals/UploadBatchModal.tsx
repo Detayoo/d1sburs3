@@ -105,7 +105,12 @@ export const UploadBatchModal = ({
                       bgColor="bg-white"
                       textColor="text-primary-wine"
                     />
-                    <PrimaryButton title="Import" className="flex-1" disabled />
+                    <PrimaryButton
+                      // loading={true}
+                      title="Import"
+                      className="flex-1"
+                      disabled
+                    />
                   </div>
                 </Form>
               );
