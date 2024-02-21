@@ -81,10 +81,7 @@ const Teams = () => {
         total: inviteListData?.data?.data?.totalInvites,
       },
     });
-  }, [
-    inviteListData?.data?.data?.currentPage,
-    inviteListData?.data?.data?.totalInvites,
-  ]);
+  }, [activeTab, state?.page]);
 
   useEffect(() => {
     updateState({
@@ -96,7 +93,10 @@ const Teams = () => {
   }, [
     usersListData?.data?.data?.currentPage,
     usersListData?.data?.data?.totalUsers,
+    activeTab,
   ]);
+
+  console.log(state?.invites);
 
   const renderBody = () => {
     switch (activeTab) {
@@ -144,23 +144,25 @@ const Teams = () => {
           </button>
         ))}
 
-        <PrimaryButton
-          onClick={() => {
-            setShowInviteModal(true);
-          }}
-          title={
-            <div className="flex gap-x-2 items-center">
-              <Image
-                src="/icons/add.svg"
-                alt="add icon"
-                width={16}
-                height={16}
-              />
-              Invite Teams
-            </div>
-          }
-          className="ml-auto"
-        />
+        {user?.role === "ADMIN" && (
+          <PrimaryButton
+            onClick={() => {
+              setShowInviteModal(true);
+            }}
+            title={
+              <div className="flex gap-x-2 items-center">
+                <Image
+                  src="/icons/add.svg"
+                  alt="add icon"
+                  width={16}
+                  height={16}
+                />
+                Invite Teams
+              </div>
+            }
+            className="ml-auto"
+          />
+        )}
       </div>
       <div className="mt-9">{renderBody()}</div>
 

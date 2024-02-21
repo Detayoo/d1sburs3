@@ -62,3 +62,11 @@ export const getUsersListFn = async ({
 
   return data;
 };
+
+export const revokeInviteFn = async ({ id }: { id: string }) => {
+  const { data } = await authenticatedApi().patch("/invite/revoke", {
+    id,
+  });
+
+  return data;
+};

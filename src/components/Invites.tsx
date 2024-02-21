@@ -20,13 +20,16 @@ export const Invites = ({ inviteListData, state, updateState }) => {
     });
   };
 
+  const { totalInvites, currentPage, invites } =
+    inviteListData?.data?.data || {};
+
   const renderContent = () => {
     if (inviteListData?.isFetching) {
       return <ListLoader />;
     }
     return (
       <>
-        {state?.invites?.map((data) => {
+        {invites?.map((data) => {
           const { firstName, lastName, email } = data?.profile || {};
           return (
             <div
@@ -60,11 +63,11 @@ export const Invites = ({ inviteListData, state, updateState }) => {
         })}
 
         <Pagination
-          currentItems={state?.invites}
+          currentItems={invites}
           handlePageClick={handlePageClick}
           itemOffset={itemOffset}
-          pageCount={Math.ceil(state?.meta?.total / perPage)}
-          totalRecords={state?.meta?.total}
+          pageCount={Math.ceil(totalInvites / perPage)}
+          totalRecords={totalInvites}
           forcePage={itemOffset}
         />
       </>
