@@ -20,9 +20,9 @@ const Teams = () => {
     if (typeof window !== "undefined" && localStorage) {
       const tab = localStorage.getItem("TEAMS-TAB");
       if (tab) return { tab };
-      else return { tab: user?.role === "ADMIN" ? "users" : "invites" };
+      else return { tab: "users" };
     } else {
-      return { tab: user?.role === "ADMIN" ? "users" : "invites" };
+      return { tab: "users" };
     }
   };
 
@@ -32,7 +32,7 @@ const Teams = () => {
   }, []);
 
   const [activeTab, setActiveTab] = useState("");
-  const tabs = user?.role === "ADMIN" ? ["users", "invites"] : ["invites"];
+  const tabs = ["users", "invites"];
   const [showInviteModal, setShowInviteModal] = useState(false);
 
   const [state, setState] = useState({
@@ -69,7 +69,6 @@ const Teams = () => {
             currentPage: state?.userPage,
             perPage,
           }),
-        enabled: user?.role === "ADMIN",
       },
     ],
   });
@@ -110,15 +109,13 @@ const Teams = () => {
         );
 
       default:
-        if (user?.role === "ADMIN") {
-          return (
-            <Users
-              usersListData={usersListData}
-              parentState={state}
-              updateParentState={updateState}
-            />
-          );
-        } else return null;
+        return (
+          <Users
+            usersListData={usersListData}
+            parentState={state}
+            updateParentState={updateState}
+          />
+        );
     }
   };
 

@@ -387,6 +387,8 @@ export const SelectField = ({
           className={`w-full h-12 rounded-[5px] text-[14px] flex items-center gap-x-3  ${
             error
               ? `border-red-500 ${bgColor || "bg-white"}`
+              : value
+              ? "border-primary-wine"
               : `border-input-gray-border ${bgColor || "bg-white"}`
           } border-[1px] overflow-hidden ${contentClass}`}
         >
@@ -421,6 +423,8 @@ export const SelectField = ({
         className={`w-full h-12 rounded-[5px] text-[14px] pr-3 flex items-center gap-x-3 ${
           error
             ? `border-red-500 ${bgColor || "bg-white"}`
+            : value
+            ? "border-primary-wine"
             : `border-input-gray-border ${bgColor || "bg-white"}`
         } border-[1px] overflow-hidden ${contentClass}`}
       >

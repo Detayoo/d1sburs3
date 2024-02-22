@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 import { UpdateRoleModal } from "@/modals";
-import { ListLoader, Pagination } from ".";
+import { EmptyContainer, ListLoader, Pagination } from ".";
 import { excerpt, perPage } from "@/utils";
 export const Users = ({ usersListData, parentState, updateParentState }) => {
   const [state, setState] = useState({
@@ -31,6 +31,16 @@ export const Users = ({ usersListData, parentState, updateParentState }) => {
     if (usersListData?.isFetching) {
       return <ListLoader />;
     }
+
+    if (usersListData?.isError) {
+      return (
+        <EmptyContainer
+          text1="Error fetching Users"
+          actionTitle="Refetch Users"
+          action={usersListData?.refetch}
+        />
+      );
+    }
     return (
       <>
         {parentState?.users?.map((user, index) => {
@@ -43,7 +53,7 @@ export const Users = ({ usersListData, parentState, updateParentState }) => {
               <p className="w-[18%]">{user?.firstName}</p>
               <p className="w-[18%]">{user?.lastName}</p>
               <p className="w-[20%]">{user?.email}</p>
-              <p className="w-[15%]">{user?.role}</p>
+              <p className="w-[15%] capitalize">{user?.role?.toLowerCase()}</p>
               <p className="w-[15%] uppercase">
                 <span
                   className={`text-center py-2 px-6 rounded-full ${

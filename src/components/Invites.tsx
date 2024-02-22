@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { useState } from "react";
 
-import { ListLoader, Pagination } from ".";
+import { EmptyContainer, ListLoader, Pagination } from ".";
 import { perPage } from "@/utils";
 export const Invites = ({ inviteListData, state, updateState }) => {
   const STATUS_OBJ = {
@@ -26,6 +26,16 @@ export const Invites = ({ inviteListData, state, updateState }) => {
   const renderContent = () => {
     if (inviteListData?.isFetching) {
       return <ListLoader />;
+    }
+
+    if (inviteListData?.isError) {
+      return (
+        <EmptyContainer
+          text1="Error fetching Invites List"
+          actionTitle="Refetch Invites List"
+          action={inviteListData?.refetch}
+        />
+      );
     }
     return (
       <>

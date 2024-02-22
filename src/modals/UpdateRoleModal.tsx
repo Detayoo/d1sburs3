@@ -7,7 +7,7 @@ export const UpdateRoleModal = ({ showModal, closeModal }) => {
   return (
     <ModalContainer showModal={showModal} closeModal={closeModal}>
       <div
-        className={`absolute z-[100] min-w-[28rem]  max-h-[75%] rounded-[10px] bg-white ${
+        className={`absolute z-[100] min-w-[30rem]  max-h-[75%] rounded-[10px] bg-white ${
           showModal
             ? "opacity-100 visible mt-0"
             : "opacity-0 invisible mt-[5rem]"
