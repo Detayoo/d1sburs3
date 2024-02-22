@@ -167,7 +167,9 @@ const Teams = () => {
                 filterModal: true,
               })
             }
-            className="px-[20px] py-[12px] flex gap-x-2 items-center bg-[#FFEFF4] rounded-[3px]  cursor-pointer relative "
+            className={`px-[20px] py-[12px] flex gap-x-2 items-center bg-[#FFEFF4] rounded-[3px]  cursor-pointer relative ${
+              activeTab === "users" ? "visible" : "invisible"
+            }`}
           >
             <Image
               src="/icons/filter-icon.svg"
@@ -183,18 +185,6 @@ const Teams = () => {
               width={16}
               height={16}
             />
-            {/* <FilterComponent
-              selected={selected}
-              // setCurrentPage={state?.userPage}
-              setSelected={setSelected}
-              closeModal={() =>
-                updateState({
-                  filterModal: false,
-                })
-              }
-              showModal={state?.filterModal}
-              className="top-0 left-0"
-            /> */}
           </div>
 
           {user?.role === "ADMIN" && (
