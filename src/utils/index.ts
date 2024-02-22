@@ -16,3 +16,9 @@ export const formatNumber = (text: string | number) => {
     Number(text)
   );
 };
+
+export const STATUS_OBJ = {
+  isUsed: "bg-[#F9F4FF] text-primary-wine",
+  isUnused: "bg-primary-wine text-white",
+  isRevoked: "bg-primary-wine text-white",
+};

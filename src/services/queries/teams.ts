@@ -1,5 +1,9 @@
 import { authenticatedApi } from "..";
-import { IInviteTeamResponse } from "@/types";
+import {
+  IBareResponse,
+  IInvitesListResponse,
+  IUsersListResponse,
+} from "@/types";
 
 export const inviteTeamMemberFn = async ({
   payload,
@@ -12,7 +16,7 @@ export const inviteTeamMemberFn = async ({
     role: string;
   };
 }) => {
-  const { data } = await authenticatedApi().post<IInviteTeamResponse>(
+  const { data } = await authenticatedApi().post<IBareResponse>(
     "/invite",
     payload
   );
@@ -35,9 +39,12 @@ export const getInviteListFn = async ({
   if (perPage) {
     params.perPage = perPage;
   }
-  const { data } = await authenticatedApi().get("/invite", {
-    params,
-  });
+  const { data } = await authenticatedApi().get<IInvitesListResponse>(
+    "/invite",
+    {
+      params,
+    }
+  );
 
   return data;
 };
@@ -68,7 +75,7 @@ export const getUsersListFn = async ({
     params.isActive = isActive;
   }
 
-  const { data } = await authenticatedApi().get("/user", {
+  const { data } = await authenticatedApi().get<IUsersListResponse>("/user", {
     params,
   });
 
@@ -76,9 +83,12 @@ export const getUsersListFn = async ({
 };
 
 export const revokeInviteFn = async ({ id }: { id: string }) => {
-  const { data } = await authenticatedApi().patch("/invite/revoke", {
-    id,
-  });
+  const { data } = await authenticatedApi().patch<IBareResponse>(
+    "/invite/revoke",
+    {
+      id,
+    }
+  );
 
   return data;
 };
@@ -90,18 +100,24 @@ export const manageUserStatusFn = async ({
   userId: string;
   status: string;
 }) => {
-  const { data } = await authenticatedApi().patch("/user/manage-status", {
-    userId,
-    status,
-  });
+  const { data } = await authenticatedApi().patch<IBareResponse>(
+    "/user/manage-status",
+    {
+      userId,
+      status,
+    }
+  );
 
   return data;
 };
 
 export const changeUsersPasswordFn = async ({ userId }: { userId: string }) => {
-  const { data } = await authenticatedApi().patch("/user/override-password", {
-    userId,
-  });
+  const { data } = await authenticatedApi().patch<IBareResponse>(
+    "/user/override-password",
+    {
+      userId,
+    }
+  );
 
   return data;
 };

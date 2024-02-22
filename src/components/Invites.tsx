@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
 import { EmptyContainer, ListLoader, Pagination, PrimaryButton } from ".";
-import { extractAppServerError, perPage } from "@/utils";
+import { extractAppServerError, perPage, STATUS_OBJ } from "@/utils";
 import { revokeInviteFn } from "@/services";
 export const Invites = ({
   inviteListData,
@@ -13,12 +13,6 @@ export const Invites = ({
   setShowInviteModal,
 }) => {
   const queryClient = useQueryClient();
-
-  const STATUS_OBJ = {
-    isUsed: "bg-[#F9F4FF] text-primary-wine",
-    isUnused: "bg-primary-wine text-white",
-    isRevoked: "bg-primary-wine text-white",
-  };
 
   const [itemOffset, setItemOffset] = useState(0);
   const [revokedId, setRevokedId] = useState("");

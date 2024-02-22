@@ -122,7 +122,7 @@ export const Filter = ({ showModal, updateState }) => {
             validationSchema={filterUsersSchema}
             enableReinitialize
           >
-            {({ values, errors, touched, isValid, dirty }) => (
+            {({ values, errors, touched, isValid, dirty, resetForm }) => (
               <Form className="mt-[32px]">
                 <SelectField
                   name="isActive"
@@ -151,12 +151,27 @@ export const Filter = ({ showModal, updateState }) => {
                     </option>
                   ))}
                 </SelectField>
-
-                <PrimaryButton
-                  disabled={!(isValid && dirty)}
-                  title="Filter"
-                  className="mt-10 w-full"
-                />
+                <div className="w-full mt-12 flex justify-between items-center">
+                  <PrimaryButton
+                    bgColor="bg-white"
+                    textColor="text-primary-wine"
+                    type="reset"
+                    onClick={() => {
+                      resetForm();
+                      updateState({
+                        filterObj: values,
+                        filterModal: false,
+                      });
+                    }}
+                    title="Reset"
+                    className="w-[45%] border border-primary-wine"
+                  />
+                  <PrimaryButton
+                    disabled={!(isValid && dirty)}
+                    title="Filter"
+                    className="w-[45%]"
+                  />
+                </div>
               </Form>
             )}
           </Formik>

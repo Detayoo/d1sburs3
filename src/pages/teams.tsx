@@ -97,7 +97,11 @@ const Teams = () => {
         total: inviteListData?.data?.data?.totalInvites,
       },
     });
-  }, [activeTab, state?.page]);
+  }, [
+    activeTab,
+    inviteListData?.data?.data?.currentPage,
+    inviteListData?.data?.data?.totalInvites,
+  ]);
 
   useEffect(() => {
     updateState({
@@ -111,8 +115,6 @@ const Teams = () => {
     usersListData?.data?.data?.totalUsers,
     activeTab,
   ]);
-
-  console.log(state?.filterModal);
 
   const renderBody = () => {
     switch (activeTab) {
