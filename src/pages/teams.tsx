@@ -8,7 +8,6 @@ import {
   Title,
   Invites,
   Users,
-  FilterComponent,
   Filter,
 } from "@/components";
 import { InviteTeamMember } from "@/modals";

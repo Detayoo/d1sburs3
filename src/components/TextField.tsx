@@ -66,11 +66,11 @@ export const TextField = ({
         onKeyDown={onKeyDown}
         {...rest}
         className={`w-full h-12 bg-white rounded-[5px] px-5 py-1 text-[14px] ${
-          disabled ? "" : "bg-white"
+          disabled ? "bg-disabled-bg border-[#cccccc]" : "bg-white"
         } placeholder:text-border-gray placeholder:text-sm ${
           error
             ? "border-red-500"
-            : values
+            : values && !disabled
             ? "border-primary-wine"
             : `${borderClass || "border-border-gray"}`
         } border-[1px] border-border-gray focus:outline-none ${textClass}`}
@@ -90,7 +90,7 @@ export const TextField = ({
         } placeholder:text-border-gray placeholder:text-sm ${
           error
             ? "border-red-500"
-            : values
+            : values && !disabled
             ? "border-primary-wine"
             : `${borderClass || "border-border-gray"}`
         } border-[1px] border-border-gray focus:outline-none ${textClass}`}

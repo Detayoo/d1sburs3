@@ -16,7 +16,7 @@ export const Invites = ({
 
   const STATUS_OBJ = {
     isUsed: "bg-[#F9F4FF] text-primary-wine",
-    isUnused: "bg-primary-wine opacity-50 text-white",
+    isUnused: "bg-primary-wine text-white",
     isRevoked: "bg-primary-wine text-white",
   };
 
@@ -97,6 +97,7 @@ export const Invites = ({
               <p className="w-[20%]">{email}</p>
               <div
                 onClick={() => {
+                  if (data?.isUsed) return;
                   updateState({ selectedInvite: data });
                   setShowInviteModal(true);
                 }}
@@ -104,7 +105,7 @@ export const Invites = ({
                 className="w-[15%] uppercase"
               >
                 <span
-                  className={`text-center py-2 px-6 rounded-full ${
+                  className={`text-center py-2 px-6 rounded-full cursor-pointer ${
                     data?.isUsed
                       ? STATUS_OBJ["isUsed"]
                       : data?.isRevoked
@@ -125,7 +126,7 @@ export const Invites = ({
                     disabled={isPending && revokedId === data?.profile?.id}
                     onClick={() => handleRevokeInvite(data?.profile?.id)}
                     title="Revoke"
-                    className="h-8"
+                    className="h-8 rounded-full"
                     type="button"
                   />
                 )}

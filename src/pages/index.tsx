@@ -10,9 +10,10 @@ import {
   TextField,
   Title,
 } from "@/components";
-import { loginSchema } from "@/utils";
+import { extractAppServerError, loginSchema } from "@/utils";
 import { loginFn } from "@/services";
 import { useAuth } from "@/contexts";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const { setToken, setAuthUser, user, token } = useAuth();
@@ -24,14 +25,18 @@ const LoginPage = () => {
   const { mutateAsync, isPending } = useMutation({
     mutationFn: loginFn,
     onSuccess: (data) => {
-      console.log(data?.data, "TOKEEENN");
       if (data?.data?.token) {
         setToken(data?.data?.token);
         setAuthUser(data?.data?.user);
+        toast.success("Login successful");
         Router.push("/bulk-transactions");
       }
     },
-    onError: (error) => {},
+    onError: (error) => {
+      toast.error(
+        extractAppServerError(error, "Could not sign in, please try again")
+      );
+    },
   });
 
   const onSubmit = async (values: FormikValues, { resetForm }) => {

@@ -1,8 +1,8 @@
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Router from "next/router";
 
 import { ModalContainer, PrimaryButton } from "@/components";
-import { useEffect, useRef } from "react";
 import { handleScrollToTop } from "@/utils";
 
 export const BatchTransactionsDetailsModal = ({
