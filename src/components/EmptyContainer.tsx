@@ -10,8 +10,8 @@ export const EmptyContainer = ({
 }: {
   text1: string;
   text2?: string;
-  actionTitle: string;
-  action: any;
+  actionTitle?: string;
+  action?: any;
 }) => {
   return (
     <div className="py-[70px] w-full flex flex-col justify-center items-center">
@@ -25,7 +25,9 @@ export const EmptyContainer = ({
       <p className="text-[#948D90] w-[425px] mt-5 text-center text-[13px]">
         {text2}
       </p>
-      <PrimaryButton title={actionTitle} className="mt-5" onClick={action} />
+      {actionTitle && (
+        <PrimaryButton title={actionTitle} className="mt-5" onClick={action} />
+      )}
     </div>
   );
 };

@@ -12,13 +12,16 @@ import {
 import { inviteTeamMemberFn } from "@/services";
 import { extractAppServerError, inviteTeamSchema } from "@/utils";
 
-export const InviteTeamMember = ({ showModal, closeModal }) => {
+export const InviteTeamMember = ({ showModal, closeModal, selectedInvite }) => {
+  const { firstName, lastName, email, middleName, role } =
+    selectedInvite?.profile || {};
+
   const initialValues = {
-    firstName: "",
-    lastName: "",
-    middleName: "",
-    email: "",
-    role: "",
+    firstName: firstName ?? "",
+    lastName: lastName ?? "",
+    middleName: middleName ?? "",
+    email: email ?? "",
+    role: role ?? "",
   };
 
   const queryClient = useQueryClient();
@@ -30,7 +33,9 @@ export const InviteTeamMember = ({ showModal, closeModal }) => {
       toast.success(data?.message);
     },
     onError: (error) => {
-      toast.error(extractAppServerError(error, "An error occurred"));
+      toast.error(
+        extractAppServerError(error, "Could not invite user, please try again")
+      );
     },
   });
 
@@ -49,9 +54,7 @@ export const InviteTeamMember = ({ showModal, closeModal }) => {
 
       resetForm();
       closeModal();
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
   return (
     <ModalContainer showModal={showModal} closeModal={closeModal}>
@@ -79,6 +82,7 @@ export const InviteTeamMember = ({ showModal, closeModal }) => {
             initialValues={initialValues}
             onSubmit={onSubmit}
             validationSchema={inviteTeamSchema}
+            enableReinitialize
           >
             {({ values, errors, touched, isValid, dirty }) => (
               <Form className="mt-[32px]">

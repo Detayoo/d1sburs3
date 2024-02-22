@@ -8,6 +8,7 @@ import {
   Title,
   Invites,
   Users,
+  FilterComponent,
 } from "@/components";
 import { InviteTeamMember } from "@/modals";
 import { AuthenticatedRoute, perPage } from "@/utils";
@@ -46,11 +47,14 @@ const Teams = () => {
       total: 0,
     },
     userPage: 1,
+    filterModal: false,
+    selectedInvite: {},
   });
 
   const updateState = (payload: any) => {
     setState({ ...state, ...payload });
   };
+  const [selected, setSelected] = useState("");
 
   const [inviteListData, usersListData] = useQueries({
     queries: [
@@ -63,11 +67,12 @@ const Teams = () => {
           }),
       },
       {
-        queryKey: ["users list", state?.userPage],
+        queryKey: ["users list", state?.userPage, selected],
         queryFn: () =>
           getUsersListFn({
             currentPage: state?.userPage,
             perPage,
+            role: selected,
           }),
       },
     ],
@@ -95,7 +100,7 @@ const Teams = () => {
     activeTab,
   ]);
 
-  console.log(state?.invites);
+  console.log(state?.filterModal);
 
   const renderBody = () => {
     switch (activeTab) {
@@ -105,6 +110,7 @@ const Teams = () => {
             inviteListData={inviteListData}
             state={state}
             updateState={updateState}
+            setShowInviteModal={setShowInviteModal}
           />
         );
 
@@ -141,31 +147,71 @@ const Teams = () => {
           </button>
         ))}
 
-        {user?.role === "ADMIN" && (
-          <PrimaryButton
-            onClick={() => {
-              setShowInviteModal(true);
-            }}
-            title={
-              <div className="flex gap-x-2 items-center">
-                <Image
-                  src="/icons/add.svg"
-                  alt="add icon"
-                  width={16}
-                  height={16}
-                />
-                Invite Teams
-              </div>
+        <div className="flex gap-x-3 items-center ml-auto">
+          <div
+            onClick={() =>
+              updateState({
+                filterModal: true,
+              })
             }
-            className="ml-auto"
-          />
-        )}
+            className="px-[20px] py-[12px] flex gap-x-2 items-center bg-[#FFEFF4] rounded-[3px]  cursor-pointer relative "
+          >
+            <Image
+              src="/icons/filter-icon.svg"
+              alt="filter icon"
+              width={16}
+              height={16}
+            />
+            <p className="text-sm text-[#471C2A]">Filter by</p>
+
+            <Image
+              src="/icons/wine-chevron.svg"
+              alt="chevron icon"
+              width={16}
+              height={16}
+            />
+            <FilterComponent
+              selected={selected}
+              // setCurrentPage={state?.userPage}
+              setSelected={setSelected}
+              closeModal={() =>
+                updateState({
+                  filterModal: false,
+                })
+              }
+              showModal={state?.filterModal}
+              className="top-0 left-0"
+            />
+          </div>
+
+          {user?.role === "ADMIN" && (
+            <PrimaryButton
+              type="button"
+              onClick={() => {
+                setShowInviteModal(true);
+              }}
+              title={
+                <div className="flex gap-x-2 items-center">
+                  <Image
+                    src="/icons/add.svg"
+                    alt="add icon"
+                    width={16}
+                    height={16}
+                  />
+                  Invite Teams
+                </div>
+              }
+              className="ml-auto"
+            />
+          )}
+        </div>
       </div>
       <div className="mt-9">{renderBody()}</div>
 
       <InviteTeamMember
         showModal={showInviteModal}
         closeModal={() => setShowInviteModal(false)}
+        selectedInvite={state?.selectedInvite}
       />
     </DashboardLayout>
   );

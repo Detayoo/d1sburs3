@@ -3,7 +3,12 @@ import { useState } from "react";
 
 import { EmptyContainer, ListLoader, Pagination } from ".";
 import { perPage } from "@/utils";
-export const Invites = ({ inviteListData, state, updateState }) => {
+export const Invites = ({
+  inviteListData,
+  state,
+  updateState,
+  setShowInviteModal,
+}) => {
   const STATUS_OBJ = {
     isUsed: "bg-[#F9F4FF] text-primary-wine",
     isUnused: "bg-primary-wine opacity-50 text-white",
@@ -53,7 +58,14 @@ export const Invites = ({ inviteListData, state, updateState }) => {
               </p>
               <p className="w-[25%] capitalize">{firstName + " " + lastName}</p>
               <p className="w-[25%]">{email}</p>
-              <p className="w-[20%] uppercase">
+              <button
+                onClick={() => {
+                  updateState({ selectedInvite: data });
+                  setShowInviteModal(true);
+                }}
+                type="button"
+                className="w-[20%] uppercase"
+              >
                 <span
                   className={`text-center py-2 px-6 rounded-full ${
                     data?.isUsed
@@ -67,7 +79,7 @@ export const Invites = ({ inviteListData, state, updateState }) => {
                 >
                   {data?.isUsed ? "Invited" : "Resend Invite"}
                 </span>
-              </p>
+              </button>
             </div>
           );
         })}
@@ -78,7 +90,7 @@ export const Invites = ({ inviteListData, state, updateState }) => {
           itemOffset={itemOffset}
           pageCount={Math.ceil(totalInvites / perPage)}
           totalRecords={totalInvites}
-          forcePage={itemOffset}
+          forcePage={inviteListData?.data?.data?.currentPage - 1}
         />
       </>
     );

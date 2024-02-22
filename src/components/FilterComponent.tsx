@@ -1,15 +1,19 @@
+import { ROLES } from "@/utils";
+
 export const FilterComponent = ({
   showModal,
-  setShowModal,
+  closeModal,
   selected,
   setSelected,
   setCurrentPage,
+  className,
 }: {
   showModal: boolean;
-  setShowModal: (state: boolean) => void;
+  closeModal: () => void;
   selected: string;
   setSelected: (state: string) => void;
-  setCurrentPage: (state: number) => void;
+  setCurrentPage?: (state: number) => void;
+  className?: string;
 }) => {
   const options = selected
     ? [
@@ -35,23 +39,23 @@ export const FilterComponent = ({
       ];
   return (
     <div
-      className={`absolute top-10 right-0 w-[170px] text-primary-black z-30 bg-white border divide-y flex flex-col justify-center items-center rounded-[10px] text-center text-sm animation ${
+      className={`${className} absolute top-10 right-0 w-[170px] text-primary-black z-30 bg-white border divide-y flex flex-col justify-center items-center rounded-[10px] text-center text-sm animation ${
         showModal ? "opacity-100 visible mt-0" : "opacity-0 invisible mt-5"
       }`}
     >
-      {options.map((option) => (
-        <p
-          onKeyDown={() => {}}
-          key={option.option}
+      {ROLES.map((option: string) => (
+        <button
+          type="button"
+          key={option}
           onClick={() => {
-            setShowModal(false);
-            setCurrentPage(1);
-            setSelected(option?.option);
+            // setCurrentPage(1);
+            setSelected(option);
+            closeModal();
           }}
           className="hover:bg-slate-100/50 w-full py-3 uppercase"
         >
-          {option?.name}
-        </p>
+          {option}
+        </button>
       ))}
     </div>
   );

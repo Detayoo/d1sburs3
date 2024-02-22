@@ -41,6 +41,17 @@ export const Users = ({ usersListData, parentState, updateParentState }) => {
         />
       );
     }
+    if (parentState?.users?.length === 0) {
+      return (
+        <EmptyContainer
+          text1="No User Found"
+          // actionTitle="Refetch Users"
+          // action={usersListData?.refetch}
+        />
+      );
+    }
+
+    console.log(usersListData?.data?.data?.currentPage);
     return (
       <>
         {parentState?.users?.map((user, index) => {
@@ -115,7 +126,7 @@ export const Users = ({ usersListData, parentState, updateParentState }) => {
           itemOffset={itemOffset}
           pageCount={Math.ceil(parentState?.userMeta?.total / perPage)}
           totalRecords={parentState?.userMeta?.total}
-          forcePage={itemOffset}
+          forcePage={usersListData?.data?.data?.currentPage - 1}
         />
       </>
     );
@@ -132,7 +143,8 @@ export const Users = ({ usersListData, parentState, updateParentState }) => {
         <p className="flex-1" />
       </div>
       {state?.modal && (
-        <div
+        <button
+          type="button"
           onClick={() =>
             updateState({
               modal: false,
