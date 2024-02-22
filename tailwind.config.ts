@@ -25,6 +25,8 @@ const config: Config = {
         "failure-text": "var(--failure-text)",
         "failure-bg": "var(--failure-bg)",
         "light-green": "var(--light-green)",
+        "input-border": "var(--input-border)",
+        "filled-input": "var(--filled-input)",
       },
       fontFamily: {
         "InterTight-Regular": "InterTight-Regular",

@@ -71,7 +71,7 @@ export const TextField = ({
           error
             ? "border-red-500"
             : values && !disabled
-            ? "border-primary-wine"
+            ? "bg-filled-input border-input-border"
             : `${borderClass || "border-border-gray"}`
         } border-[1px] border-border-gray focus:outline-none ${textClass}`}
       />
@@ -91,7 +91,7 @@ export const TextField = ({
           error
             ? "border-red-500"
             : values && !disabled
-            ? "border-primary-wine"
+            ? "bg-filled-input border-input-border"
             : `${borderClass || "border-border-gray"}`
         } border-[1px] border-border-gray focus:outline-none ${textClass}`}
       />
@@ -162,12 +162,12 @@ export const PasswordField = ({
     </div>
     <div
       className={`w-full h-12 px-3 ${
-        disabled ? "bg-disabled-bg" : "bg-white"
+        disabled && "bg-disabled-bg"
       } rounded-[5px] ${
         error
           ? "border-red-500"
           : values
-          ? "border-primary-wine"
+          ? "bg-filled-input border-input-border"
           : `${borderClass || "border-border-gray"}`
       } border-[1px] border-border-gray flex items-center gap-1`}
     >
@@ -182,7 +182,11 @@ export const PasswordField = ({
           onChange={onChange}
           {...rest}
           className={`w-full flex-1 h-full px-1 py-1 text-[15px] ${
-            disabled ? "bg-disabled-bg" : "bg-white"
+            values
+              ? "bg-transparent border-input-border"
+              : disabled
+              ? "bg-disabled-bg"
+              : "bg-white"
           }  placeholder:text-sm focus:outline-none ${textClass}`}
         />
       ) : (
@@ -195,7 +199,11 @@ export const PasswordField = ({
           disabled={disabled}
           {...rest}
           className={`w-full flex-1 h-full px-1 py-1 text-[15px] ${
-            disabled ? "" : "bg-white"
+            values
+              ? "bg-transparent border-input-border"
+              : disabled
+              ? ""
+              : "bg-white"
           } placeholder:text-sm focus:outline-none ${textClass}`}
         />
       )}
@@ -272,7 +280,7 @@ export const PhoneNumberField = ({
           error
             ? "border-red-500"
             : values
-            ? "border-primary-wine"
+            ? "bg-filled-input border-input-border"
             : `${borderClass || "border-border-gray"}`
         } border-[1px] border-border-gray`}
       >
@@ -307,7 +315,7 @@ export const PhoneNumberField = ({
           error
             ? "border-red-500"
             : values
-            ? "border-primary-wine"
+            ? "bg-filled-input border-input-border"
             : `${borderClass || "border-border-gray"}`
         } border-[1px] border-border-gray`}
       >
@@ -388,7 +396,7 @@ export const SelectField = ({
             error
               ? `border-red-500 ${bgColor || "bg-white"}`
               : value
-              ? "border-primary-wine"
+              ? "bg-filled-input border-input-border"
               : `border-input-gray-border ${bgColor || "bg-white"}`
           } border-[1px] overflow-hidden ${contentClass}`}
         >
@@ -424,7 +432,7 @@ export const SelectField = ({
           error
             ? `border-red-500 ${bgColor || "bg-white"}`
             : value
-            ? "border-primary-wine"
+            ? "bg-filled-input border-input-border"
             : `border-input-gray-border ${bgColor || "bg-white"}`
         } border-[1px] overflow-hidden ${contentClass}`}
       >

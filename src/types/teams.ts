@@ -3,28 +3,19 @@ export interface IBareResponse {
   status: boolean;
 }
 
+type Users = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  role: string;
+  isActive: boolean;
+  createdAt: string;
+};
+
 export interface IUsersListResponse {
   data: {
-    users: [
-      {
-        id: string;
-        firstName: string;
-        lastName: string;
-        middleName: string;
-        role: string;
-        isActive: boolean;
-        createdAt: string;
-      },
-      {
-        id: string;
-        firstName: string;
-        lastName: string;
-        middleName: string;
-        role: string;
-        isActive: boolean;
-        createdAt: string;
-      }
-    ];
+    users: Users[];
     totalUsers: number;
     perPage: number;
     currentPage: number;

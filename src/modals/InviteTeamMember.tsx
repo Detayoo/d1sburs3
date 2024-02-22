@@ -1,5 +1,6 @@
+import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { Form, Formik } from "formik";
+import { Form, Formik, FormikValues } from "formik";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
@@ -10,7 +11,11 @@ import {
   TextField,
 } from "@/components";
 import { inviteTeamMemberFn } from "@/services";
-import { extractAppServerError, inviteTeamSchema } from "@/utils";
+import {
+  extractAppServerError,
+  handleScrollToTop,
+  inviteTeamSchema,
+} from "@/utils";
 
 export const InviteTeamMember = ({
   showModal,
@@ -30,6 +35,11 @@ export const InviteTeamMember = ({
   };
 
   const queryClient = useQueryClient();
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+    handleScrollToTop(modalRef);
+  }, [showModal]);
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: inviteTeamMemberFn,
@@ -44,7 +54,7 @@ export const InviteTeamMember = ({
     },
   });
 
-  const onSubmit = async (values, { resetForm }) => {
+  const onSubmit = async (values: FormikValues, { resetForm }) => {
     const { email, firstName, lastName, middleName, role } = values;
     try {
       await mutateAsync({
@@ -68,6 +78,7 @@ export const InviteTeamMember = ({
   return (
     <ModalContainer showModal={showModal} closeModal={closeModal}>
       <div
+        ref={modalRef}
         className={`absolute z-[100] min-w-[30rem] max-h-[85%] rounded-[10px] bg-white ${
           showModal
             ? "opacity-100 visible mt-0"
