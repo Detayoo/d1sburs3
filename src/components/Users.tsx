@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { UpdateRoleModal } from "@/modals";
 import { EmptyContainer, ListLoader, Pagination } from ".";
 import { excerpt, extractAppServerError, perPage } from "@/utils";
-import { manageUserStatusFn } from "@/services";
+import { changeUsersPasswordFn, manageUserStatusFn } from "@/services";
 
 export const Users = ({ usersListData, parentState, updateParentState }) => {
   const queryClient = useQueryClient();
@@ -51,6 +51,35 @@ export const Users = ({ usersListData, parentState, updateParentState }) => {
         )
       ),
   });
+  const {
+    mutateAsync: changeUserPasswordAsync,
+    isPending: changingUserPassword,
+  } = useMutation({
+    mutationFn: changeUsersPasswordFn,
+    onSuccess: (data) => {
+      updateState({
+        selected: null,
+        modal: false,
+      });
+      toast.success(data?.message);
+    },
+    onError: (error) =>
+      toast.error(
+        extractAppServerError(
+          error,
+          "Could not change user's status, try again"
+        )
+      ),
+  });
+
+  const handleChangePassword = async (userId: string) => {
+    if (changingUserPassword) return;
+    try {
+      await changeUserPasswordAsync({
+        userId,
+      });
+    } catch (error) {}
+  };
 
   const handleDeactivation = async (user) => {
     if (isPending) return;
@@ -90,8 +119,8 @@ export const Users = ({ usersListData, parentState, updateParentState }) => {
               className="bg-white relative h-12 w-full text-[#303030] text-[12px] flex items-center px-[20px] justify-between"
             >
               <p className="w-[15%] break-words">{excerpt(user?.id, 20)}</p>
-              <p className="w-[15%]">{user?.firstName}</p>
-              <p className="w-[15%]">{user?.lastName}</p>
+              <p className="w-[15%] capitalize">{user?.firstName}</p>
+              <p className="w-[15%] capitalize">{user?.lastName}</p>
               <p className="w-[20%]">{user?.email}</p>
               <p className="w-[15%] capitalize">{user?.role?.toLowerCase()}</p>
               <p className="w-[15%] uppercase">
@@ -144,13 +173,30 @@ export const Users = ({ usersListData, parentState, updateParentState }) => {
                     onClick={() => {
                       handleDeactivation(user);
                     }}
-                    className="cursor-pointer p-4 border-t text-failure-text"
+                    className={`cursor-pointer p-4 border-t $${
+                      user?.status === "ACTIVATED"
+                        ? "text-[#c00000]"
+                        : "text[#00974e]"
+                    }`}
                   >
                     {isPending
                       ? "Please wait..."
                       : user?.status === "ACTIVATED"
                       ? "Deactivate"
                       : "Activate"}
+                  </p>
+                  <p
+                    onClick={() => {
+                      updateState({
+                        changePasswordModal: true,
+                      });
+                      handleChangePassword(user?.id);
+                    }}
+                    className="cursor-pointer border-t p-4"
+                  >
+                    {changingUserPassword
+                      ? "Changing Password"
+                      : "Change Password"}
                   </p>
                 </div>
               </div>

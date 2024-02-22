@@ -97,3 +97,11 @@ export const manageUserStatusFn = async ({
 
   return data;
 };
+
+export const changeUsersPasswordFn = async ({ userId }: { userId: string }) => {
+  const { data } = await authenticatedApi().patch("/user/override-password", {
+    userId,
+  });
+
+  return data;
+};
