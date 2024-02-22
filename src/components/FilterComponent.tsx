@@ -2,12 +2,7 @@ import Image from "next/image";
 import { Form, Formik } from "formik";
 
 import { ROLES, filterUsersSchema } from "@/utils";
-import {
-  ModalContainer,
-  PrimaryButton,
-  SelectField,
-  TextField,
-} from "@/components";
+import { ModalContainer, PrimaryButton, SelectField } from "@/components";
 
 export const FilterComponent = ({
   showModal,
@@ -83,6 +78,7 @@ export const Filter = ({ showModal, updateState }) => {
     });
     resetForm();
   };
+
   return (
     <ModalContainer
       showModal={showModal}

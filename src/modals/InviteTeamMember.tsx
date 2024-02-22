@@ -12,7 +12,12 @@ import {
 import { inviteTeamMemberFn } from "@/services";
 import { extractAppServerError, inviteTeamSchema } from "@/utils";
 
-export const InviteTeamMember = ({ showModal, closeModal, selectedInvite }) => {
+export const InviteTeamMember = ({
+  showModal,
+  closeModal,
+  selectedInvite,
+  updateState,
+}) => {
   const { firstName, lastName, email, middleName, role } =
     selectedInvite?.profile || {};
 
@@ -50,6 +55,10 @@ export const InviteTeamMember = ({ showModal, closeModal, selectedInvite }) => {
           middleName,
           role,
         },
+      });
+
+      updateState({
+        selectedInvite: null,
       });
 
       resetForm();

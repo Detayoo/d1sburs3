@@ -16,10 +16,8 @@ import { useAuth } from "@/contexts";
 import { toast } from "react-toastify";
 
 const LoginPage = () => {
-  const { setToken, setAuthUser, user, token } = useAuth();
-  console.log("token", token);
+  const { setToken, setAuthUser, token } = useAuth();
 
-  console.log(user, "user is");
   const [showPassword, setShowPassword] = useState(false);
 
   const { mutateAsync, isPending } = useMutation({

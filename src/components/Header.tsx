@@ -2,8 +2,9 @@ import Image from "next/image";
 
 import { useAuth } from "@/contexts";
 
-export const Header = ({ pageName }) => {
+export const Header = ({ pageName }: { pageName: string }) => {
   const { user } = useAuth();
+
   return (
     <div className="w-full bg-white flex items-center justify-between sticky left-0 top-0 h-[70px] px-[30px] pt-[23px] pb-[13px]">
       <div>

@@ -109,7 +109,6 @@ export const Users = ({ usersListData, parentState, updateParentState }) => {
       return <EmptyContainer text1="No User Found" />;
     }
 
-    console.log(usersListData?.data?.data?.currentPage);
     return (
       <>
         {usersListData?.data?.data?.users?.map((user, index) => {

@@ -24,9 +24,7 @@ export const UploadBatchModal = ({
     batchName: "",
   };
 
-  const handleSubmit = async (values: FormikValues) => {
-    console.log(values);
-  };
+  const handleSubmit = async (values: FormikValues) => {};
 
   useEffect(() => {
     handleScrollToTop(modalRef);
@@ -66,7 +64,6 @@ export const UploadBatchModal = ({
               isValid,
               dirty,
             }) => {
-              console.log(values.file, "file");
               return (
                 <Form className="mt-8 h-[70vh] flex-1 flex flex-col gap-y-6 justify-between">
                   <div>

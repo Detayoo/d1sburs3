@@ -35,7 +35,6 @@ const Teams = () => {
   const [activeTab, setActiveTab] = useState("");
   const tabs = ["users", "invites"];
   const [showInviteModal, setShowInviteModal] = useState(false);
-
   const [state, setState] = useState({
     invites: [],
     meta: {
@@ -48,19 +47,16 @@ const Teams = () => {
     },
     userPage: 1,
     filterModal: false,
-    selectedInvite: {},
+    selectedInvite: null,
     filterObj: {
       role: "",
       isActive: "",
     },
   });
 
-  console.log(state?.filterObj);
-
   const updateState = (payload: any) => {
     setState({ ...state, ...payload });
   };
-  const [selected, setSelected] = useState("");
 
   const [inviteListData, usersListData] = useQueries({
     queries: [
@@ -216,6 +212,7 @@ const Teams = () => {
         showModal={showInviteModal}
         closeModal={() => setShowInviteModal(false)}
         selectedInvite={state?.selectedInvite}
+        updateState={updateState}
       />
 
       <Filter showModal={state?.filterModal} updateState={updateState} />

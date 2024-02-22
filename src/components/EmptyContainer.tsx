@@ -11,7 +11,7 @@ export const EmptyContainer = ({
   text1: string;
   text2?: string;
   actionTitle?: string;
-  action?: any;
+  action?: () => void;
 }) => {
   return (
     <div className="py-[70px] 2xl:py-[200px] w-full flex flex-col justify-center items-center">

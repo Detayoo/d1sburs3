@@ -6,6 +6,7 @@ export const AuthenticationLayout = ({
 }: {
   children: React.ReactNode;
 }) => {
+  
   return (
     <div className="w-full bg-white flex items-center h-screen">
       <div className="flex flex-col w-[50%] h-full">
