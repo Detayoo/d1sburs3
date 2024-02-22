@@ -26,7 +26,7 @@ export const TextField = ({
   htmlFor: string;
   label: string;
   values: string;
-  error: boolean | FormikTouched<any> | FormikTouched<any>[];
+  error?: boolean | FormikTouched<any> | FormikTouched<any>[] | undefined | "";
   placeholder?: string;
   divClass?: string;
   textClass?: string;

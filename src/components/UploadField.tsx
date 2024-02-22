@@ -26,7 +26,7 @@ export const UploadField = ({
   htmlFor: string;
   divClass?: string;
   disabled?: boolean;
-  value: string;
+  value: any;
   error?: any;
   onChange: (e: any) => void;
   placeholder?: string;

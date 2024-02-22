@@ -19,8 +19,17 @@ export const UploadBatchModal = ({
 }) => {
   const modalRef = useRef(null);
 
-  const initialValues = {
-    file: "",
+  const initialValues: {
+    file: {
+      name: string;
+      size: number;
+    };
+    batchName: string;
+  } = {
+    file: {
+      name: "",
+      size: 0,
+    },
     batchName: "",
   };
 

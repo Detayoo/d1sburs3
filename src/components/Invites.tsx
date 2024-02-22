@@ -1,23 +1,33 @@
 import { format } from "date-fns";
 import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  UseQueryResult,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
 import { EmptyContainer, ListLoader, Pagination, PrimaryButton } from ".";
 import { extractAppServerError, perPage, STATUS_OBJ } from "@/utils";
 import { revokeInviteFn } from "@/services";
+import { IInvitesListResponse, Invite, InviteStateType } from "@/types";
 export const Invites = ({
   inviteListData,
   state,
   updateState,
   setShowInviteModal,
+}: {
+  inviteListData: UseQueryResult<IInvitesListResponse | any>;
+  state: InviteStateType;
+  updateState: ({}) => void;
+  setShowInviteModal: (state: boolean) => void;
 }) => {
   const queryClient = useQueryClient();
 
   const [itemOffset, setItemOffset] = useState(0);
   const [revokedId, setRevokedId] = useState("");
 
-  const handlePageClick = ({ selected }) => {
+  const handlePageClick = ({ selected }: { selected: number }) => {
     const newOffset = (selected * perPage) % state?.meta?.total;
     setItemOffset(newOffset);
     updateState({
@@ -49,7 +59,11 @@ export const Invites = ({
     } catch (error) {}
   };
 
-  const { totalInvites, invites } = inviteListData?.data?.data || {};
+  const {
+    totalInvites,
+    invites,
+  }: { totalInvites: number | undefined; invites: Invite } =
+    inviteListData?.data?.data || {};
 
   const renderContent = () => {
     if (inviteListData?.isFetching) {
@@ -72,7 +86,7 @@ export const Invites = ({
 
     return (
       <>
-        {inviteListData?.data?.data?.invites?.map((data) => {
+        {inviteListData?.data?.data?.invites?.map((data: Invite) => {
           const { firstName, lastName, middleName, email } =
             data?.profile || {};
           return (
@@ -95,7 +109,6 @@ export const Invites = ({
                   updateState({ selectedInvite: data });
                   setShowInviteModal(true);
                 }}
-                type="button"
                 className="w-[15%] uppercase"
               >
                 <span
@@ -133,7 +146,7 @@ export const Invites = ({
           currentItems={invites}
           handlePageClick={handlePageClick}
           itemOffset={itemOffset}
-          pageCount={Math.ceil(totalInvites / perPage)}
+          pageCount={Math.ceil((totalInvites ?? 1) / perPage)}
           totalRecords={totalInvites}
           forcePage={inviteListData?.data?.data?.currentPage - 1}
         />

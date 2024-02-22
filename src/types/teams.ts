@@ -20,12 +20,12 @@ export interface IUsersListResponse {
     users: Users[];
     totalUsers: number;
     perPage: number;
-    currentPage: number;
+    currentPage?: number | undefined;
   };
   status: boolean;
 }
 
-type Invite = {
+export type Invite = {
   id: string;
   isUsed: boolean;
   isRevoked: boolean;
@@ -42,10 +42,29 @@ type Invite = {
 
 export interface IInvitesListResponse {
   data: {
-    invites: Invite[];
-    totalInvites: number;
-    perPage: number;
-    currentPage: number;
+    invites?: Invite[];
+    totalInvites?: number;
+    perPage?: number;
+    currentPage?: number;
   };
   status: true;
 }
+
+export type InviteStateType = {
+  invites: string[];
+  meta: {
+    total: number;
+  };
+  page: number;
+  users: string[];
+  userMeta: {
+    total: number;
+  };
+  userPage: number;
+  filterModal: boolean;
+  selectedInvite: null | object;
+  filterObj: {
+    role: string;
+    isActive: string;
+  };
+};

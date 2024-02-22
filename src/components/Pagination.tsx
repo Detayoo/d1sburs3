@@ -9,9 +9,9 @@ export const Pagination = ({
   forcePage,
 }: {
   itemOffset: number;
-  currentItems: any[];
+  currentItems: any;
   pageCount: number;
-  totalRecords: number;
+  totalRecords: number | undefined;
   handlePageClick: ({ selected }: { selected: any }) => void;
   forcePage?: number;
 }) => {
@@ -23,8 +23,7 @@ export const Pagination = ({
     <div className="w-full border-t border-t-[#C7C7C7] py-5 bg-transparent flex items-center justify-between gap-x-2 text-[15px]">
       <div>
         {/* Showing {1 + itemOffset} {' '} */}
-        Showing {' '}
-        {currentItems?.length} {' '}
+        Showing {currentItems?.length}{" "}
         {/* to 
         
         {itemOffset + currentItems?.length}

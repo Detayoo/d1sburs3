@@ -3,7 +3,7 @@ export const ModalContainer = ({
   showModal,
   closeModal,
 }: {
-  children: any;
+  children: React.ReactNode;
   showModal: boolean;
   closeModal: () => void;
 }): JSX.Element => {

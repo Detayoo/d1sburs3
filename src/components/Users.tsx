@@ -1,15 +1,31 @@
 import Image from "next/image";
 import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQueryClient,
+  UseQueryResult,
+} from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
 import { UpdateRoleModal } from "@/modals";
 import { EmptyContainer, ListLoader, Pagination } from ".";
 import { excerpt, extractAppServerError, perPage } from "@/utils";
 import { changeUsersPasswordFn, manageUserStatusFn } from "@/services";
-import { Users as UsersType } from "@/types";
+import {
+  InviteStateType,
+  IUsersListResponse,
+  Users as UsersType,
+} from "@/types";
 
-export const Users = ({ usersListData, parentState, updateParentState }) => {
+export const Users = ({
+  usersListData,
+  parentState,
+  updateParentState,
+}: {
+  usersListData: UseQueryResult<IUsersListResponse>;
+  parentState: InviteStateType;
+  updateParentState: ({}) => void;
+}) => {
   const queryClient = useQueryClient();
 
   const [state, setState] = useState({
@@ -21,14 +37,14 @@ export const Users = ({ usersListData, parentState, updateParentState }) => {
   const updateState = (payload: {
     modal?: boolean;
     changeRoleModal?: boolean;
-    selected?: null | number;
+    selected?: any;
   }) => {
     setState({ ...state, ...payload });
   };
 
   const [itemOffset, setItemOffset] = useState(0);
 
-  const handlePageClick = ({ selected }) => {
+  const handlePageClick = ({ selected }: { selected: number }) => {
     const newOffset = (selected * perPage) % parentState?.userMeta?.total;
     setItemOffset(newOffset);
     updateParentState({
@@ -116,92 +132,96 @@ export const Users = ({ usersListData, parentState, updateParentState }) => {
 
     return (
       <>
-        {usersListData?.data?.data?.users?.map((user, index) => {
-          return (
-            <div
-              key={user?.id}
-              className="bg-white relative h-12 w-full text-[#303030] text-[12px] flex items-center px-[20px] justify-between"
-            >
-              <p className="w-[15%] break-words">{excerpt(user?.id, 20)}</p>
-              <p className="w-[15%] capitalize">{user?.firstName}</p>
-              <p className="w-[15%] capitalize">{user?.lastName}</p>
-              <p className="w-[20%]">{user?.email}</p>
-              <p className="w-[15%] capitalize">{user?.role?.toLowerCase()}</p>
-              <p className="w-[15%] uppercase">
-                <span
-                  className={`text-center py-2 px-6 rounded-full ${
-                    user?.status === "ACTIVATED"
-                      ? "bg-success-bg text-success-text"
-                      : "bg-failure-bg text-failure-text "
-                  }`}
-                >
-                  {user?.status === "ACTIVATED" ? "active" : "inactive"}
-                </span>
-              </p>
-              <div className="flex-1">
-                <Image
-                  onClick={() =>
-                    updateState({
-                      modal: true,
-                      selected: index,
-                    })
-                  }
-                  className="cursor-pointer"
-                  src="/icons/more.svg"
-                  alt="action icon"
-                  width={15}
-                  height={4}
-                />
-              </div>
-
+        {usersListData?.data?.data?.users?.map(
+          (user: UsersType, index: number) => {
+            return (
               <div
-                className={`absolute top-8 right-0 z-[50] rounded-[5px] bg-white text-[15px] w-[200px] flex flex-col ${
-                  state?.modal && state?.selected === index
-                    ? "opacity-100 visible mt-0"
-                    : "opacity-0 invisible mt-[5rem]"
-                } animation`}
+                key={user?.id}
+                className="bg-white relative h-12 w-full text-[#303030] text-[12px] flex items-center px-[20px] justify-between"
               >
-                <div>
-                  <p
-                    onClick={() =>
-                      updateState({
-                        changeRoleModal: true,
-                        modal: false,
-                      })
-                    }
-                    className="cursor-pointer p-4"
-                  >
-                    Change Role
-                  </p>
-                  <p
-                    onClick={() => {
-                      handleDeactivation(user);
-                    }}
-                    className={`cursor-pointer p-4 border-t $${
+                <p className="w-[15%] break-words">{excerpt(user?.id, 20)}</p>
+                <p className="w-[15%] capitalize">{user?.firstName}</p>
+                <p className="w-[15%] capitalize">{user?.lastName}</p>
+                <p className="w-[20%]">{user?.email}</p>
+                <p className="w-[15%] capitalize">
+                  {user?.role?.toLowerCase()}
+                </p>
+                <p className="w-[15%] uppercase">
+                  <span
+                    className={`text-center py-2 px-6 rounded-full ${
                       user?.status === "ACTIVATED"
-                        ? "text-[#c00000]"
-                        : "text[#00974e]"
+                        ? "bg-success-bg text-success-text"
+                        : "bg-failure-bg text-failure-text "
                     }`}
                   >
-                    {isPending
-                      ? "Please wait..."
-                      : user?.status === "ACTIVATED"
-                      ? "Deactivate"
-                      : "Activate"}
-                  </p>
-                  <p
-                    onClick={() => handleChangePassword(user?.id)}
-                    className="cursor-pointer border-t p-4"
-                  >
-                    {changingUserPassword
-                      ? "Changing Password"
-                      : "Change Password"}
-                  </p>
+                    {user?.status === "ACTIVATED" ? "active" : "inactive"}
+                  </span>
+                </p>
+                <div className="flex-1">
+                  <Image
+                    onClick={() =>
+                      updateState({
+                        modal: true,
+                        selected: index,
+                      })
+                    }
+                    className="cursor-pointer"
+                    src="/icons/more.svg"
+                    alt="action icon"
+                    width={15}
+                    height={4}
+                  />
+                </div>
+
+                <div
+                  className={`absolute top-8 right-0 z-[50] rounded-[5px] bg-white text-[15px] w-[200px] flex flex-col ${
+                    state?.modal && state?.selected === index
+                      ? "opacity-100 visible mt-0"
+                      : "opacity-0 invisible mt-[5rem]"
+                  } animation`}
+                >
+                  <div>
+                    <p
+                      onClick={() =>
+                        updateState({
+                          changeRoleModal: true,
+                          modal: false,
+                        })
+                      }
+                      className="cursor-pointer p-4"
+                    >
+                      Change Role
+                    </p>
+                    <p
+                      onClick={() => {
+                        handleDeactivation(user);
+                      }}
+                      className={`cursor-pointer p-4 border-t $${
+                        user?.status === "ACTIVATED"
+                          ? "text-[#c00000]"
+                          : "text[#00974e]"
+                      }`}
+                    >
+                      {isPending
+                        ? "Please wait..."
+                        : user?.status === "ACTIVATED"
+                        ? "Deactivate"
+                        : "Activate"}
+                    </p>
+                    <p
+                      onClick={() => handleChangePassword(user?.id)}
+                      className="cursor-pointer border-t p-4"
+                    >
+                      {changingUserPassword
+                        ? "Changing Password"
+                        : "Change Password"}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          }
+        )}
 
         <Pagination
           currentItems={parentState?.users}
@@ -209,7 +229,7 @@ export const Users = ({ usersListData, parentState, updateParentState }) => {
           itemOffset={itemOffset}
           pageCount={Math.ceil(parentState?.userMeta?.total / perPage)}
           totalRecords={parentState?.userMeta?.total}
-          forcePage={usersListData?.data?.data?.currentPage - 1}
+          forcePage={(usersListData?.data?.data?.currentPage ?? 1) - 1}
         />
       </>
     );

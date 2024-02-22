@@ -3,7 +3,13 @@ import { Form, Formik } from "formik";
 
 import { ModalContainer, PrimaryButton, SelectField } from "@/components";
 
-export const UpdateRoleModal = ({ showModal, closeModal }) => {
+export const UpdateRoleModal = ({
+  showModal,
+  closeModal,
+}: {
+  showModal: boolean;
+  closeModal: () => void;
+}) => {
   return (
     <ModalContainer showModal={showModal} closeModal={closeModal}>
       <div
