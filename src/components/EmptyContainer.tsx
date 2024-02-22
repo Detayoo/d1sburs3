@@ -14,7 +14,7 @@ export const EmptyContainer = ({
   action?: any;
 }) => {
   return (
-    <div className="py-[70px] w-full flex flex-col justify-center items-center">
+    <div className="py-[70px] 2xl:py-[200px] w-full flex flex-col justify-center items-center">
       <Image
         src="/icons/empty-folder.svg"
         width={96}

@@ -9,6 +9,7 @@ import {
   Invites,
   Users,
   FilterComponent,
+  Filter,
 } from "@/components";
 import { InviteTeamMember } from "@/modals";
 import { AuthenticatedRoute, perPage } from "@/utils";
@@ -49,7 +50,13 @@ const Teams = () => {
     userPage: 1,
     filterModal: false,
     selectedInvite: {},
+    filterObj: {
+      role: "",
+      isActive: "",
+    },
   });
+
+  console.log(state?.filterObj);
 
   const updateState = (payload: any) => {
     setState({ ...state, ...payload });
@@ -67,12 +74,18 @@ const Teams = () => {
           }),
       },
       {
-        queryKey: ["users list", state?.userPage, selected],
+        queryKey: ["users list", state?.userPage, state?.filterObj],
         queryFn: () =>
           getUsersListFn({
             currentPage: state?.userPage,
             perPage,
-            role: selected,
+            role: state?.filterObj?.role,
+            isActive:
+              state?.filterObj?.isActive === "ACTIVE"
+                ? true
+                : state?.filterObj?.isActive === "INACTIVE"
+                ? false
+                : undefined,
           }),
       },
     ],
@@ -170,7 +183,7 @@ const Teams = () => {
               width={16}
               height={16}
             />
-            <FilterComponent
+            {/* <FilterComponent
               selected={selected}
               // setCurrentPage={state?.userPage}
               setSelected={setSelected}
@@ -181,7 +194,7 @@ const Teams = () => {
               }
               showModal={state?.filterModal}
               className="top-0 left-0"
-            />
+            /> */}
           </div>
 
           {user?.role === "ADMIN" && (
@@ -213,6 +226,8 @@ const Teams = () => {
         closeModal={() => setShowInviteModal(false)}
         selectedInvite={state?.selectedInvite}
       />
+
+      <Filter showModal={state?.filterModal} updateState={updateState} />
     </DashboardLayout>
   );
 };

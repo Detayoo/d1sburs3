@@ -45,10 +45,12 @@ export const getUsersListFn = async ({
   currentPage,
   perPage,
   role,
+  isActive,
 }: {
   currentPage?: number;
   perPage?: number;
   role?: string;
+  isActive?: boolean;
 }) => {
   const params: any = {};
 
@@ -61,6 +63,11 @@ export const getUsersListFn = async ({
   if (role) {
     params.role = role;
   }
+
+  if (isActive !== undefined) {
+    params.isActive = isActive;
+  }
+
   const { data } = await authenticatedApi().get("/user", {
     params,
   });
@@ -71,6 +78,21 @@ export const getUsersListFn = async ({
 export const revokeInviteFn = async ({ id }: { id: string }) => {
   const { data } = await authenticatedApi().patch("/invite/revoke", {
     id,
+  });
+
+  return data;
+};
+
+export const manageUserStatusFn = async ({
+  userId,
+  status,
+}: {
+  userId: string;
+  status: string;
+}) => {
+  const { data } = await authenticatedApi().patch("/user/manage-status", {
+    userId,
+    status,
   });
 
   return data;

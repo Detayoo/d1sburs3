@@ -25,8 +25,7 @@ export const Invites = ({
     });
   };
 
-  const { totalInvites, currentPage, invites } =
-    inviteListData?.data?.data || {};
+  const { totalInvites, invites } = inviteListData?.data?.data || {};
 
   const renderContent = () => {
     if (inviteListData?.isFetching) {
@@ -42,9 +41,19 @@ export const Invites = ({
         />
       );
     }
+
+    if (inviteListData?.data?.data?.invites?.length === 0) {
+      return (
+        <EmptyContainer
+          text1="No Invite Found"
+          // actionTitle="Refetch Users"
+          // action={usersListData?.refetch}
+        />
+      );
+    }
     return (
       <>
-        {invites?.map((data) => {
+        {inviteListData?.data?.data?.invites?.map((data) => {
           const { firstName, lastName, email } = data?.profile || {};
           return (
             <div
@@ -58,7 +67,7 @@ export const Invites = ({
               </p>
               <p className="w-[25%] capitalize">{firstName + " " + lastName}</p>
               <p className="w-[25%]">{email}</p>
-              <button
+              <div
                 onClick={() => {
                   updateState({ selectedInvite: data });
                   setShowInviteModal(true);
@@ -79,7 +88,7 @@ export const Invites = ({
                 >
                   {data?.isUsed ? "Invited" : "Resend Invite"}
                 </span>
-              </button>
+              </div>
             </div>
           );
         })}

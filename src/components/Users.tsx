@@ -1,21 +1,25 @@
 import Image from "next/image";
 import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 import { UpdateRoleModal } from "@/modals";
 import { EmptyContainer, ListLoader, Pagination } from ".";
-import { excerpt, perPage } from "@/utils";
+import { excerpt, extractAppServerError, perPage } from "@/utils";
+import { manageUserStatusFn } from "@/services";
+
 export const Users = ({ usersListData, parentState, updateParentState }) => {
+  const queryClient = useQueryClient();
+
   const [state, setState] = useState({
     modal: false,
     changeRoleModal: false,
-    selected: {},
+    selected: null,
   });
 
   const updateState = (payload: any) => {
     setState({ ...state, ...payload });
   };
-
-  console.log(parentState, "parent");
 
   const [itemOffset, setItemOffset] = useState(0);
 
@@ -25,6 +29,37 @@ export const Users = ({ usersListData, parentState, updateParentState }) => {
     updateParentState({
       userPage: selected + 1,
     });
+  };
+
+  const { mutateAsync: changeStatusAsync, isPending } = useMutation({
+    mutationFn: manageUserStatusFn,
+    onSuccess: (data) => {
+      updateState({
+        modal: false,
+        selected: null,
+      });
+      toast.success(data?.message);
+      queryClient.invalidateQueries({
+        queryKey: ["users list"],
+      });
+    },
+    onError: (error) =>
+      toast.error(
+        extractAppServerError(
+          error,
+          "Could not change user's status, try again"
+        )
+      ),
+  });
+
+  const handleDeactivation = async (user) => {
+    if (isPending) return;
+    try {
+      await changeStatusAsync({
+        userId: user?.id,
+        status: user?.status === "ACTIVATED" ? "DEACTIVATED" : "ACTIVATED",
+      });
+    } catch (error) {}
   };
 
   const renderContent = () => {
@@ -41,39 +76,33 @@ export const Users = ({ usersListData, parentState, updateParentState }) => {
         />
       );
     }
-    if (parentState?.users?.length === 0) {
-      return (
-        <EmptyContainer
-          text1="No User Found"
-          // actionTitle="Refetch Users"
-          // action={usersListData?.refetch}
-        />
-      );
+    if (usersListData?.data?.data?.users?.length === 0) {
+      return <EmptyContainer text1="No User Found" />;
     }
 
     console.log(usersListData?.data?.data?.currentPage);
     return (
       <>
-        {parentState?.users?.map((user, index) => {
+        {usersListData?.data?.data?.users?.map((user, index) => {
           return (
             <div
               key={user?.id}
               className="bg-white relative h-12 w-full text-[#303030] text-[12px] flex items-center px-[20px] justify-between"
             >
-              <p className="w-[10%] break-words">{excerpt(user?.id, 12)}</p>
-              <p className="w-[18%]">{user?.firstName}</p>
-              <p className="w-[18%]">{user?.lastName}</p>
+              <p className="w-[15%] break-words">{excerpt(user?.id, 20)}</p>
+              <p className="w-[15%]">{user?.firstName}</p>
+              <p className="w-[15%]">{user?.lastName}</p>
               <p className="w-[20%]">{user?.email}</p>
               <p className="w-[15%] capitalize">{user?.role?.toLowerCase()}</p>
               <p className="w-[15%] uppercase">
                 <span
                   className={`text-center py-2 px-6 rounded-full ${
-                    user?.isActive
+                    user?.status === "ACTIVATED"
                       ? "bg-success-bg text-success-text"
                       : "bg-failure-bg text-failure-text "
                   }`}
                 >
-                  {user?.isActive ? "active" : "inactive"}
+                  {user?.status === "ACTIVATED" ? "active" : "inactive"}
                 </span>
               </p>
               <div className="flex-1">
@@ -111,8 +140,17 @@ export const Users = ({ usersListData, parentState, updateParentState }) => {
                   >
                     Change Role
                   </p>
-                  <p className="cursor-pointer p-4 border-t text-failure-text">
-                    Deactivate
+                  <p
+                    onClick={() => {
+                      handleDeactivation(user);
+                    }}
+                    className="cursor-pointer p-4 border-t text-failure-text"
+                  >
+                    {isPending
+                      ? "Please wait..."
+                      : user?.status === "ACTIVATED"
+                      ? "Deactivate"
+                      : "Activate"}
                   </p>
                 </div>
               </div>
@@ -134,9 +172,9 @@ export const Users = ({ usersListData, parentState, updateParentState }) => {
   return (
     <div className="">
       <div className="bg-light-wine h-10 w-full uppercase text-[#303030] text-[12px] flex items-center px-[20px] justify-between">
-        <p className="w-[10%]">serial no</p>
-        <p className="w-[18%]">first name</p>
-        <p className="w-[18%]">last name</p>
+        <p className="w-[15%]">serial no</p>
+        <p className="w-[15%]">first name</p>
+        <p className="w-[15%]">last name</p>
         <p className="w-[20%]">email address</p>
         <p className="w-[15%]">roles</p>
         <p className="w-[15%]">status</p>

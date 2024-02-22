@@ -21,3 +21,8 @@ export const changePasswordSchema = object().shape({
   new_password: string().required("New password is required"),
   confirm_password: string().required("Confirm your Password"),
 });
+
+export const filterUsersSchema = object().shape({
+  role: string(),
+  isActive: string(),
+});
