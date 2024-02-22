@@ -7,7 +7,7 @@ import { UpdateRoleModal } from "@/modals";
 import { EmptyContainer, ListLoader, Pagination } from ".";
 import { excerpt, extractAppServerError, perPage } from "@/utils";
 import { changeUsersPasswordFn, manageUserStatusFn } from "@/services";
-import { IUsersListResponse, Users as UsersType } from "@/types";
+import { Users as UsersType } from "@/types";
 
 export const Users = ({ usersListData, parentState, updateParentState }) => {
   const queryClient = useQueryClient();
@@ -18,7 +18,11 @@ export const Users = ({ usersListData, parentState, updateParentState }) => {
     selected: null,
   });
 
-  const updateState = (payload) => {
+  const updateState = (payload: {
+    modal?: boolean;
+    changeRoleModal?: boolean;
+    selected?: null | number;
+  }) => {
     setState({ ...state, ...payload });
   };
 
@@ -186,12 +190,7 @@ export const Users = ({ usersListData, parentState, updateParentState }) => {
                       : "Activate"}
                   </p>
                   <p
-                    onClick={() => {
-                      updateState({
-                        changePasswordModal: true,
-                      });
-                      handleChangePassword(user?.id);
-                    }}
+                    onClick={() => handleChangePassword(user?.id)}
                     className="cursor-pointer border-t p-4"
                   >
                     {changingUserPassword
