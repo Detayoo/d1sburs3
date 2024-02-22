@@ -18,7 +18,10 @@ export const Header = ({ pageName }) => {
           <p className="text-[14px]">
             {user?.firstName + " " + user?.lastName}
           </p>
-          <p className="text-black/60 text-[12px]">{user?.email}</p>
+          <p className="text-[#00042D80] text-[12px]">{user?.email}</p>
+          <p className="text-[10px] text-primary-wine capitalize">
+            {user?.role?.toLowerCase() || ""}
+          </p>
         </div>
         <Image
           src="/icons/down-chevron.svg"

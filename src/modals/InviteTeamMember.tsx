@@ -148,7 +148,7 @@ export const InviteTeamMember = ({ showModal, closeModal, selectedInvite }) => {
 
                 <PrimaryButton
                   loading={isPending}
-                  disabled={isPending || !(isValid && dirty)}
+                  disabled={isPending || !isValid}
                   title="Invite Team Member"
                   className="mt-10 w-full"
                 />
