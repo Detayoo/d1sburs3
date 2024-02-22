@@ -2,8 +2,8 @@ import Image from "next/image";
 import { Loader } from "./Loader";
 
 interface ButtonProps {
-  title: any;
-  onClick?: () => any;
+  title: JSX.Element | string;
+  onClick?: () => void;
   className?: string;
   type?: "button" | "submit" | "reset";
   disabled?: boolean;

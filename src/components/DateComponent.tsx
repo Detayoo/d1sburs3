@@ -1,7 +1,7 @@
 "use client";
 
 import { SyntheticEvent } from "react";
-import DatePicker from "react-datepicker";
+import DatePicker, { ReactDatePickerProps } from "react-datepicker";
 
 export const DateComponent = ({
   selected,
@@ -15,14 +15,14 @@ export const DateComponent = ({
   showTime,
   ...rest
 }: {
-  selected: any;
+  selected: Date;
   name: string;
-  error?: any;
+  error?: string;
   placeholder: string;
   onChange: (date: Date, event: SyntheticEvent<any, Event>) => void;
   format: string;
-  minDate?: any;
-  maxDate?: any;
+  minDate?: Date;
+  maxDate?: Date;
   showTime?: boolean;
   [x: string]: any;
 }) => {
@@ -59,9 +59,7 @@ export const DateComponent = ({
         <label
           htmlFor={name}
           className="relative cursor-pointer w-[20px] h-[20px]"
-        >
-          {/* <Image src="/icons/calendar-icon.svg" alt="Calendar Icon" fill /> */}
-        </label>
+        ></label>
       </div>
     );
   }
@@ -96,9 +94,7 @@ export const DateComponent = ({
       <label
         htmlFor={name}
         className="relative cursor-pointer w-[20px] h-[20px]"
-      >
-        {/* <Image src="/icons/calendar-icon.svg" alt="Calendar Icon" fill /> */}
-      </label>
+      ></label>
     </div>
   );
 };

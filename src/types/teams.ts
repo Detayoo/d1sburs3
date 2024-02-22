@@ -3,7 +3,7 @@ export interface IBareResponse {
   status: boolean;
 }
 
-type Users = {
+export type Users = {
   id: string;
   firstName: string;
   lastName: string;
@@ -11,6 +11,8 @@ type Users = {
   role: string;
   isActive: boolean;
   createdAt: string;
+  status: string;
+  email: string;
 };
 
 export interface IUsersListResponse {

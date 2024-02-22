@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { Field, ErrorMessage } from "formik";
+import { Field, ErrorMessage, FormikTouched } from "formik";
 
 export const TextField = ({
   type,
@@ -24,9 +24,9 @@ export const TextField = ({
   type: string;
   name: string;
   htmlFor: string;
-  label: any;
-  values: any;
-  error: any;
+  label: string;
+  values: string;
+  error: boolean | FormikTouched<any> | FormikTouched<any>[];
   placeholder?: string;
   divClass?: string;
   textClass?: string;
@@ -35,8 +35,8 @@ export const TextField = ({
   maxlength?: string;
   disabled?: boolean;
   icon?: string;
-  onChange?: (e: any) => void;
-  onKeyDown?: (e: any) => void;
+  onChange?: () => void;
+  onKeyDown?: () => void;
 }): JSX.Element => (
   <div className={`${divClass}`}>
     <label
@@ -125,9 +125,9 @@ export const PasswordField = ({
   type: string;
   name: string;
   htmlFor: string;
-  label: any;
-  values: any;
-  error: any;
+  label: string;
+  values: string;
+  error: boolean | FormikTouched<any> | FormikTouched<any>[];
   maxlength?: string;
   placeholder?: string;
   divClass?: string;
@@ -138,7 +138,7 @@ export const PasswordField = ({
   disabled?: boolean;
   icon?: string;
   onHover?: () => void;
-  onChange?: (e: any) => void;
+  onChange?: () => void;
   toggleText: string;
 }): JSX.Element => (
   <div className={`w-full ${divClass}`}>
@@ -243,9 +243,9 @@ export const PhoneNumberField = ({
   type: string;
   name: string;
   htmlFor: string;
-  label: any;
-  values: any;
-  error: any;
+  label: string;
+  values: string;
+  error: boolean | FormikTouched<any> | FormikTouched<any>[];
   placeholder?: string;
   divClass?: string;
   textClass?: string;
@@ -254,8 +254,8 @@ export const PhoneNumberField = ({
   maxlength?: string;
   disabled?: boolean;
   icon?: string;
-  onChange?: (e: any) => void;
-  onKeyDown?: (e: any) => void;
+  onChange?: () => void;
+  onKeyDown?: () => void;
   countryNumber?: string;
 }): JSX.Element => (
   <div className={`${divClass}`}>

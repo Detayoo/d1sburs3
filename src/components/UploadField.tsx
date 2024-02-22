@@ -26,15 +26,15 @@ export const UploadField = ({
   htmlFor: string;
   divClass?: string;
   disabled?: boolean;
-  value: any;
+  value: string;
   error?: any;
-  onChange: (e?: any) => void;
+  onChange: (e: any) => void;
   placeholder?: string;
   bgColor?: string;
   changeFile: () => void;
   titleText?: any;
   contentText?: any;
-  fileText: any;
+  fileText: string;
   hideValue?: boolean;
   hideContent?: boolean;
   fileSize: string;

@@ -31,7 +31,10 @@ export const getInviteListFn = async ({
   currentPage?: number;
   perPage?: number;
 }) => {
-  const params: any = {};
+  const params: {
+    currentPage?: number;
+    perPage?: number;
+  } = {};
 
   if (currentPage) {
     params.currentPage = currentPage;
@@ -59,7 +62,12 @@ export const getUsersListFn = async ({
   role?: string;
   isActive?: boolean;
 }) => {
-  const params: any = {};
+  const params: {
+    currentPage?: number;
+    perPage?: number;
+    role?: string;
+    isActive?: boolean;
+  } = {};
 
   if (currentPage) {
     params.currentPage = currentPage;

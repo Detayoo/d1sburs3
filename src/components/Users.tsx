@@ -7,6 +7,7 @@ import { UpdateRoleModal } from "@/modals";
 import { EmptyContainer, ListLoader, Pagination } from ".";
 import { excerpt, extractAppServerError, perPage } from "@/utils";
 import { changeUsersPasswordFn, manageUserStatusFn } from "@/services";
+import { IUsersListResponse, Users as UsersType } from "@/types";
 
 export const Users = ({ usersListData, parentState, updateParentState }) => {
   const queryClient = useQueryClient();
@@ -17,7 +18,7 @@ export const Users = ({ usersListData, parentState, updateParentState }) => {
     selected: null,
   });
 
-  const updateState = (payload: any) => {
+  const updateState = (payload) => {
     setState({ ...state, ...payload });
   };
 
@@ -81,7 +82,7 @@ export const Users = ({ usersListData, parentState, updateParentState }) => {
     } catch (error) {}
   };
 
-  const handleDeactivation = async (user) => {
+  const handleDeactivation = async (user: UsersType) => {
     if (isPending) return;
     try {
       await changeStatusAsync({

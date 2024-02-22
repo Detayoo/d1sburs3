@@ -8,9 +8,9 @@ export const ImagePreview = ({
   closeModal,
   previewImage,
 }: {
-  showModal: any;
-  closeModal: any;
-  previewImage: any;
+  showModal: boolean;
+  closeModal: () => void;
+  previewImage: string;
 }) => {
   return (
     <ModalContainer showModal={showModal} closeModal={closeModal}>

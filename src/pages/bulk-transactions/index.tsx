@@ -81,7 +81,7 @@ const Transactions = () => {
               />
               <input
                 value={searchTerm}
-                onChange={(e: any) => setSearchTerm(e.target.value)}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 type="text"
                 className="bg-inherit flex-1 placeholder:text-sm placeholder:text-primary-black/70 text-sm text-primary-black outline-none"
                 placeholder="Search by transaction reference"
