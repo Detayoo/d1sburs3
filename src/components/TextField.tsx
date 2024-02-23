@@ -127,7 +127,7 @@ export const PasswordField = ({
   htmlFor: string;
   label: string;
   values: string;
-  error: boolean | FormikTouched<any> | FormikTouched<any>[];
+  error: any;
   maxlength?: string;
   placeholder?: string;
   divClass?: string;

@@ -139,7 +139,7 @@ const Teams = () => {
     <DashboardLayout pageName="Teams">
       <Title name="Teams" />
 
-      <div className="flex border-b border-b-[#D7D7D7] mt-3">
+      <div className="flex border-b border-b-[#D7D7D7]">
         {tabs.map((tab) => (
           <button
             key={tab}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Router from "next/router";
-import { Formik, Form, FormikValues } from "formik";
+import { Formik, Form, FormikValues, FormikState } from "formik";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
@@ -37,7 +37,14 @@ const LoginPage = () => {
     },
   });
 
-  const onSubmit = async (values: FormikValues, { resetForm }) => {
+  const onSubmit = async (
+    values: FormikValues,
+    {
+      resetForm,
+    }: {
+      resetForm: any;
+    }
+  ) => {
     const { email, password } = values;
     try {
       await mutateAsync({
@@ -70,7 +77,7 @@ const LoginPage = () => {
         onSubmit={onSubmit}
         validationSchema={loginSchema}
       >
-        {({ values, errors, touched, isValid, dirty }) => (
+        {({ values, errors, touched, isValid, dirty, resetForm }) => (
           <Form autoComplete="off" className="mt-5 flex flex-col">
             <TextField
               type="text"

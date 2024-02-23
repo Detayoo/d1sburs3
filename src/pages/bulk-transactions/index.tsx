@@ -194,7 +194,7 @@ const Transactions = () => {
     <>
       <Title name="Bulk Transactions" />
       <DashboardLayout pageName="Bulk Transactions">
-        <div className="bg-[#FBFCFF] py-6">
+        <div className="bg-[#FBFCFF]">
           <div className="flex justify-end items-center">
             {/* <div className="bg-inherit border border-primary-black/30 flex items-center px-2 gap-x-2 h-10 rounded-[3px] w-[30%]">
               <Image
