@@ -59,7 +59,7 @@ export const handleScrollToTop = (div: MutableRefObject<any>) => {
   div.current.scrollTop = 0;
 };
 
-export const perPage = 3;
+export const perPage = 50;
 
 export const ROLES = ["ADMIN", "APPROVER", "INITIATOR"];
 

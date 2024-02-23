@@ -20,6 +20,7 @@ import { extractAppServerError, handleScrollToTop } from "@/utils";
 import { stateType } from "@/pages/bulk-transactions";
 import { BatchTransactionDetailResponse } from "@/types";
 import { disburseFn } from "@/services";
+import { useAuth } from "@/contexts";
 
 export const BatchTransactionsDetailsModal = ({
   showModal,
@@ -52,6 +53,8 @@ export const BatchTransactionsDetailsModal = ({
     transactions,
     status,
   } = batchTransactionDetailsData?.data?.data || {};
+
+  const { user } = useAuth();
 
   const queryClient = useQueryClient();
 
@@ -190,7 +193,7 @@ export const BatchTransactionsDetailsModal = ({
         </div>
 
         <div className="mt-[50px]">
-          {status === "NEW" && (
+          {status === "NEW" && user?.role === "ADMIN" && (
             <PrimaryButton
               loading={approvalPending}
               disabled={approvalPending}
