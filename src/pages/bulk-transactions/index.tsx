@@ -20,7 +20,11 @@ import {
 } from "@/services";
 import { BatchTransactionType } from "@/types";
 
-export type stateType = { currentPage?: number; download?: boolean };
+export type stateType = {
+  currentPage?: number;
+  download?: boolean;
+  approve?: boolean;
+};
 
 const Transactions = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -69,8 +73,6 @@ const Transactions = () => {
         },
       ],
     });
-
-  console.log("details", downloadData);
 
   const handleDownload = () => {
     if (downloadData.isSuccess) {

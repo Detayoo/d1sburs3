@@ -2,6 +2,7 @@ import { ErrorMessage } from "formik";
 import Image from "next/image";
 
 import { excerpt, getFileExtension } from "@/utils";
+import { useEffect } from "react";
 
 export const UploadField = ({
   name,
@@ -40,6 +41,13 @@ export const UploadField = ({
   fileSize: string;
   [x: string]: any;
 }) => {
+  console.log(fileText);
+
+  useEffect(() => {
+    fileSize = "0.00";
+  }, []);
+
+  console.log("value", value);
   return (
     <div className={`w-full ${divClass}`}>
       {!value ? (
@@ -81,7 +89,7 @@ export const UploadField = ({
                 ? excerpt(fileText, 20)
                 : excerpt(fileText, 20) + getFileExtension(fileText)}
             </p>
-            <p className="text-[#B8B7B8] text-sm">{fileSize}MB</p>
+            {fileSize && <p className="text-[#B8B7B8] text-sm">{fileSize}MB</p>}
           </div>
           <Image
             src="/icons/delete-icon.svg"

@@ -112,14 +112,15 @@ export const getTransactionDetailFn = async ({ id }: { id: string }) => {
 
   return data;
 };
-export const removeTransactionFn = async ({
-  payload,
-}: {
-  payload: AxiosRequestConfig<any>;
-}) => {
+
+export const removeTransactionFn = async ({ id }: { id: string }) => {
   const { data } = await authenticatedApi().delete<IBareResponse>(
     "/disbursement",
-    payload
+    {
+      data: {
+        id,
+      },
+    }
   );
 
   return data;
@@ -130,9 +131,12 @@ export const disburseFn = async ({
 }: {
   batchReference: string;
 }) => {
-  const { data } = await authenticatedApi().post("/disbursement", {
-    batchReference,
-  });
+  const { data } = await authenticatedApi().post<IBareResponse>(
+    "/disbursement",
+    {
+      batchReference,
+    }
+  );
 
   return data;
 };

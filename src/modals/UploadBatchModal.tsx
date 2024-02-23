@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { Form, Formik, FormikValues } from "formik";
 import { toast } from "react-toastify";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import {
   ModalContainer,
@@ -26,26 +26,26 @@ export const UploadBatchModal = ({
   closeModal: () => void;
 }) => {
   const modalRef = useRef(null);
+  const queryClient = useQueryClient();
 
   const initialValues: {
-    file: {
-      name: string;
-      size: number;
-    };
+    file: any;
     batchName: string;
   } = {
-    file: {
-      name: "",
-      size: 0,
-    },
+    file: null,
     batchName: "",
   };
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationFn: uploadFileFn,
-    onSuccess: () => toast.success("upload successful"),
+    onSuccess: () => {
+      toast.success("upload successful");
+      queryClient.invalidateQueries({ queryKey: ["all batch list"] });
+    },
     onError: (error) =>
-      extractAppServerError(error, "Could not upload fille, please try again"),
+      toast.error(
+        extractAppServerError(error, "Could not upload fille, please try again")
+      ),
   });
 
   const handleSubmit = async (
@@ -165,10 +165,10 @@ export const UploadBatchModal = ({
                       textColor="text-primary-wine"
                     />
                     <PrimaryButton
-                      // loading={true}
+                      loading={isPending}
                       title="Import"
                       className="flex-1"
-                      disabled={!(isValid && dirty)}
+                      disabled={!(isValid && dirty) || isPending}
                     />
                   </div>
                 </Form>

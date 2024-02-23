@@ -2,7 +2,7 @@ import { SetStateAction, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { format } from "date-fns";
-import { useQueries } from "@tanstack/react-query";
+import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
 
@@ -11,16 +11,28 @@ import {
   EmptyContainer,
   ListLoader,
   Pagination,
+  PrimaryButton,
   Title,
 } from "@/components";
 import { TransactionsDetailsModal } from "@/modals";
-import { AuthenticatedRoute, formatMoney, perPage } from "@/utils";
-import { getBatchTransactionListFn, getTransactionDetailFn } from "@/services";
+import {
+  AuthenticatedRoute,
+  extractAppServerError,
+  formatMoney,
+  perPage,
+} from "@/utils";
+import {
+  getBatchTransactionListFn,
+  getTransactionDetailFn,
+  removeTransactionFn,
+} from "@/services";
 import { stateType } from ".";
 import { TransactionList } from "@/types";
 
 const BulkTransactions = () => {
   const { id } = useRouter().query;
+  const queryClient = useQueryClient();
+
   const [searchTerm, setSearchTerm] = useState("");
   const [selected, setSelected] = useState<any>({});
   const [showExportModal, setShowExportModal] = useState(false);
@@ -29,6 +41,7 @@ const BulkTransactions = () => {
     endDate: new Date(),
   });
   const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [toBeRemoved, setToBeRemoved] = useState("");
 
   const handleExport = () => {};
 
@@ -45,7 +58,7 @@ const BulkTransactions = () => {
   const [batchTransactionData, transactionDetailsData] = useQueries({
     queries: [
       {
-        queryKey: ["batch transaction list", state?.currentPage],
+        queryKey: ["batch transaction list", state?.currentPage, searchTerm],
         queryFn: () =>
           getBatchTransactionListFn({
             currentPage: state?.currentPage,
@@ -73,6 +86,32 @@ const BulkTransactions = () => {
     updateState({
       currentPage: selected + 1,
     });
+  };
+
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: removeTransactionFn,
+    onSuccess: (data) => {
+      // queryClient.invalidateQueries({ queryKey: ["batch transaction list"] });
+      batchTransactionData.refetch();
+      toast.success(data?.message);
+    },
+    onError: (error) =>
+      extractAppServerError(
+        error,
+        "Could not remove transaction, please try again"
+      ),
+  });
+
+  const handleRemoveTransaction = async (transactionId: string) => {
+    setToBeRemoved(transactionId);
+    try {
+      await mutateAsync({
+        id: transactionId,
+      });
+    } catch (error) {
+    } finally {
+      setToBeRemoved("");
+    }
   };
 
   const renderPageContent = () => {
@@ -147,17 +186,28 @@ const BulkTransactions = () => {
                       setSelected(transaction);
                       setShowDetailsModal(true);
                     }}
-                    className="w-[10%] underline text-primary-wine text-right cursor-pointer"
+                    className="w-[10%] underline text-primary-wine cursor-pointer"
                   >
                     View
                   </p>
+                  {transaction?.status?.toLowerCase() === "skip" ||
+                  transaction?.status?.toLowerCase() === "ready" ? (
+                    <p
+                      onClick={() => handleRemoveTransaction(transaction?.id)}
+                      className="w-[5%]"
+                    >
+                      Remove
+                    </p>
+                  ) : (
+                    <p className="min-w-[5%]" />
+                  )}
                 </div>
               );
             }
           )}
           <Pagination
             totalRecords={batchTransactionData?.data?.data?.totalTransactions}
-            currentItems={batchTransactionData?.data?.data?.totalTransactions}
+            currentItems={batchTransactionData?.data?.data?.disbursements}
             itemOffset={itemOffset}
             pageCount={Math.ceil(
               batchTransactionData?.data?.data?.totalTransactions / perPage
@@ -174,6 +224,21 @@ const BulkTransactions = () => {
       <Title name="Transactions" />
       <DashboardLayout pageName="Transactions">
         <div className="bg-[#FBFCFF] py-4">
+          <div className="bg-inherit border border-primary-black/30 flex items-center px-2 gap-x-2 h-10 rounded-[3px] w-[30%] mb-[30px]">
+            <Image
+              src="/icons/search-icon.svg"
+              alt="search icon"
+              width={20}
+              height={20}
+            />
+            <input
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              type="text"
+              className="bg-inherit flex-1 placeholder:text-sm placeholder:text-primary-black/70 text-sm text-primary-black outline-none"
+              placeholder="Search by transaction reference"
+            />
+          </div>
           <div className="bg-white">
             <div className="flex justify-between items-center px-[30px] py-[20px]">
               <p className="text-[#471C2A] text-[15px] font-InterTight-Medium">
@@ -205,7 +270,8 @@ const BulkTransactions = () => {
                 <p className="w-[12%]">amount</p>
                 <p className="w-[28%]">transaction ref.</p>
                 <p className="w-[10%]">status</p>
-                <p className="w-[10%] text-right">action</p>
+                <p className="w-[10%]">action</p>
+                <p className="min-w-[5%]" />
               </div>
             </div>
           </div>

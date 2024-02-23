@@ -64,6 +64,7 @@ export const perPage = 3;
 export const ROLES = ["ADMIN", "APPROVER", "INITIATOR"];
 
 export const getFileExtension = (filename: string) => {
+  if (!filename) return;
   const parts: any = filename.split(".");
   if (parts.length === 1) {
     return "";

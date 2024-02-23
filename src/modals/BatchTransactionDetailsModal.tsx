@@ -1,7 +1,11 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Router from "next/router";
-import { UseQueryResult } from "@tanstack/react-query";
+import {
+  UseQueryResult,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { format } from "date-fns";
 import { toast } from "react-toastify";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -12,9 +16,10 @@ import {
   ModalContainer,
   PrimaryButton,
 } from "@/components";
-import { handleScrollToTop } from "@/utils";
+import { extractAppServerError, handleScrollToTop } from "@/utils";
 import { stateType } from "@/pages/bulk-transactions";
 import { BatchTransactionDetailResponse } from "@/types";
+import { disburseFn } from "@/services";
 
 export const BatchTransactionsDetailsModal = ({
   showModal,
@@ -45,7 +50,33 @@ export const BatchTransactionsDetailsModal = ({
     initiator,
     successfulTransactions,
     transactions,
+    status,
   } = batchTransactionDetailsData?.data?.data || {};
+
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending: approvalPending } = useMutation({
+    mutationFn: disburseFn,
+    onSuccess: (data) => {
+      toast.success(data?.message);
+      queryClient.invalidateQueries({ queryKey: ["all batch list"] });
+      queryClient.invalidateQueries({
+        queryKey: ["batch transaction details"],
+      });
+    },
+    onError: (error) =>
+      toast.error(
+        extractAppServerError(error, "Could not approve transaction, try again")
+      ),
+  });
+
+  const handleDisburse = async () => {
+    try {
+      await mutateAsync({
+        batchReference,
+      });
+    } catch (error) {}
+  };
 
   const renderModalContent = () => {
     if (batchTransactionDetailsData?.isFetching) {
@@ -150,25 +181,37 @@ export const BatchTransactionsDetailsModal = ({
           </p>
         </div>
 
-        <PrimaryButton
-          loading={batchTransactionDetailsData.isPending}
-          disabled={batchTransactionDetailsData.isPending}
-          onClick={() => {
-            updateState({
-              download: true,
-            });
-            handleDownload();
-          }}
-          type="button"
-          title="Download Report"
-          className="mt-[60px] w-full border border-primary-wine"
-        />
-        <PrimaryButton
-          onClick={() => Router.push(`/bulk-transactions/${batchReference}`)}
-          title="See Transactions List"
-          className="mt-4 w-full bg-white border border-primary-wine"
-          textColor="text-primary-wine"
-        />
+        <div className="mt-[50px]">
+          {status === "NEW" && (
+            <PrimaryButton
+              loading={approvalPending}
+              disabled={approvalPending}
+              onClick={handleDisburse}
+              title="Approve"
+              className="w-full"
+            />
+          )}
+
+          <PrimaryButton
+            loading={batchTransactionDetailsData.isPending}
+            disabled={batchTransactionDetailsData.isPending}
+            onClick={() => {
+              updateState({
+                download: true,
+              });
+              handleDownload();
+            }}
+            type="button"
+            title="Download Report"
+            className="mt-4 w-full border border-primary-wine"
+          />
+          <PrimaryButton
+            onClick={() => Router.push(`/bulk-transactions/${batchReference}`)}
+            title="See Transactions List"
+            className="mt-4 w-full bg-white border border-primary-wine"
+            textColor="text-primary-wine"
+          />
+        </div>
       </div>
     );
   };
