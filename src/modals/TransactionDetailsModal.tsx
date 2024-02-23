@@ -38,7 +38,7 @@ export const TransactionsDetailsModal = ({
     id,
     status,
     transactionReference,
-  } = transactionDetailsData?.data?.data?.transaction || {};
+  } = transactionDetailsData?.data?.data?.transactions[0] || {};
 
   const renderModalContent = () => {
     if (transactionDetailsData?.isFetching)
@@ -50,11 +50,13 @@ export const TransactionsDetailsModal = ({
 
     if (transactionDetailsData?.isError) {
       return (
-        <EmptyContainer
-          text1="Error fetching transaction details"
-          actionTitle="Refetch transaction details"
-          action={transactionDetailsData?.refetch}
-        />
+        <div className="w-fulll h-screen flex justify-center items-center">
+          <EmptyContainer
+            text1="Error fetching transaction details"
+            actionTitle="Refetch transaction details"
+            action={transactionDetailsData?.refetch}
+          />
+        </div>
       );
     }
 

@@ -71,7 +71,7 @@ const BulkTransactions = () => {
         queryKey: ["batch transaction details", selected?.id, showDetailsModal],
         queryFn: () =>
           getTransactionDetailFn({
-            id: selected?.id,
+            transactionReference: selected?.transactionReference,
           }),
         enabled: !!selected?.id,
       },
@@ -103,6 +103,7 @@ const BulkTransactions = () => {
   });
 
   const handleRemoveTransaction = async (transactionId: string) => {
+    if (isPending) return;
     setToBeRemoved(transactionId);
     try {
       await mutateAsync({
@@ -196,7 +197,9 @@ const BulkTransactions = () => {
                       onClick={() => handleRemoveTransaction(transaction?.id)}
                       className="w-[5%]"
                     >
-                      Remove
+                      {isPending && toBeRemoved == transaction?.id
+                        ? "Removing"
+                        : "Remove"}
                     </p>
                   ) : (
                     <p className="min-w-[5%]" />

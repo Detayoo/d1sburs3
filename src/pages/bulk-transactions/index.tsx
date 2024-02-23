@@ -208,15 +208,10 @@ const Transactions = () => {
             </div> */}
 
             <div className="flex items-center gap-x-4">
-              <PrimaryButton
-                onClick={() =>
-                  updateState({
-                    showPreviewToast: true,
-                  })
-                }
+              {/* <PrimaryButton
                 title="Download Template"
                 bgColor="bg-[#FFEFF4] text-[#802530]"
-              />
+              /> */}
               <div className="flex gap-x-2 items-center rounded-[3px] bg-primary-wine py-[12px] px-4 cursor-pointer relative">
                 <div
                   onClick={() => setShowUploadModal(true)}

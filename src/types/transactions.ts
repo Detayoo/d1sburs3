@@ -81,18 +81,20 @@ export interface BatchTransactionListResponse {
   };
 }
 
+export type SingleTransactionType = {
+  id: string;
+  transactionReference: any;
+  accountName: string;
+  accountNumber: string;
+  bank: string;
+  amount: number;
+  status: string;
+  dateTime: string;
+};
+
 export interface SingleTransactionDetailResponse {
   status: boolean;
   data: {
-    transaction: {
-      id: string;
-      transactionReference: any;
-      accountName: string;
-      accountNumber: string;
-      bank: string;
-      amount: number;
-      status: string;
-      dateTime: string;
-    };
+    transactions: SingleTransactionType[];
   };
 }

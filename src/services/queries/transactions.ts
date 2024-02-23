@@ -104,10 +104,14 @@ export const downloadBatchTransactionFn = async ({
   return data;
 };
 
-export const getTransactionDetailFn = async ({ id }: { id: string }) => {
+export const getTransactionDetailFn = async ({
+  transactionReference,
+}: {
+  transactionReference: string;
+}) => {
   const { data } =
     await authenticatedApi().get<SingleTransactionDetailResponse>(
-      `/disbursement?id=${id}`
+      `/disbursement?transactionReference=${transactionReference}`
     );
 
   return data;

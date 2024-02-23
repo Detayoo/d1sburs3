@@ -88,7 +88,15 @@ export const BatchTransactionsDetailsModal = ({
     }
 
     if (batchTransactionDetailsData?.isError) {
-      return <EmptyContainer text1="Error fetching transaction details" />;
+      return (
+        <div className="w-fulll h-screen flex justify-center items-center">
+          <EmptyContainer
+            text1="Error fetching transaction details"
+            actionTitle="Refetch transaction details"
+            action={batchTransactionDetailsData?.refetch}
+          />
+        </div>
+      );
     }
 
     return (
