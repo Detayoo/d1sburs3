@@ -47,6 +47,7 @@ export const BatchTransactionsDetailsModal = ({
     createdAt,
     failedTransactions,
     initiator,
+    pendingTransactions,
     successfulTransactions,
     transactions,
     status,
@@ -147,6 +148,12 @@ export const BatchTransactionsDetailsModal = ({
           <p className="w-[60%]">Total No. of Failed Transactions</p>
           <p className="uppercase font-InterTight-Medium">
             {failedTransactions || 0}
+          </p>
+        </div>
+        <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
+          <p className="w-[60%]">Total No. of Pending Transactions</p>
+          <p className="uppercase font-InterTight-Medium">
+            {pendingTransactions || 0}
           </p>
         </div>
         <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
