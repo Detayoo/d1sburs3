@@ -82,18 +82,21 @@ const Transactions = () => {
     });
 
   const handleDownload = () => {
-    if (downloadData.isSuccess) {
-      const blob = new Blob([downloadData?.data], { type: "text/csv" });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "report.csv";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-    }
+    const blob = new Blob([downloadData?.data], { type: "text/csv" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "transaction-report.csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
   };
+
+  useEffect(() => {
+    if (downloadData.isSuccess && downloadData.data !== undefined)
+      handleDownload();
+  }, [downloadData?.isSuccess, downloadData.data]);
 
   const handlePageClick = ({ selected }: { selected: number }) => {
     const newOffset =
