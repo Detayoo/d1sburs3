@@ -90,6 +90,7 @@ export type SingleTransactionType = {
   amount: number;
   status: string;
   dateTime: string;
+  reasons: string[];
 };
 
 export interface SingleTransactionDetailResponse {

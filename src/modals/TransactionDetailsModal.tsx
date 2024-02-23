@@ -36,7 +36,9 @@ export const TransactionsDetailsModal = ({
     bank,
     dateTime,
     id,
+    reasons,
     status,
+
     transactionReference,
   } = transactionDetailsData?.data?.data?.transactions[0] || {};
 
@@ -117,12 +119,24 @@ export const TransactionsDetailsModal = ({
         <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
           <p>Status</p>
           <div className="flex gap-x-1 items-center">
-            <div className="rounded-[50%] h-[10px] w-[10px] bg-light-green" />
-            <p className="text-light-green capitalize">
+            <div
+              className={`rounded-[50%] h-[10px] w-[10px] ${
+                status === "READY" ? "bg-light-green" : "bg-failure-text"
+              }`}
+            />
+            <p className={`capitalize ${status === 'READY' ? 'text-light-green' :'text-failure-text'}`}>
               {status?.toLowerCase()}
             </p>
           </div>
         </div>
+        {reasons && (
+          <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
+            <p>Reasons</p>
+            <div className="">
+              <p>{reasons?.join(", ")}</p>
+            </div>
+          </div>
+        )}
 
         <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
           <p>Date & Time</p>

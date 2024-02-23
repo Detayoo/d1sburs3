@@ -162,11 +162,21 @@ const Transactions = () => {
                       : "N/A"}
                   </p>
                   <div className="w-[15%] flex gap-x-1 items-center">
-                    <div className="rounded-[50%] h-[10px] w-[10px] bg-light-text" />
-                    <p className="capitalize">
-                      {transaction?.status
-                        ? transaction?.status?.toLowerCase()
-                        : "N/A"}
+                  <div
+                      className={`rounded-[50%] h-[10px] w-[10px] ${
+                        transaction?.status === "NEW"
+                          ? "bg-light-text"
+                          : "bg-[#FB9701]"
+                      }`}
+                    />
+                    <p
+                      className={`capitalize ${
+                        transaction?.status === "NEW"
+                          ? "text-light-text"
+                          : "text-[#FB9701]"
+                      }`}
+                    >
+                      {transaction?.status?.toLowerCase()}
                     </p>
                   </div>
                 </div>

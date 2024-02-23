@@ -79,7 +79,6 @@ const BulkTransactions = () => {
     });
   };
 
-
   //remove transaction
   const { mutateAsync, isPending } = useMutation({
     mutationFn: removeTransactionFn,
@@ -169,9 +168,21 @@ const BulkTransactions = () => {
                     </CopyToClipboard>
                   </div>
                   <div className="w-[10%] flex gap-x-1 items-center">
-                    <div className="rounded-[50%] h-[10px] w-[10px] bg-light-green" />
-                    <p className="text-light-green capitalize">
-                      {transaction?.status?.toLowerCase() || "-"}
+                    <div
+                      className={`rounded-[50%] h-[10px] w-[10px] ${
+                        transaction?.status === "READY"
+                          ? "bg-light-green"
+                          : "bg-failure-text"
+                      }`}
+                    />
+                    <p
+                      className={`capitalize ${
+                        transaction?.status === "READY"
+                          ? "text-light-green"
+                          : "text-failure-text"
+                      }`}
+                    >
+                      {transaction?.status?.toLowerCase()}
                     </p>
                   </div>
                   <p
