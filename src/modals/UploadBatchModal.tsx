@@ -17,13 +17,16 @@ import {
   importBatchSchema,
 } from "@/utils";
 import { uploadFileFn } from "@/services";
+import { stateType } from "@/pages/bulk-transactions";
 
 export const UploadBatchModal = ({
   showModal,
   closeModal,
+  updateState,
 }: {
   showModal: boolean;
   closeModal: () => void;
+  updateState: (state: stateType) => void;
 }) => {
   const modalRef = useRef(null);
   const queryClient = useQueryClient();
@@ -38,8 +41,13 @@ export const UploadBatchModal = ({
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: uploadFileFn,
-    onSuccess: () => {
-      toast.success("upload successful");
+    onSuccess: (data) => {
+      closeModal();
+      // toast.success("upload successful");
+      updateState({
+        selected: data,
+        showPreviewToast: true,
+      });
       queryClient.invalidateQueries({ queryKey: ["all batch list"] });
     },
     onError: (error) =>

@@ -1,8 +1,9 @@
 import Image from "next/image";
-import { Form, Formik } from "formik";
+import { Form, Formik, FormikValues } from "formik";
 
 import { ROLES, filterUsersSchema } from "@/utils";
 import { ModalContainer, PrimaryButton, SelectField } from "@/components";
+import { stateType } from "@/pages/bulk-transactions";
 
 export const FilterComponent = ({
   showModal,
@@ -65,13 +66,22 @@ export const FilterComponent = ({
   );
 };
 
-export const Filter = ({ showModal, updateState }) => {
+export const Filter = ({
+  showModal,
+  updateState,
+}: {
+  showModal: boolean;
+  updateState: (state: any) => void;
+}) => {
   const initialValues = {
     isActive: "",
     role: "",
   };
 
-  const onSubmit = async (values, { resetForm }) => {
+  const onSubmit = async (
+    values: FormikValues,
+    { resetForm }: { resetForm: any }
+  ) => {
     updateState({
       filterObj: values,
       filterModal: false,

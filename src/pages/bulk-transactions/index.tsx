@@ -11,23 +11,28 @@ import {
   PrimaryButton,
   Title,
 } from "@/components";
-import { BatchTransactionsDetailsModal, UploadBatchModal } from "@/modals";
+import {
+  BatchTransactionsDetailsModal,
+  UploadBatchModal,
+  ViewJustUploadedBatch,
+} from "@/modals";
 import { AuthenticatedRoute, perPage } from "@/utils";
 import {
   downloadBatchTransactionFn,
   getAllBatchListFn,
   getBatchTransactionDetailFn,
 } from "@/services";
-import { BatchTransactionType } from "@/types";
+import { BatchTransactionType, UploadFileResponse } from "@/types";
 
 export type stateType = {
   currentPage?: number;
   download?: boolean;
   approve?: boolean;
+  showPreviewToast?: boolean;
+  selected?: UploadFileResponse;
 };
 
 const Transactions = () => {
-  const [searchTerm, setSearchTerm] = useState("");
   const [selected, setSelected] = useState<any>({});
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
@@ -35,6 +40,8 @@ const Transactions = () => {
   const [state, setState] = useState<stateType>({
     currentPage: 1,
     download: false,
+    showPreviewToast: false,
+    selected: undefined,
   });
   const [itemOffset, setItemOffset] = useState(0);
 
@@ -201,10 +208,15 @@ const Transactions = () => {
             </div> */}
 
             <div className="flex items-center gap-x-4">
-              {/* <PrimaryButton
+              <PrimaryButton
+                onClick={() =>
+                  updateState({
+                    showPreviewToast: true,
+                  })
+                }
                 title="Download Template"
                 bgColor="bg-[#FFEFF4] text-[#802530]"
-              /> */}
+              />
               <div className="flex gap-x-2 items-center rounded-[3px] bg-primary-wine py-[12px] px-4 cursor-pointer relative">
                 <div
                   onClick={() => setShowUploadModal(true)}
@@ -265,6 +277,19 @@ const Transactions = () => {
       <UploadBatchModal
         showModal={showUploadModal}
         closeModal={() => setShowUploadModal(false)}
+        updateState={updateState}
+      />
+      <ViewJustUploadedBatch
+        state={state}
+        showModal={state?.showPreviewToast || false}
+        closeModal={() =>
+          updateState({
+            showPreviewToast: false,
+          })
+        }
+        updateState={updateState}
+        setShowDetailsModal={setShowDetailsModal}
+        setSelected={setSelected}
       />
     </>
   );
