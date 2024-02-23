@@ -288,6 +288,7 @@ const Transactions = () => {
         closeModal={() => setShowDetailsModal(false)}
         updateState={updateState}
         batchTransactionDetailsData={batchTransactionDetailsData}
+        downloadData={downloadData}
       />
       <UploadBatchModal
         showModal={showUploadModal}

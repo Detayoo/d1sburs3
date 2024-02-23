@@ -27,11 +27,13 @@ export const BatchTransactionsDetailsModal = ({
   closeModal,
   updateState,
   batchTransactionDetailsData,
+  downloadData,
 }: {
   showModal: boolean;
   closeModal: () => void;
   updateState: (state: stateType) => void;
   batchTransactionDetailsData: UseQueryResult<BatchTransactionDetailResponse>;
+  downloadData: UseQueryResult<string>;
 }) => {
   const modalRef = useRef(null);
 
@@ -209,8 +211,8 @@ export const BatchTransactionsDetailsModal = ({
           )}
 
           <PrimaryButton
-            loading={batchTransactionDetailsData.isPending}
-            disabled={batchTransactionDetailsData.isPending}
+            loading={downloadData.isFetching}
+            disabled={downloadData.isFetching}
             onClick={() => {
               updateState({
                 download: true,
