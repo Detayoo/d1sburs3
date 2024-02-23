@@ -195,7 +195,7 @@ const BulkTransactions = () => {
                   transaction?.status?.toLowerCase() === "ready" ? (
                     <p
                       onClick={() => handleRemoveTransaction(transaction?.id)}
-                      className="w-[5%]"
+                      className="w-[5%] cursor-pointer"
                     >
                       {isPending && toBeRemoved == transaction?.id
                         ? "Removing"
