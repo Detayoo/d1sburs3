@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { format } from "date-fns";
 import { useQueries } from "@tanstack/react-query";
+import CopyToClipboard from "react-copy-to-clipboard";
+import { toast } from "react-toastify";
 
 import {
   DashboardLayout,
@@ -16,8 +18,6 @@ import { AuthenticatedRoute, formatMoney, perPage } from "@/utils";
 import { getBatchTransactionListFn, getTransactionDetailFn } from "@/services";
 import { stateType } from ".";
 import { TransactionList } from "@/types";
-import CopyToClipboard from "react-copy-to-clipboard";
-import { toast } from "react-toastify";
 
 const BulkTransactions = () => {
   const { id } = useRouter().query;
@@ -179,7 +179,7 @@ const BulkTransactions = () => {
               <p className="text-[#471C2A] text-[15px] font-InterTight-Medium">
                 Transactions
               </p>
-              <div className="px-[20px] py-[12px] flex gap-x-2 items-center bg-[#FFEFF4] rounded-[3px]  cursor-pointer relative">
+              {/* <div className="px-[20px] py-[12px] flex gap-x-2 items-center bg-[#FFEFF4] rounded-[3px]  cursor-pointer relative">
                 <Image
                   src="/icons/filter-icon.svg"
                   alt="filter icon"
@@ -194,7 +194,7 @@ const BulkTransactions = () => {
                   width={16}
                   height={16}
                 />
-              </div>
+              </div> */}
             </div>
 
             <div>

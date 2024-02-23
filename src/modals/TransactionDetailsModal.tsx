@@ -1,5 +1,8 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { format } from "date-fns";
+import CopyToClipboard from "react-copy-to-clipboard";
+import { toast } from "react-toastify";
 
 import {
   EmptyContainer,
@@ -10,9 +13,6 @@ import {
 import { formatMoney, handleScrollToTop } from "@/utils";
 import { UseQueryResult } from "@tanstack/react-query";
 import { SingleTransactionDetailResponse } from "@/types";
-import { format } from "date-fns";
-import CopyToClipboard from "react-copy-to-clipboard";
-import { toast } from "react-toastify";
 
 export const TransactionsDetailsModal = ({
   showModal,

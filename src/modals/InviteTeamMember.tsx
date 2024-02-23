@@ -16,12 +16,18 @@ import {
   handleScrollToTop,
   inviteTeamSchema,
 } from "@/utils";
+import { Invite } from "@/types";
 
 export const InviteTeamMember = ({
   showModal,
   closeModal,
   selectedInvite,
   updateState,
+}: {
+  showModal: boolean;
+  closeModal: () => void;
+  selectedInvite: Invite;
+  updateState: (state: any) => void;
 }) => {
   const { firstName, lastName, email, middleName, role } =
     selectedInvite?.profile || {};
@@ -54,7 +60,10 @@ export const InviteTeamMember = ({
     },
   });
 
-  const onSubmit = async (values: FormikValues, { resetForm }) => {
+  const onSubmit = async (
+    values: FormikValues,
+    { resetForm }: { resetForm: any }
+  ) => {
     const { email, firstName, lastName, middleName, role } = values;
     try {
       await mutateAsync({

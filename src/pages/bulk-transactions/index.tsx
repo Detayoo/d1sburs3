@@ -181,8 +181,8 @@ const Transactions = () => {
       <Title name="Bulk Transactions" />
       <DashboardLayout pageName="Bulk Transactions">
         <div className="bg-[#FBFCFF] py-6">
-          <div className="flex justify-between items-center">
-            <div className="bg-inherit border border-primary-black/30 flex items-center px-2 gap-x-2 h-10 rounded-[3px] w-[30%]">
+          <div className="flex justify-end items-center">
+            {/* <div className="bg-inherit border border-primary-black/30 flex items-center px-2 gap-x-2 h-10 rounded-[3px] w-[30%]">
               <Image
                 src="/icons/search-icon.svg"
                 alt="search icon"
@@ -196,13 +196,13 @@ const Transactions = () => {
                 className="bg-inherit flex-1 placeholder:text-sm placeholder:text-primary-black/70 text-sm text-primary-black outline-none"
                 placeholder="Search by transaction reference"
               />
-            </div>
+            </div> */}
 
             <div className="flex items-center gap-x-4">
-              <PrimaryButton
+              {/* <PrimaryButton
                 title="Download Template"
                 bgColor="bg-[#FFEFF4] text-[#802530]"
-              />
+              /> */}
               <div className="flex gap-x-2 items-center rounded-[3px] bg-primary-wine py-[12px] px-4 cursor-pointer relative">
                 <div
                   onClick={() => setShowUploadModal(true)}
@@ -225,7 +225,7 @@ const Transactions = () => {
               <p className="text-[#471C2A] text-[15px] font-InterTight-Medium">
                 Bulk Transactions
               </p>
-              <div className="px-[20px] py-[12px] flex gap-x-2 items-center bg-[#FFEFF4] rounded-[3px]  cursor-pointer relative">
+              {/* <div className="px-[20px] py-[12px] flex gap-x-2 items-center bg-[#FFEFF4] rounded-[3px]  cursor-pointer relative">
                 <Image
                   src="/icons/filter-icon.svg"
                   alt="filter icon"
@@ -240,7 +240,7 @@ const Transactions = () => {
                   width={16}
                   height={16}
                 />
-              </div>
+              </div> */}
             </div>
             <div className="bg-light-wine h-10 w-full uppercase text-[#303030] text-[12px] flex items-center px-[30px] justify-between">
               <p className="w-[30%]">batch reference</p>

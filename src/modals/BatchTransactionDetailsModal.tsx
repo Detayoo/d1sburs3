@@ -1,6 +1,10 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Router from "next/router";
+import { UseQueryResult } from "@tanstack/react-query";
+import { format } from "date-fns";
+import { toast } from "react-toastify";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import {
   EmptyContainer,
@@ -11,10 +15,6 @@ import {
 import { handleScrollToTop } from "@/utils";
 import { stateType } from "@/pages/bulk-transactions";
 import { BatchTransactionDetailResponse } from "@/types";
-import { UseQueryResult } from "@tanstack/react-query";
-import { format } from "date-fns";
-import { toast } from "react-toastify";
-import { CopyToClipboard } from "react-copy-to-clipboard";
 
 export const BatchTransactionsDetailsModal = ({
   showModal,
@@ -80,9 +80,7 @@ export const BatchTransactionsDetailsModal = ({
             onCopy={() => toast.success("Copied successfully")}
           >
             <div className="flex gap-x-2">
-              <p className="font-InterTight-Medium">
-                {batchReference}
-              </p>
+              <p className="font-InterTight-Medium">{batchReference}</p>
 
               <Image
                 src="/icons/copy-icon.svg"

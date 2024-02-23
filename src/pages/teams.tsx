@@ -35,7 +35,7 @@ const Teams = () => {
   const [activeTab, setActiveTab] = useState("");
   const tabs = ["users", "invites"];
   const [showInviteModal, setShowInviteModal] = useState(false);
-  const [state, setState] = useState({
+  const [state, setState] = useState<any>({
     invites: [],
     meta: {
       total: 0,
@@ -47,7 +47,7 @@ const Teams = () => {
     },
     userPage: 1,
     filterModal: false,
-    selectedInvite: null,
+    selectedInvite: {},
     filterObj: {
       role: "",
       isActive: "",
