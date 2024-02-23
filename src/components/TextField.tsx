@@ -65,8 +65,8 @@ export const TextField = ({
         onChange={onChange}
         onKeyDown={onKeyDown}
         {...rest}
-        className={`w-full h-12 bg-white rounded-[5px] px-5 py-1 text-[14px] ${
-          disabled ? "bg-disabled-bg border-[#cccccc]" : "bg-white"
+        className={`w-full h-12 rounded-[5px] px-5 py-1 text-[14px] ${
+          disabled && "bg-disabled-bg border-[#cccccc]"
         } placeholder:text-border-gray placeholder:text-sm ${
           error
             ? "border-red-500"
@@ -85,8 +85,8 @@ export const TextField = ({
         disabled={disabled}
         onKeyDown={onKeyDown}
         {...rest}
-        className={`w-full h-12 bg-white rounded-[5px] px-5 py-1 text-[14px] ${
-          disabled ? "bg-disabled-bg border-[#cccccc]" : "bg-white"
+        className={`w-full h-12 rounded-[5px] px-5 py-1 text-[14px] ${
+          disabled && "bg-disabled-bg border-[#cccccc]"
         } placeholder:text-border-gray placeholder:text-sm ${
           error
             ? "border-red-500"

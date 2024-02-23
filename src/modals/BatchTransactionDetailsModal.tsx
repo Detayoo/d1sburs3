@@ -193,7 +193,7 @@ export const BatchTransactionsDetailsModal = ({
         </div>
 
         <div className="mt-[50px]">
-          {status === "NEW" && user?.role === "ADMIN" && (
+          {status === "NEW" &&  (
             <PrimaryButton
               loading={approvalPending}
               disabled={approvalPending}

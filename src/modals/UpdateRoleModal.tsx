@@ -29,6 +29,7 @@ export const UpdateRoleModal = ({
               alt="close modal icon"
               width={16}
               height={16}
+              className="cursor-pointer"
             />
           </div>
 
