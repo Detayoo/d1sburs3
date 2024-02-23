@@ -71,7 +71,11 @@ const Transactions = () => {
           enabled: !!selected?.id,
         },
         {
-          queryKey: ["download batch transaction list", state?.download, selected?.batchReference],
+          queryKey: [
+            "download batch transaction list",
+            state?.download,
+            selected?.batchReference,
+          ],
           queryFn: () =>
             downloadBatchTransactionFn({
               batchReference: selected?.batchReference,
@@ -93,9 +97,6 @@ const Transactions = () => {
     document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
   };
-
-  console.log("data", downloadData.data);
-  console.log("issuccess", downloadData.isSuccess);
 
   useEffect(() => {
     if (downloadData.isSuccess && downloadData.data !== undefined)

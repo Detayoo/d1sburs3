@@ -16,8 +16,8 @@ export const Header = ({ pageName }: { pageName: string }) => {
           {user?.firstName?.charAt(0) + user?.lastName?.charAt(0)}
         </div>
         <div className="">
-          <p className="text-[14px]">
-            {user?.firstName + " " + user?.lastName}
+          <p className="text-[14px] capitalize">
+            {user?.firstName?.toLowerCase() + " " + user?.lastName?.toLowerCase()}
           </p>
           <p className="text-[#00042D80] text-[12px]">{user?.email}</p>
           <p className="text-[10px] text-primary-wine capitalize">

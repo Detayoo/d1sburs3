@@ -39,6 +39,7 @@ export const Invites = ({
     mutationFn: revokeInviteFn,
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["invites list"] });
+      queryClient.invalidateQueries({ queryKey: ["users list"] });
       toast.success(data?.message);
     },
     onError: (error) =>
