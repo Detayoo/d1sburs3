@@ -4,7 +4,7 @@ export * from "./routes";
 export * from "./validators";
 export * from "./AuthenticatedRoute";
 
-export const formatMoney = (text: string) => {
+export const formatMoney = (text: string | number) => {
   return Intl.NumberFormat("NGN", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 4,

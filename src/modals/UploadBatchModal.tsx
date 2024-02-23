@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { Form, Formik, FormikValues } from "formik";
+import { toast } from "react-toastify";
+import { useMutation } from "@tanstack/react-query";
 
 import {
   ModalContainer,
@@ -9,6 +11,7 @@ import {
   UploadField,
 } from "@/components";
 import { fileSizeInMB, handleScrollToTop, importBatchSchema } from "@/utils";
+import { uploadFileFn } from "@/services";
 
 export const UploadBatchModal = ({
   showModal,
@@ -33,7 +36,29 @@ export const UploadBatchModal = ({
     batchName: "",
   };
 
-  const handleSubmit = async (values: FormikValues) => {};
+  const { mutateAsync } = useMutation({
+    mutationFn: uploadFileFn,
+    onSuccess: (data) => toast.success("upload successful"),
+  });
+
+  const handleSubmit = async (
+    values: FormikValues,
+    {
+      setFieldValue,
+    }: {
+      setFieldValue: any;
+    }
+  ) => {
+    const formData = new FormData();
+    formData.append("transactions", values?.file);
+    formData.append("batchName", values?.batchName);
+    try {
+      await mutateAsync({
+        payload: formData,
+      });
+      setFieldValue("file", null);
+    } catch (error) {}
+  };
 
   useEffect(() => {
     handleScrollToTop(modalRef);
@@ -56,6 +81,7 @@ export const UploadBatchModal = ({
               alt="close modal icon"
               width={16}
               height={16}
+              className="cursor-pointer"
             />
           </div>
           <Formik
@@ -88,10 +114,12 @@ export const UploadBatchModal = ({
                           }
                           e.target.value = "";
                         }}
-                        changeFile={() => setFieldValue("file", null)}
-                        fileText={`${values?.file?.name} selected`}
+                        changeFile={() => {
+                          setFieldValue("file", null);
+                        }}
+                        fileText={values?.file?.name}
                         fileSize={fileSizeInMB(values?.file?.size)}
-                        accept=".csv"
+                        accept=".xls, .xlsx"
                         hideContent
                         titleText={
                           <>

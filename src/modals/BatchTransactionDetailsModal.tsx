@@ -2,21 +2,169 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Router from "next/router";
 
-import { ModalContainer, PrimaryButton } from "@/components";
+import {
+  EmptyContainer,
+  ListLoader,
+  ModalContainer,
+  PrimaryButton,
+} from "@/components";
 import { handleScrollToTop } from "@/utils";
+import { stateType } from "@/pages/bulk-transactions";
+import { BatchTransactionDetailResponse } from "@/types";
+import { UseQueryResult } from "@tanstack/react-query";
+import { format } from "date-fns";
 
 export const BatchTransactionsDetailsModal = ({
   showModal,
   closeModal,
+  updateState,
+  batchTransactionDetailsData,
 }: {
   showModal: boolean;
   closeModal: () => void;
+  updateState: (state: stateType) => void;
+  batchTransactionDetailsData: UseQueryResult<BatchTransactionDetailResponse>;
 }) => {
   const modalRef = useRef(null);
 
   useEffect(() => {
     handleScrollToTop(modalRef);
   }, [showModal]);
+
+  const {
+    approvalTime,
+    approver,
+    approverId,
+    batchName,
+    batchReference,
+    createdAt,
+    deletedAt,
+    failedTransactions,
+    id,
+    initiator,
+    initiatorId,
+    pendingTransactions,
+    status,
+    successfulTransactions,
+    transactions,
+    updatedAt,
+  } = batchTransactionDetailsData?.data?.data || {};
+
+  const renderModalContent = () => {
+    if (batchTransactionDetailsData?.isFetching) {
+      return (
+        <div className="h-screen w-full flex justify-center items-center">
+          <ListLoader />
+        </div>
+      );
+    }
+
+    if (batchTransactionDetailsData?.isError) {
+      return <EmptyContainer text1="Error fetching transaction details" />;
+    }
+
+    return (
+      <div className="pt-[70px] pb-[30px] px-[25px] bg-white text-sm z-[100]">
+        <div className="flex justify-between items-center mb-[60px]">
+          <p className="text-[20px]">Transaction Invoice</p>
+          <Image
+            onClick={closeModal}
+            src="/icons/close-modal-icon.svg"
+            alt="close modal icon"
+            width={16}
+            height={16}
+            className="cursor-pointer"
+          />
+        </div>
+        <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
+          <p>Batch Reference</p>
+          <div className="flex gap-x-2">
+            <p className="uppercase font-InterTight-Medium">{batchReference}</p>
+            <Image
+              width={11}
+              height={12}
+              alt="copy"
+              src="/icons/copy-icon.svg"
+            />
+          </div>
+        </div>
+
+        <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
+          <p>Batch Name</p>
+          <p className="font-InterTight-Medium">{batchName}</p>
+        </div>
+        <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray w-full">
+          <p className="w-[60%]">Total No. of Successful Transactions</p>
+          <p className="uppercase font-InterTight-Medium">
+            {successfulTransactions || 0}
+          </p>
+        </div>
+        <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
+          <p className="w-[60%]">Total No. of Failed Transactions</p>
+          <p className="uppercase font-InterTight-Medium">
+            {failedTransactions || 0}
+          </p>
+        </div>
+        <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
+          <p className="w-[60%]">Total No. of Transactions</p>
+          <p className="uppercase font-InterTight-Medium">
+            {transactions || 0}
+          </p>
+        </div>
+        <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
+          <p>Initiated By</p>
+          <p className="capitalize font-InterTight-Medium">
+            {initiator
+              ? (initiator?.firstName?.toLowerCase() || "") +
+                " " +
+                (initiator?.lastName?.toLowerCase() || "")
+              : "N/A"}
+          </p>
+        </div>
+        <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
+          <p>Approved By</p>
+          <p className="capitalize font-InterTight-Medium">
+            {approver
+              ? (approver?.firstName?.toLowerCase() || "") +
+                " " +
+                (approver?.lastName?.toLowerCase() || "")
+              : "N/A"}
+          </p>
+        </div>
+        <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
+          <p>Initiation Time</p>
+          <p className="font-InterTight-Medium">
+            {createdAt ? format(new Date(createdAt), "dd-MM-yyyy p") : "N/A"}
+          </p>
+        </div>
+        <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
+          <p>Time of Approval</p>
+          <p className="font-InterTight-Medium">
+            {approvalTime
+              ? format(new Date(approvalTime), "dd-MM-yyyy p")
+              : "N/A"}
+          </p>
+        </div>
+
+        <PrimaryButton
+          onClick={() =>
+            updateState({
+              download: true,
+            })
+          }
+          type="button"
+          title="Download Report"
+          className="mt-[60px] w-full border border-primary-wine"
+        />
+        <PrimaryButton
+          onClick={() => Router.push(`/bulk-transactions/${batchReference}`)}
+          title="See Transactions List"
+          className="mt-4 w-full bg-white border border-primary-wine"
+          textColor="text-primary-wine"
+        />
+      </div>
+    );
+  };
 
   return (
     <ModalContainer showModal={showModal} closeModal={closeModal}>
@@ -26,75 +174,7 @@ export const BatchTransactionsDetailsModal = ({
           showModal ? "right-0" : "right-[-30rem]"
         } animation overflow-y-auto`}
       >
-        <div className="pt-[70px] pb-[30px] px-[25px] bg-white text-sm z-[100]">
-          <div className="flex justify-between items-center mb-[60px]">
-            <p className="text-[20px]">Transaction Invoice</p>
-            <Image
-              onClick={closeModal}
-              src="/icons/close-modal-icon.svg"
-              alt="close modal icon"
-              width={16}
-              height={16}
-              className="cursor-pointer"
-            />
-          </div>
-          <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
-            <p>Batch Reference</p>
-            <div className="flex gap-x-2">
-              <p className="uppercase font-InterTight-Medium">JWT123561276 </p>
-              <Image
-                width={11}
-                height={12}
-                alt="copy"
-                src="/icons/copy-icon.svg"
-              />
-            </div>
-          </div>
-
-          <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
-            <p>Batch Name</p>
-            <p className="font-InterTight-Medium">Batch 24152</p>
-          </div>
-          <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray w-full">
-            <p className="w-[60%]">Total No. of Successful Transactions</p>
-            <p className="uppercase font-InterTight-Medium">40</p>
-          </div>
-          <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
-            <p className="w-[60%]">Total No. of Failed Transactions</p>
-            <p className="uppercase font-InterTight-Medium">40</p>
-          </div>
-          <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
-            <p className="w-[60%]">Total No. of Transactions</p>
-            <p className="uppercase font-InterTight-Medium">80</p>
-          </div>
-          <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
-            <p>Initiated By</p>
-            <p className="capitalize font-InterTight-Medium">Abbey Lanre</p>
-          </div>
-          <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
-            <p>Approved By</p>
-            <p className="capitalize font-InterTight-Medium">Shonubi Lanre</p>
-          </div>
-          <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
-            <p>Initiation Time</p>
-            <p className="">12-08-2023 02:24pm</p>
-          </div>
-          <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
-            <p>Time of Approval</p>
-            <p className="">12-08-2023 04:24pm</p>
-          </div>
-
-          <PrimaryButton
-            title="Download Report"
-            className="mt-[60px] w-full border border-primary-wine"
-          />
-          <PrimaryButton
-            onClick={() => Router.push(`/bulk-transactions/${1}`)}
-            title="See Transactions List"
-            className="mt-4 w-full bg-white border border-primary-wine"
-            textColor="text-primary-wine"
-          />
-        </div>
+        {renderModalContent()}
       </div>
     </ModalContainer>
   );

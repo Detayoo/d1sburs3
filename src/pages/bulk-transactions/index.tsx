@@ -1,69 +1,163 @@
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import Image from "next/image";
+import { format } from "date-fns";
+import { useQueries } from "@tanstack/react-query";
 
 import {
   DashboardLayout,
+  EmptyContainer,
   ListLoader,
   Pagination,
   PrimaryButton,
   Title,
 } from "@/components";
 import { BatchTransactionsDetailsModal, UploadBatchModal } from "@/modals";
-import { AuthenticatedRoute } from "@/utils";
+import { AuthenticatedRoute, perPage } from "@/utils";
+import {
+  downloadBatchTransactionFn,
+  getAllBatchListFn,
+  getBatchTransactionDetailFn,
+} from "@/services";
+import { BatchTransactionType } from "@/types";
 
-const transactions: any = ["", "", ""];
+export type stateType = { currentPage?: number; download?: boolean };
 
 const Transactions = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selected, setSelected] = useState({});
-  const [showExportModal, setShowExportModal] = useState(false);
-  const [exportObj, setExportObj] = useState({
-    startDate: new Date(),
-    endDate: new Date(),
-  });
+  const [selected, setSelected] = useState<any>({});
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
 
-  const handleExport = () => {};
+  const [state, setState] = useState<stateType>({
+    currentPage: 1,
+    download: false,
+  });
+  const [itemOffset, setItemOffset] = useState(0);
 
-  const isLoading = false;
+  const { currentPage } = state;
+
+  const updateState = (payload: SetStateAction<stateType>) => {
+    setState({ ...state, ...payload });
+  };
+
+  const [allBatchTransactionsData, batchTransactionDetailsData, downloadData] =
+    useQueries({
+      queries: [
+        {
+          queryKey: ["all batch list", state?.currentPage],
+          queryFn: () =>
+            getAllBatchListFn({
+              currentPage,
+              perPage,
+            }),
+        },
+        {
+          queryKey: ["batch transaction details", showDetailsModal, selected],
+          queryFn: () =>
+            getBatchTransactionDetailFn({
+              id: selected?.id,
+            }),
+        },
+        {
+          queryKey: ["download batch transaction list", state?.download],
+          queryFn: () =>
+            downloadBatchTransactionFn({
+              batchReference: selected?.batchReference,
+            }),
+        },
+      ],
+    });
+
+  console.log("details", batchTransactionDetailsData);
+
+  const handlePageClick = ({ selected }: { selected: number }) => {
+    const newOffset =
+      (selected * perPage) %
+      (allBatchTransactionsData?.data?.data?.totalRecords ?? 0);
+    setItemOffset(newOffset);
+    updateState({
+      currentPage: selected + 1,
+    });
+  };
 
   const renderContent = () => {
-    if (isLoading) {
+    if (allBatchTransactionsData.isFetching) {
       return <ListLoader />;
     }
-    return (
-      <>
-        <div className="bg-light-wine h-10 w-full uppercase text-[#303030] text-[12px] flex items-center px-[30px] justify-between">
-          <p className="w-[30%]">batch reference</p>
-          <p className="w-[20%]">file name</p>
-          <p className="w-[15%]">time</p>
-          <p className="w-[15%]">status</p>
-        </div>
-        {transactions?.map((transaction, index) => {
-          return (
-            <div
-              onClick={() => {
-                setSelected(transaction);
-                setShowDetailsModal(true);
-              }}
-              key={index}
-              className="h-12 w-full text-light-text text-[12px] flex items-center px-[30px] justify-between cursor-pointer"
-            >
-              <p className="w-[30%]">6unx0q8e34a85izb6unx0q8e34v1sr</p>
-              <p className="w-[20%] text-primary-wine">
-                20_October_2024_ Batch.csv
-              </p>
-              <p className="w-[15%]">12-08-2023 02:24pm</p>
-              <div className="w-[15%] flex gap-x-1 items-center">
-                <div className="rounded-[50%] h-[10px] w-[10px] bg-light-text" />
-                <p>New</p>
-              </div>
-            </div>
-          );
-        })}
-      </>
-    );
+
+    if (allBatchTransactionsData?.isError) {
+      return (
+        <EmptyContainer
+          text1="Error fetching transactions"
+          actionTitle="Refetch transactions"
+          action={allBatchTransactionsData?.refetch}
+        />
+      );
+    }
+
+    if (allBatchTransactionsData?.data?.data?.batchTransactions?.length === 0) {
+      return (
+        <EmptyContainer
+          text1="No bulk transaction yet"
+          text2="Effortlessly manage large volumes of transactions with our 
+          intuitive bulk transaction feature. Simplify your workload and save time while 
+          ensuring accuracy and efficiency."
+          actionTitle="Upload New Batch"
+          action={() => setShowUploadModal(true)}
+        />
+      );
+    }
+
+    if (allBatchTransactionsData?.data?.data)
+      return (
+        <>
+          {allBatchTransactionsData?.data?.data?.batchTransactions?.map(
+            (transaction: BatchTransactionType, index: number) => {
+              return (
+                <div
+                  onClick={() => {
+                    setSelected(transaction);
+                    setShowDetailsModal(true);
+                  }}
+                  key={index}
+                  className="h-12 w-full text-light-text text-[12px] flex items-center px-[30px] justify-between cursor-pointer"
+                >
+                  <p className="w-[30%]">{transaction?.batchReference}</p>
+                  <p className="w-[20%] text-primary-wine">
+                    {/* {transaction?.} */}
+                  </p>
+                  <p className="w-[15%] lowercase">
+                    {transaction?.createdAt
+                      ? format(new Date(transaction?.createdAt), "dd-MM-yyyy p")
+                      : "N/A"}
+                  </p>
+                  <div className="w-[15%] flex gap-x-1 items-center">
+                    <div className="rounded-[50%] h-[10px] w-[10px] bg-light-text" />
+                    <p className="capitalize">
+                      {transaction?.status
+                        ? transaction?.status?.toLowerCase()
+                        : "N/A"}
+                    </p>
+                  </div>
+                </div>
+              );
+            }
+          )}
+
+          <Pagination
+            totalRecords={allBatchTransactionsData?.data?.data?.totalRecords}
+            currentItems={
+              allBatchTransactionsData?.data?.data?.batchTransactions
+            }
+            itemOffset={itemOffset}
+            pageCount={Math.ceil(
+              allBatchTransactionsData?.data?.data?.totalRecords / perPage
+            )}
+            handlePageClick={handlePageClick}
+            forcePage={allBatchTransactionsData?.data?.data?.currentPage - 1}
+          />
+        </>
+      );
   };
 
   return (
@@ -132,22 +226,22 @@ const Transactions = () => {
                 />
               </div>
             </div>
+            <div className="bg-light-wine h-10 w-full uppercase text-[#303030] text-[12px] flex items-center px-[30px] justify-between">
+              <p className="w-[30%]">batch reference</p>
+              <p className="w-[20%]">file name</p>
+              <p className="w-[15%]">time</p>
+              <p className="w-[15%]">status</p>
+            </div>
 
             <div>{renderContent()}</div>
           </div>
-
-          <Pagination
-            totalRecords={5}
-            currentItems={transactions}
-            itemOffset={2}
-            pageCount={5}
-            handlePageClick={() => {}}
-          />
         </div>
       </DashboardLayout>
       <BatchTransactionsDetailsModal
         showModal={showDetailsModal}
         closeModal={() => setShowDetailsModal(false)}
+        updateState={updateState}
+        batchTransactionDetailsData={batchTransactionDetailsData}
       />
       <UploadBatchModal
         showModal={showUploadModal}

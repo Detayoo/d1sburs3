@@ -1,7 +1,7 @@
 import { ErrorMessage } from "formik";
 import Image from "next/image";
 
-import { excerpt } from "@/utils";
+import { excerpt, getFileExtension } from "@/utils";
 
 export const UploadField = ({
   name,
@@ -42,7 +42,7 @@ export const UploadField = ({
 }) => {
   return (
     <div className={`w-full ${divClass}`}>
-      {!value || hideValue ? (
+      {!value ? (
         <label
           htmlFor={htmlFor}
           className="w-full px-8 py-6 rounded-[5px] bg-payment-details-yellow-bg border-[#D8BFC7] border-dashed cursor-pointer border-[1px] flex flex-col items-center"
@@ -77,7 +77,9 @@ export const UploadField = ({
               height={24}
             />
             <p className="text-primary-wine text-[15px]">
-              {excerpt(fileText, 20)}.csv
+              {excerpt(fileText, 20)?.includes(".")
+                ? excerpt(fileText, 20)
+                : excerpt(fileText, 20) + getFileExtension(fileText)}
             </p>
             <p className="text-[#B8B7B8] text-sm">{fileSize}MB</p>
           </div>

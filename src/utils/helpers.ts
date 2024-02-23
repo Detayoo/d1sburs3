@@ -59,6 +59,14 @@ export const handleScrollToTop = (div: MutableRefObject<any>) => {
   div.current.scrollTop = 0;
 };
 
-export const perPage = 50;
+export const perPage = 3;
 
 export const ROLES = ["ADMIN", "APPROVER", "INITIATOR"];
+
+export const getFileExtension = (filename: string) => {
+  const parts: any = filename.split(".");
+  if (parts.length === 1) {
+    return "";
+  }
+  return parts.pop().toLowerCase();
+};

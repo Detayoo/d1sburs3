@@ -1,15 +1,26 @@
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
+import { format } from "date-fns";
+import { useQueries } from "@tanstack/react-query";
 
-import { DashboardLayout, Pagination, Title } from "@/components";
+import {
+  DashboardLayout,
+  EmptyContainer,
+  ListLoader,
+  Pagination,
+  Title,
+} from "@/components";
 import { TransactionsDetailsModal } from "@/modals";
-import { AuthenticatedRoute, formatMoney } from "@/utils";
-
-const transactions: any = ["", "", ""];
+import { AuthenticatedRoute, formatMoney, perPage } from "@/utils";
+import { getBatchTransactionListFn, getTransactionDetailFn } from "@/services";
+import { stateType } from ".";
+import { TransactionList } from "@/types";
 
 const BulkTransactions = () => {
+  const { id } = useRouter().query;
   const [searchTerm, setSearchTerm] = useState("");
-  const [selected, setSelected] = useState({});
+  const [selected, setSelected] = useState<any>({});
   const [showExportModal, setShowExportModal] = useState(false);
   const [exportObj, setExportObj] = useState({
     startDate: new Date(),
@@ -18,6 +29,135 @@ const BulkTransactions = () => {
   const [showDetailsModal, setShowDetailsModal] = useState(false);
 
   const handleExport = () => {};
+
+  const [state, setState] = useState<stateType>({
+    currentPage: 1,
+    download: false,
+  });
+  const [itemOffset, setItemOffset] = useState(0);
+
+  const updateState = (payload: SetStateAction<stateType>) => {
+    setState({ ...state, ...payload });
+  };
+
+  const [batchTransactionData, transactionDetailsData] = useQueries({
+    queries: [
+      {
+        queryKey: ["batch transaction list", state?.currentPage],
+        queryFn: () =>
+          getBatchTransactionListFn({
+            currentPage: state?.currentPage,
+            batchReference: id,
+            perPage,
+          }),
+        enabled: !!id,
+      },
+      {
+        queryKey: ["batch transaction details", selected?.id, showDetailsModal],
+        queryFn: () =>
+          getTransactionDetailFn({
+            id: selected?.id,
+          }),
+        enabled: !!selected?.id,
+      },
+    ],
+  });
+
+  const handlePageClick = ({ selected }: { selected: number }) => {
+    const newOffset =
+      (selected * perPage) %
+      (batchTransactionData?.data?.data?.totalTransactions ?? 0);
+    setItemOffset(newOffset);
+    updateState({
+      currentPage: selected + 1,
+    });
+  };
+
+  const renderPageContent = () => {
+    if (batchTransactionData.isFetching) {
+      return <ListLoader />;
+    }
+
+    if (batchTransactionData?.isError) {
+      return (
+        <EmptyContainer
+          text1="Error fetching transactions"
+          actionTitle="Refetch transactions"
+          action={batchTransactionData?.refetch}
+        />
+      );
+    }
+
+    if (batchTransactionData?.data?.data?.disbursements?.length === 0) {
+      return <EmptyContainer text1="No transaction found" />;
+    }
+
+    if (batchTransactionData?.data?.data)
+      return (
+        <>
+          {batchTransactionData?.data?.data?.disbursements?.map(
+            (transaction: TransactionList, index: number) => {
+              return (
+                <div
+                  key={index}
+                  className="h-12 w-full text-light-text text-[12px] flex items-center px-[30px] justify-between"
+                >
+                  <p className="w-[14%] lowercase">
+                    {transaction?.dateTime
+                      ? format(new Date(transaction?.dateTime), "dd-MM-yyyy p")
+                      : "N/A"}
+                  </p>
+                  <p className="w-[15%] capitalize">
+                    {transaction?.accountName?.toLowerCase()}
+                  </p>
+                  <p className="w-[15%]">{transaction?.accountNumber || "-"}</p>
+                  <p className="w-[12%]">
+                    &#8358;{formatMoney(transaction?.amount || 0)}
+                  </p>
+                  <div className="w-[28%] flex gap-x-1 break-words">
+                    <p className="text-primary-wine">
+                      {transaction?.transactionReference || "-"}
+                    </p>
+                    <Image
+                      src="/icons/copy-icon.svg"
+                      alt="copy icon"
+                      width={12}
+                      height={12}
+                      className="cursor-pointer"
+                    />
+                  </div>
+                  <div className="w-[10%] flex gap-x-1 items-center">
+                    <div className="rounded-[50%] h-[10px] w-[10px] bg-light-green" />
+                    <p className="text-light-green capitalize">
+                      {transaction?.status?.toLowerCase() || "-"}
+                    </p>
+                  </div>
+                  <p
+                    onClick={() => {
+                      setSelected(transaction);
+                      setShowDetailsModal(true);
+                    }}
+                    className="w-[10%] underline text-primary-wine text-right cursor-pointer"
+                  >
+                    View
+                  </p>
+                </div>
+              );
+            }
+          )}
+          <Pagination
+            totalRecords={batchTransactionData?.data?.data?.totalTransactions}
+            currentItems={batchTransactionData?.data?.data?.totalTransactions}
+            itemOffset={itemOffset}
+            pageCount={Math.ceil(
+              batchTransactionData?.data?.data?.totalTransactions / perPage
+            )}
+            handlePageClick={handlePageClick}
+            forcePage={batchTransactionData?.data?.data?.currentPage - 1}
+          />
+        </>
+      );
+  };
 
   return (
     <>
@@ -57,55 +197,15 @@ const BulkTransactions = () => {
                 <p className="w-[10%]">status</p>
                 <p className="w-[10%] text-right">action</p>
               </div>
-              {transactions?.map((transaction, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="h-12 w-full text-light-text text-[12px] flex items-center px-[30px] justify-between"
-                  >
-                    <p className="w-[14%]">12-08-2023 02:24pm</p>
-                    <p className="w-[15%] capitalize">Ayomide Babalola</p>
-                    <p className="w-[15%]">0123456718</p>
-                    <p className="w-[12%]">&#8358;{formatMoney("450000")}</p>
-                    <div className="w-[28%] flex gap-x-1 break-words">
-                      <p className="text-primary-wine">
-                        JWQ45230987199QHJIS765SGSVBJ67
-                      </p>
-                      <Image
-                        src="/icons/copy-icon.svg"
-                        alt="copy icon"
-                        width={12}
-                        height={12}
-                        className="cursor-pointer"
-                      />
-                    </div>
-                    <div className="w-[10%] flex gap-x-1 items-center">
-                      <div className="rounded-[50%] h-[10px] w-[10px] bg-light-green" />
-                      <p className="text-light-green">Approved</p>
-                    </div>
-                    <p
-                      onClick={() => setShowDetailsModal(true)}
-                      className="w-[10%] underline text-primary-wine text-right cursor-pointer"
-                    >
-                      View
-                    </p>
-                  </div>
-                );
-              })}
             </div>
           </div>
 
-          <Pagination
-            totalRecords={5}
-            currentItems={transactions}
-            itemOffset={2}
-            pageCount={5}
-            handlePageClick={() => {}}
-          />
+          {renderPageContent()}
         </div>
       </DashboardLayout>
 
       <TransactionsDetailsModal
+        transactionDetailsData={transactionDetailsData}
         showModal={showDetailsModal}
         closeModal={() => setShowDetailsModal(false)}
       />
