@@ -52,7 +52,7 @@ export const UploadBatchModal = ({
     },
     onError: (error) =>
       toast.error(
-        extractAppServerError(error, "Could not upload fille, please try again")
+        extractAppServerError(error, "Could not upload file, please try again")
       ),
   });
 
@@ -64,6 +64,9 @@ export const UploadBatchModal = ({
       setFieldValue: any;
     }
   ) => {
+    if (+fileSizeInMB(values?.file?.size) > 20) {
+      return toast.error("File must not exceed 20MB");
+    }
     const formData = new FormData();
     formData.append("transactions", values?.file);
     formData.append("batchName", values?.batchName);
