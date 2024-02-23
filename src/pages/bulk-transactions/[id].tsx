@@ -16,6 +16,8 @@ import { AuthenticatedRoute, formatMoney, perPage } from "@/utils";
 import { getBatchTransactionListFn, getTransactionDetailFn } from "@/services";
 import { stateType } from ".";
 import { TransactionList } from "@/types";
+import CopyToClipboard from "react-copy-to-clipboard";
+import { toast } from "react-toastify";
 
 const BulkTransactions = () => {
   const { id } = useRouter().query;
@@ -115,16 +117,24 @@ const BulkTransactions = () => {
                     &#8358;{formatMoney(transaction?.amount || 0)}
                   </p>
                   <div className="w-[28%] flex gap-x-1 break-words">
-                    <p className="text-primary-wine">
-                      {transaction?.transactionReference || "-"}
-                    </p>
-                    <Image
-                      src="/icons/copy-icon.svg"
-                      alt="copy icon"
-                      width={12}
-                      height={12}
-                      className="cursor-pointer"
-                    />
+                    <CopyToClipboard
+                      text={transaction?.transactionReference}
+                      onCopy={() => toast.success("Copied successfully")}
+                    >
+                      <div className="flex gap-x-2">
+                        <p className="text-primary-wine break-words">
+                          {transaction?.transactionReference}
+                        </p>
+
+                        <Image
+                          src="/icons/copy-icon.svg"
+                          alt="copy icon"
+                          width={12}
+                          height={12}
+                          className="cursor-pointer"
+                        />
+                      </div>
+                    </CopyToClipboard>
                   </div>
                   <div className="w-[10%] flex gap-x-1 items-center">
                     <div className="rounded-[50%] h-[10px] w-[10px] bg-light-green" />

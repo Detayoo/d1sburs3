@@ -10,7 +10,12 @@ import {
   TextField,
   UploadField,
 } from "@/components";
-import { fileSizeInMB, handleScrollToTop, importBatchSchema } from "@/utils";
+import {
+  extractAppServerError,
+  fileSizeInMB,
+  handleScrollToTop,
+  importBatchSchema,
+} from "@/utils";
 import { uploadFileFn } from "@/services";
 
 export const UploadBatchModal = ({
@@ -38,7 +43,9 @@ export const UploadBatchModal = ({
 
   const { mutateAsync } = useMutation({
     mutationFn: uploadFileFn,
-    onSuccess: (data) => toast.success("upload successful"),
+    onSuccess: () => toast.success("upload successful"),
+    onError: (error) =>
+      extractAppServerError(error, "Could not upload fille, please try again"),
   });
 
   const handleSubmit = async (

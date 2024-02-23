@@ -14,7 +14,7 @@ export interface BatchTransactionDetailResponse {
   data: {
     id: string;
     batchName: string;
-    batchReference: string;
+    batchReference: any;
     status: string;
     initiatorId: string;
     approverId: string | null;
@@ -86,7 +86,7 @@ export interface SingleTransactionDetailResponse {
   data: {
     transaction: {
       id: string;
-      transactionReference: string;
+      transactionReference: any;
       accountName: string;
       accountNumber: string;
       bank: string;

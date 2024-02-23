@@ -1,4 +1,4 @@
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import Image from "next/image";
 import { format } from "date-fns";
 import { useQueries } from "@tanstack/react-query";
@@ -57,6 +57,7 @@ const Transactions = () => {
             getBatchTransactionDetailFn({
               id: selected?.id,
             }),
+          enabled: !!selected?.id,
         },
         {
           queryKey: ["download batch transaction list", state?.download],
@@ -64,11 +65,26 @@ const Transactions = () => {
             downloadBatchTransactionFn({
               batchReference: selected?.batchReference,
             }),
+          enabled: state?.download,
         },
       ],
     });
 
-  console.log("details", batchTransactionDetailsData);
+  console.log("details", downloadData);
+
+  const handleDownload = () => {
+    if (downloadData.isSuccess) {
+      const blob = new Blob([downloadData?.data], { type: "text/csv" });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "report.csv";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }
+  };
 
   const handlePageClick = ({ selected }: { selected: number }) => {
     const newOffset =
@@ -124,7 +140,7 @@ const Transactions = () => {
                 >
                   <p className="w-[30%]">{transaction?.batchReference}</p>
                   <p className="w-[20%] text-primary-wine">
-                    {/* {transaction?.} */}
+                    {transaction?.batchName || "N/A"}
                   </p>
                   <p className="w-[15%] lowercase">
                     {transaction?.createdAt
@@ -228,7 +244,7 @@ const Transactions = () => {
             </div>
             <div className="bg-light-wine h-10 w-full uppercase text-[#303030] text-[12px] flex items-center px-[30px] justify-between">
               <p className="w-[30%]">batch reference</p>
-              <p className="w-[20%]">file name</p>
+              <p className="w-[20%]">batch name</p>
               <p className="w-[15%]">time</p>
               <p className="w-[15%]">status</p>
             </div>
@@ -242,6 +258,7 @@ const Transactions = () => {
         closeModal={() => setShowDetailsModal(false)}
         updateState={updateState}
         batchTransactionDetailsData={batchTransactionDetailsData}
+        handleDownload={handleDownload}
       />
       <UploadBatchModal
         showModal={showUploadModal}

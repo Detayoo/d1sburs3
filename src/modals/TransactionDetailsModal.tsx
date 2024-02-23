@@ -11,6 +11,8 @@ import { formatMoney, handleScrollToTop } from "@/utils";
 import { UseQueryResult } from "@tanstack/react-query";
 import { SingleTransactionDetailResponse } from "@/types";
 import { format } from "date-fns";
+import CopyToClipboard from "react-copy-to-clipboard";
+import { toast } from "react-toastify";
 
 export const TransactionsDetailsModal = ({
   showModal,
@@ -70,18 +72,23 @@ export const TransactionsDetailsModal = ({
           />
         </div>
         <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
-          <p>Transaction Reference</p>
-          <div className="flex gap-x-2">
-            <p className="uppercase font-InterTight-Medium">
-              {transactionReference}
-            </p>
-            <Image
-              width={11}
-              height={12}
-              alt="copy"
-              src="/icons/copy-icon.svg"
-            />
-          </div>
+          <p>Batch Reference</p>
+          <CopyToClipboard
+            text={transactionReference}
+            onCopy={() => toast.success("Copied successfully")}
+          >
+            <div className="flex gap-x-2">
+              <p className="font-InterTight-Medium">{transactionReference}</p>
+
+              <Image
+                src="/icons/copy-icon.svg"
+                alt="copy icon"
+                width={12}
+                height={12}
+                className="cursor-pointer"
+              />
+            </div>
+          </CopyToClipboard>
         </div>
 
         <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
@@ -109,7 +116,9 @@ export const TransactionsDetailsModal = ({
           <p>Status</p>
           <div className="flex gap-x-1 items-center">
             <div className="rounded-[50%] h-[10px] w-[10px] bg-light-green" />
-            <p className="text-light-green capitalize">{status?.toLowerCase()}</p>
+            <p className="text-light-green capitalize">
+              {status?.toLowerCase()}
+            </p>
           </div>
         </div>
 

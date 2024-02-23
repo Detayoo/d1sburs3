@@ -13,17 +13,21 @@ import { stateType } from "@/pages/bulk-transactions";
 import { BatchTransactionDetailResponse } from "@/types";
 import { UseQueryResult } from "@tanstack/react-query";
 import { format } from "date-fns";
+import { toast } from "react-toastify";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 export const BatchTransactionsDetailsModal = ({
   showModal,
   closeModal,
   updateState,
   batchTransactionDetailsData,
+  handleDownload,
 }: {
   showModal: boolean;
   closeModal: () => void;
   updateState: (state: stateType) => void;
   batchTransactionDetailsData: UseQueryResult<BatchTransactionDetailResponse>;
+  handleDownload: () => void;
 }) => {
   const modalRef = useRef(null);
 
@@ -34,20 +38,13 @@ export const BatchTransactionsDetailsModal = ({
   const {
     approvalTime,
     approver,
-    approverId,
     batchName,
     batchReference,
     createdAt,
-    deletedAt,
     failedTransactions,
-    id,
     initiator,
-    initiatorId,
-    pendingTransactions,
-    status,
     successfulTransactions,
     transactions,
-    updatedAt,
   } = batchTransactionDetailsData?.data?.data || {};
 
   const renderModalContent = () => {
@@ -78,15 +75,24 @@ export const BatchTransactionsDetailsModal = ({
         </div>
         <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
           <p>Batch Reference</p>
-          <div className="flex gap-x-2">
-            <p className="uppercase font-InterTight-Medium">{batchReference}</p>
-            <Image
-              width={11}
-              height={12}
-              alt="copy"
-              src="/icons/copy-icon.svg"
-            />
-          </div>
+          <CopyToClipboard
+            text={batchReference}
+            onCopy={() => toast.success("Copied successfully")}
+          >
+            <div className="flex gap-x-2">
+              <p className="font-InterTight-Medium">
+                {batchReference}
+              </p>
+
+              <Image
+                src="/icons/copy-icon.svg"
+                alt="copy icon"
+                width={12}
+                height={12}
+                className="cursor-pointer"
+              />
+            </div>
+          </CopyToClipboard>
         </div>
 
         <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
@@ -147,11 +153,14 @@ export const BatchTransactionsDetailsModal = ({
         </div>
 
         <PrimaryButton
-          onClick={() =>
+          loading={batchTransactionDetailsData.isPending}
+          disabled={batchTransactionDetailsData.isPending}
+          onClick={() => {
             updateState({
               download: true,
-            })
-          }
+            });
+            handleDownload();
+          }}
           type="button"
           title="Download Report"
           className="mt-[60px] w-full border border-primary-wine"
