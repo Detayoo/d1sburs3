@@ -11,8 +11,6 @@ export const Profile = () => {
     email: user?.email ?? "",
   };
 
-  console.log(user?.firstName);
-
   const avatarName = user?.firstName?.charAt(0) + user?.lastName?.charAt(0);
   return (
     <div className="mt-10 flex gap-x-8">

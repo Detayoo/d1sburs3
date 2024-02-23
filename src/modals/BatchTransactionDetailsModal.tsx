@@ -27,13 +27,11 @@ export const BatchTransactionsDetailsModal = ({
   closeModal,
   updateState,
   batchTransactionDetailsData,
-  handleDownload,
 }: {
   showModal: boolean;
   closeModal: () => void;
   updateState: (state: stateType) => void;
   batchTransactionDetailsData: UseQueryResult<BatchTransactionDetailResponse>;
-  handleDownload: () => void;
 }) => {
   const modalRef = useRef(null);
 
@@ -210,7 +208,6 @@ export const BatchTransactionsDetailsModal = ({
               updateState({
                 download: true,
               });
-              handleDownload();
             }}
             type="button"
             title="Download Report"

@@ -41,13 +41,7 @@ export const UploadField = ({
   fileSize: string;
   [x: string]: any;
 }) => {
-  console.log(fileText);
 
-  useEffect(() => {
-    fileSize = "0.00";
-  }, []);
-
-  console.log("value", value);
   return (
     <div className={`w-full ${divClass}`}>
       {!value ? (

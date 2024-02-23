@@ -71,7 +71,7 @@ const Transactions = () => {
           enabled: !!selected?.id,
         },
         {
-          queryKey: ["download batch transaction list", state?.download],
+          queryKey: ["download batch transaction list", state?.download, selected?.batchReference],
           queryFn: () =>
             downloadBatchTransactionFn({
               batchReference: selected?.batchReference,
@@ -81,23 +81,28 @@ const Transactions = () => {
       ],
     });
 
-
-    //download transactions report
+  //download transactions report
   const handleDownload = () => {
     const blob = new Blob([downloadData?.data], { type: "text/csv" });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "transaction-report.csv";
+    a.download = `transaction-report-batch-ref-${selected?.batchReference}.csv`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
   };
 
+  console.log("data", downloadData.data);
+  console.log("issuccess", downloadData.isSuccess);
+
   useEffect(() => {
     if (downloadData.isSuccess && downloadData.data !== undefined)
       handleDownload();
+    updateState({
+      download: false,
+    });
   }, [downloadData?.isSuccess, downloadData.data]);
 
   const handlePageClick = ({ selected }: { selected: number }) => {
@@ -162,7 +167,7 @@ const Transactions = () => {
                       : "N/A"}
                   </p>
                   <div className="w-[15%] flex gap-x-1 items-center">
-                  <div
+                    <div
                       className={`rounded-[50%] h-[10px] w-[10px] ${
                         transaction?.status === "NEW"
                           ? "bg-light-text"
@@ -282,7 +287,6 @@ const Transactions = () => {
         closeModal={() => setShowDetailsModal(false)}
         updateState={updateState}
         batchTransactionDetailsData={batchTransactionDetailsData}
-        handleDownload={handleDownload}
       />
       <UploadBatchModal
         showModal={showUploadModal}

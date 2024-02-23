@@ -18,7 +18,6 @@ export const ViewJustUploadedBatch = ({
   setShowDetailsModal: (state: boolean) => void;
   setSelected: (state: any) => void;
 }) => {
-  console.log(state?.selected?.data);
   return (
     <ModalContainer showModal={showModal} closeModal={closeModal}>
       <div
