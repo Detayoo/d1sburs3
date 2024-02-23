@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Router from "next/router";
 import { Formik, Form, FormikValues } from "formik";
 import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 import {
   AuthenticationLayout,
@@ -13,7 +14,6 @@ import {
 import { extractAppServerError, loginSchema } from "@/utils";
 import { loginFn } from "@/services";
 import { useAuth } from "@/contexts";
-import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const { setToken, setAuthUser, token } = useAuth();

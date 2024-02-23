@@ -31,20 +31,11 @@ import { TransactionList } from "@/types";
 
 const BulkTransactions = () => {
   const { id } = useRouter().query;
-  const queryClient = useQueryClient();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selected, setSelected] = useState<any>({});
-  const [showExportModal, setShowExportModal] = useState(false);
-  const [exportObj, setExportObj] = useState({
-    startDate: new Date(),
-    endDate: new Date(),
-  });
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [toBeRemoved, setToBeRemoved] = useState("");
-
-  const handleExport = () => {};
-
   const [state, setState] = useState<stateType>({
     currentPage: 1,
     download: false,
@@ -88,10 +79,11 @@ const BulkTransactions = () => {
     });
   };
 
+
+  //remove transaction
   const { mutateAsync, isPending } = useMutation({
     mutationFn: removeTransactionFn,
     onSuccess: (data) => {
-      // queryClient.invalidateQueries({ queryKey: ["batch transaction list"] });
       batchTransactionData.refetch();
       toast.success(data?.message);
     },
