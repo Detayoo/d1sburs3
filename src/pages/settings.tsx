@@ -64,3 +64,9 @@ const Settings = () => {
 };
 
 export default AuthenticatedRoute(Settings);
+
+export function getServerSideProps(context) {
+  return {
+    props: {},
+  };
+}

@@ -33,7 +33,7 @@ export const ChangePassword = () => {
     },
   });
 
-  const handleSubmit = async (values: FormikValues, { resetForm }) => {
+  const handleSubmit = async (values: FormikValues, { resetForm }: any) => {
     try {
       await mutateAsync({
         payload: {

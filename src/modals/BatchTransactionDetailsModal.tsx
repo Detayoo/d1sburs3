@@ -17,7 +17,7 @@ import {
   PrimaryButton,
 } from "@/components";
 import { extractAppServerError, handleScrollToTop } from "@/utils";
-import { stateType } from "@/pages/bulk-transactions";
+import { stateType } from "@/types";
 import { BatchTransactionDetailResponse } from "@/types";
 import { disburseFn } from "@/services";
 import { useAuth } from "@/contexts";
@@ -59,7 +59,11 @@ export const BatchTransactionsDetailsModal = ({
 
   const queryClient = useQueryClient();
 
-  const { mutateAsync, isPending: approvalPending } = useMutation({
+  const {
+    mutateAsync,
+    isPending: approvalPending,
+    data: myData,
+  } = useMutation({
     mutationFn: disburseFn,
     onSuccess: (data) => {
       toast.success(data?.message);
@@ -81,7 +85,6 @@ export const BatchTransactionsDetailsModal = ({
       });
     } catch (error) {}
   };
-
   const renderModalContent = () => {
     if (batchTransactionDetailsData?.isFetching) {
       return (

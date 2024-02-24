@@ -7,7 +7,7 @@ export const DashboardLayout = ({
   pageName,
 }: {
   children: React.ReactNode;
-  pageName?: string;
+  pageName: string;
 }) => {
   return (
     <div className="w-full h-screen bg-[#FBFBFB] flex">

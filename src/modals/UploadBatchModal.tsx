@@ -17,7 +17,8 @@ import {
   importBatchSchema,
 } from "@/utils";
 import { uploadFileFn } from "@/services";
-import { stateType } from "@/pages/bulk-transactions";
+// import { stateType } from "@/pages/bulk-transactions";
+import { stateType } from "@/types";
 
 export const UploadBatchModal = ({
   showModal,

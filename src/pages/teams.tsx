@@ -184,7 +184,7 @@ const Teams = () => {
             />
           </div>
 
-          {/* {user?.role === "ADMIN" && ( */}
+          {user?.role === "ADMIN" && (
             <PrimaryButton
               type="button"
               onClick={() => {
@@ -203,7 +203,7 @@ const Teams = () => {
               }
               className="ml-auto"
             />
-          {/* )} */}
+         )}
         </div>
       </div>
       <div className="mt-9">{renderBody()}</div>

@@ -26,10 +26,11 @@ import {
   getTransactionDetailFn,
   removeTransactionFn,
 } from "@/services";
-import { stateType } from ".";
+// import { stateType } from ".";
+import { stateType } from "@/types";
 import { TransactionList } from "@/types";
 
-const BulkTransactions = () => {
+const Transactions = () => {
   const { id } = useRouter().query;
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -295,4 +296,5 @@ const BulkTransactions = () => {
   );
 };
 
-export default AuthenticatedRoute(BulkTransactions);
+export default AuthenticatedRoute(Transactions);
+

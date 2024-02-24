@@ -7,9 +7,11 @@ import { useAuth } from "@/contexts";
 export const AuthenticatedRoute = (
   Component: NextComponentType<NextPageContext, any, any>
 ) => {
+  // eslint-disable-next-line react/display-name
   return (props: AppProps) => {
-    const { loading, fetching, user } = useAuth();
-    if (loading || fetching) {
+    // eslint-disable-next-line react/display-name, react-hooks/rules-of-hooks
+    const { loading, user } = useAuth();
+    if (loading) {
       return (
         <div className="w-full h-screen flex flex-col items-center justify-center">
           <div className="spinner" />
@@ -19,8 +21,10 @@ export const AuthenticatedRoute = (
 
     if (user) {
       return <Component {...props} />;
-    } else {
-      Router.push("/");
     }
+
+    // else {
+    //   Router.push("/");
+    // }
   };
 };

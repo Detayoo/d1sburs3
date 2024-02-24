@@ -22,17 +22,17 @@ import {
   getAllBatchListFn,
   getBatchTransactionDetailFn,
 } from "@/services";
-import { BatchTransactionType, UploadFileResponse } from "@/types";
+import { BatchTransactionType, UploadFileResponse, stateType } from "@/types";
 
-export type stateType = {
-  currentPage?: number;
-  download?: boolean;
-  approve?: boolean;
-  showPreviewToast?: boolean;
-  selected?: UploadFileResponse;
-};
+// export type stateType = {
+//   currentPage?: number;
+//   download?: boolean;
+//   approve?: boolean;
+//   showPreviewToast?: boolean;
+//   selected?: UploadFileResponse;
+// };
 
-const Transactions = () => {
+const BulkTransactions = () => {
   const [selected, setSelected] = useState<any>({});
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
@@ -311,4 +311,4 @@ const Transactions = () => {
   );
 };
 
-export default AuthenticatedRoute(Transactions);
+export default AuthenticatedRoute(BulkTransactions);

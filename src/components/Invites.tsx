@@ -8,7 +8,7 @@ import {
 import { toast } from "react-toastify";
 
 import { EmptyContainer, ListLoader, Pagination, PrimaryButton } from ".";
-import { extractAppServerError, perPage, STATUS_OBJ } from "@/utils";
+import { extractAppServerError, perPage } from "@/utils";
 import { revokeInviteFn } from "@/services";
 import { IInvitesListResponse, Invite, InviteStateType } from "@/types";
 export const Invites = ({
@@ -22,6 +22,12 @@ export const Invites = ({
   updateState: ({}) => void;
   setShowInviteModal: (state: boolean) => void;
 }) => {
+  const STATUS_OBJ = {
+    isUsed: "bg-[#F9F4FF] text-primary-wine",
+    isUnused: "bg-primary-wine text-white",
+    isRevoked: "bg-primary-wine text-white",
+  };
+
   const queryClient = useQueryClient();
 
   const [itemOffset, setItemOffset] = useState(0);

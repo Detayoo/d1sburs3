@@ -1,7 +1,8 @@
 import Image from "next/image";
 
 import { ModalContainer } from "@/components";
-import { stateType } from "@/pages/bulk-transactions";
+// import { stateType } from "@/pages/bulk-transactions";
+import { stateType } from "@/types";
 
 export const ViewJustUploadedBatch = ({
   showModal = true,
