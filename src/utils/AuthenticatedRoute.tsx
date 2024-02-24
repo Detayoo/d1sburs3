@@ -23,8 +23,8 @@ export const AuthenticatedRoute = (
       return <Component {...props} />;
     }
 
-    // else {
-    //   Router.push("/");
-    // }
+    else {
+      Router.push("/");
+    }
   };
 };
