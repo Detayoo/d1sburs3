@@ -4,9 +4,7 @@ import { AppProps } from "next/app";
 
 import { useAuth } from "@/contexts";
 
-export const AuthenticatedRoute = (
-  Component: NextComponentType<NextPageContext, any, any>
-) => {
+export const AuthenticatedRoute = (Component: any) => {
   // eslint-disable-next-line react/display-name
   return (props: AppProps) => {
     // eslint-disable-next-line react/display-name, react-hooks/rules-of-hooks
@@ -21,9 +19,7 @@ export const AuthenticatedRoute = (
 
     if (user) {
       return <Component {...props} />;
-    }
-
-    else {
+    } else {
       Router.push("/");
     }
   };

@@ -1,10 +1,9 @@
 import React, {
-  useEffect,
   useReducer,
   createContext,
   useContext,
   useMemo,
-  useState,
+  useEffect,
 } from "react";
 
 interface Children {
@@ -38,7 +37,7 @@ const reducer = (state: AuthContextType, action: any) => {
         ...state,
         token: localStorage.getItem("TOKEN"),
         user: user ? JSON.parse(user) : user,
-        loading: true,
+        loading: false,
       };
     case "SET-TOKEN":
       localStorage.setItem("TOKEN", action.payload);
@@ -56,6 +55,10 @@ const reducer = (state: AuthContextType, action: any) => {
 
 export const AuthProvider = ({ children }: Children): JSX.Element => {
   const [state, dispatch]: any = useReducer<any>(reducer, initialState);
+
+  useEffect(() => {
+    dispatch({ type: "GET-CREDENTIALS" });
+  }, [state?.loading, state?.token]);
 
   const contextValues: Record<string, any> = useMemo(() => {
     return {
