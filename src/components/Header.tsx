@@ -24,13 +24,13 @@ export const Header = ({ pageName }: { pageName: string }) => {
             {user?.role?.toLowerCase() || ""}
           </p>
         </div>
-        <Image
+        {/* <Image
           src="/icons/down-chevron.svg"
           alt="chevron icon"
           width={20}
           height={20}
           className="ml-[14px]"
-        />
+        /> */}
       </div>
     </div>
   );

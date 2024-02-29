@@ -231,7 +231,7 @@ const Transactions = () => {
       <Title name="Transactions" />
       <DashboardLayout pageName="Transactions">
         <div className="bg-[#FBFCFF] py-4">
-          <div className="bg-inherit border border-primary-black/30 flex items-center px-2 gap-x-2 h-10 rounded-[3px] w-[30%] mb-[30px]">
+          {/* <div className="bg-inherit border border-primary-black/30 flex items-center px-2 gap-x-2 h-10 rounded-[3px] w-[30%] mb-[30px]">
             <Image
               src="/icons/search-icon.svg"
               alt="search icon"
@@ -245,7 +245,7 @@ const Transactions = () => {
               className="bg-inherit flex-1 placeholder:text-sm placeholder:text-primary-black/70 text-sm text-primary-black outline-none"
               placeholder="Search by transaction reference"
             />
-          </div>
+          </div> */}
           <div className="bg-white">
             <div className="flex justify-between items-center px-[30px] py-[20px]">
               <p className="text-[#471C2A] text-[15px] font-InterTight-Medium">

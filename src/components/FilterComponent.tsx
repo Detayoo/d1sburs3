@@ -131,7 +131,7 @@ export const Filter = ({
           >
             {({ values, errors, touched, isValid, dirty, resetForm }) => (
               <Form className="mt-[32px]">
-                <SelectField
+                {/* <SelectField
                   name="isActive"
                   value={values.isActive}
                   label="Is Active?"
@@ -142,7 +142,7 @@ export const Filter = ({
                   <option value="">Select</option>
                   <option value="ACTIVE">Active</option>
                   <option value="INACTIVE">Inactive</option>
-                </SelectField>
+                </SelectField> */}
                 <SelectField
                   name="role"
                   value={values.role}

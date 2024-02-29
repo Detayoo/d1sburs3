@@ -181,7 +181,7 @@ export const Users = ({
                   } animation`}
                 >
                   <div>
-                    <p
+                    {/* <p
                       onClick={() =>
                         updateState({
                           changeRoleModal: true,
@@ -191,7 +191,7 @@ export const Users = ({
                       className="cursor-pointer p-4"
                     >
                       Change Role
-                    </p>
+                    </p> */}
                     <p
                       onClick={() => {
                         handleDeactivation(user);
