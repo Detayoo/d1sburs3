@@ -121,19 +121,23 @@ export const TransactionsDetailsModal = ({
           <div className="flex gap-x-1 items-center">
             <div
               className={`rounded-[50%] h-[10px] w-[10px] ${
-                status === "READY" ? "bg-light-green" : "bg-failure-text"
+                status === "READY" || status === "SUCCESSFUL"
+                  ? "bg-light-green"
+                  : "bg-failure-text"
               }`}
             />
             <p
               className={`capitalize ${
-                status === "READY" ? "text-light-green" : "text-failure-text"
+                status === "READY" || status === "SUCCESSFUL"
+                  ? "text-light-green"
+                  : "text-failure-text"
               }`}
             >
               {status?.toLowerCase()}
             </p>
           </div>
         </div>
-        {reasons && (
+        {reasons?.length > 0 && (
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p>Reason(s)</p>
             <p className="max-w-[60%] text-right">{reasons?.join(", ")}</p>

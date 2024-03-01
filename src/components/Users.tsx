@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 import { UpdateRoleModal } from "@/modals";
 import { EmptyContainer, ListLoader, Pagination } from ".";
-import { excerpt, extractAppServerError, perPage } from "@/utils";
+import { extractAppServerError, perPage } from "@/utils";
 import { changeUsersPasswordFn, manageUserStatusFn } from "@/services";
 import {
   InviteStateType,
@@ -139,7 +139,7 @@ export const Users = ({
                 key={user?.id}
                 className="bg-white relative h-12 w-full text-[#303030] text-[12px] flex items-center px-[20px] justify-between"
               >
-                <p className="w-[15%] break-words">{excerpt(user?.id, 20)}</p>
+                <p className="w-[15%] break-words">{index + 1}</p>
                 <p className="w-[15%] capitalize">{user?.firstName}</p>
                 <p className="w-[15%] capitalize">{user?.lastName}</p>
                 <p className="w-[20%]">{user?.email}</p>
@@ -234,14 +234,15 @@ export const Users = ({
       </>
     );
   };
+
   return (
     <div className="">
       <div className="bg-light-wine h-10 w-full uppercase text-[#303030] text-[12px] flex items-center px-[20px] justify-between">
-        <p className="w-[15%]">serial no</p>
+        <p className="w-[15%]">serial no.</p>
         <p className="w-[15%]">first name</p>
         <p className="w-[15%]">last name</p>
         <p className="w-[20%]">email address</p>
-        <p className="w-[15%]">roles</p>
+        <p className="w-[15%]">role</p>
         <p className="w-[15%]">status</p>
         <p className="flex-1" />
       </div>
