@@ -88,9 +88,11 @@ const Transactions = () => {
       toast.success(data?.message);
     },
     onError: (error) =>
-      extractAppServerError(
-        error,
-        "Could not remove transaction, please try again"
+      toast.error(
+        extractAppServerError(
+          error,
+          "Could not remove transaction, please try again"
+        )
       ),
   });
 
@@ -171,14 +173,16 @@ const Transactions = () => {
                   <div className="w-[10%] flex gap-x-1 items-center">
                     <div
                       className={`rounded-[50%] h-[10px] w-[10px] ${
-                        transaction?.status === "READY"
+                        transaction?.status === "READY" ||
+                        transaction?.status === "SUCCESSFUL"
                           ? "bg-light-green"
                           : "bg-failure-text"
                       }`}
                     />
                     <p
                       className={`capitalize ${
-                        transaction?.status === "READY"
+                        transaction?.status === "READY" ||
+                        transaction?.status === "SUCCESSFUL"
                           ? "text-light-green"
                           : "text-failure-text"
                       }`}
@@ -297,4 +301,3 @@ const Transactions = () => {
 };
 
 export default AuthenticatedRoute(Transactions);
-
