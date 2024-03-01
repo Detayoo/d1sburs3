@@ -188,7 +188,7 @@ export const Users = ({
                           modal: false,
                         })
                       }
-                      className="cursor-pointer p-4"
+                      className="cursor-pointer p-4 border-b"
                     >
                       Change Role
                     </p> */}
@@ -196,10 +196,10 @@ export const Users = ({
                       onClick={() => {
                         handleDeactivation(user);
                       }}
-                      className={`cursor-pointer p-4 border-t $${
+                      className={`cursor-pointer p-4 ${
                         user?.status === "ACTIVATED"
-                          ? "text-[#c00000]"
-                          : "text[#00974e]"
+                          ? "text-failure-text"
+                          : "text-success-text"
                       }`}
                     >
                       {isPending
