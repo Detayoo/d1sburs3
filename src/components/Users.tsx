@@ -197,7 +197,7 @@ export const Users = ({
                       onClick={() => {
                         handleDeactivation(user);
                       }}
-                      className={`cursor-pointer p-4 ${
+                      className={`cursor-pointer p-4 w-full text-left ${
                         user?.status === "ACTIVATED"
                           ? "text-failure-text"
                           : "text-success-text"
@@ -212,7 +212,7 @@ export const Users = ({
                     <button
                       type="button"
                       onClick={() => handleChangePassword(user?.id)}
-                      className="cursor-pointer border-t p-4"
+                      className="cursor-pointer border-t p-4 w-full text-left"
                     >
                       {changingUserPassword
                         ? "Changing Password"
