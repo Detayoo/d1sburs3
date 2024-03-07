@@ -176,6 +176,8 @@ const Transactions = () => {
                         transaction?.status === "READY" ||
                         transaction?.status === "SUCCESSFUL"
                           ? "bg-light-green"
+                          : transaction?.status?.toLowerCase() === "pending"
+                          ? " bg-[#FB9701]"
                           : "bg-failure-text"
                       }`}
                     />
@@ -184,6 +186,8 @@ const Transactions = () => {
                         transaction?.status === "READY" ||
                         transaction?.status === "SUCCESSFUL"
                           ? "text-light-green"
+                          : transaction?.status?.toLowerCase() === "pending"
+                          ? " text-[#FB9701]"
                           : "text-failure-text"
                       }`}
                     >

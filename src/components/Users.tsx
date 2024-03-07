@@ -192,7 +192,8 @@ export const Users = ({
                     >
                       Change Role
                     </p> */}
-                    <p
+                    <button
+                      type="button"
                       onClick={() => {
                         handleDeactivation(user);
                       }}
@@ -207,15 +208,16 @@ export const Users = ({
                         : user?.status === "ACTIVATED"
                         ? "Deactivate"
                         : "Activate"}
-                    </p>
-                    <p
+                    </button>
+                    <button
+                      type="button"
                       onClick={() => handleChangePassword(user?.id)}
                       className="cursor-pointer border-t p-4"
                     >
                       {changingUserPassword
                         ? "Changing Password"
                         : "Change Password"}
-                    </p>
+                    </button>
                   </div>
                 </div>
               </div>

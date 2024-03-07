@@ -3,6 +3,11 @@ import Image from "next/image";
 import { format } from "date-fns";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
+import {
+  UseQueryResult,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 
 import {
   EmptyContainer,
@@ -10,9 +15,9 @@ import {
   ModalContainer,
   PrimaryButton,
 } from "@/components";
-import { formatMoney, handleScrollToTop } from "@/utils";
-import { UseQueryResult } from "@tanstack/react-query";
+import { extractAppServerError, formatMoney, handleScrollToTop } from "@/utils";
 import { SingleTransactionDetailResponse } from "@/types";
+import { requeryFn } from "@/services";
 
 export const TransactionsDetailsModal = ({
   showModal,
@@ -24,6 +29,7 @@ export const TransactionsDetailsModal = ({
   transactionDetailsData: UseQueryResult<SingleTransactionDetailResponse>;
 }) => {
   const modalRef = useRef(null);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     handleScrollToTop(modalRef);
@@ -35,12 +41,37 @@ export const TransactionsDetailsModal = ({
     amount,
     bank,
     dateTime,
-    id,
     reasons,
     status,
-
     transactionReference,
   } = transactionDetailsData?.data?.data?.transactions[0] || {};
+
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: requeryFn,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["batch transaction details"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["batch transaction list"],
+      });
+    },
+    onError: (error) =>
+      toast.error(
+        extractAppServerError(
+          error,
+          "Could not complete requery, please try again"
+        )
+      ),
+  });
+
+  const handleRequery = async () => {
+    try {
+      await mutateAsync({
+        reference: transactionReference,
+      });
+    } catch (error) {}
+  };
 
   const renderModalContent = () => {
     if (transactionDetailsData?.isFetching)
@@ -76,7 +107,7 @@ export const TransactionsDetailsModal = ({
           />
         </div>
         <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
-          <p>Batch Reference</p>
+          <p>Transaction Reference</p>
           <CopyToClipboard
             text={transactionReference}
             onCopy={() => toast.success("Copied successfully")}
@@ -98,7 +129,7 @@ export const TransactionsDetailsModal = ({
         <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
           <p>Account Name</p>
           <p className="font-InterTight-Medium capitalize">
-            {accountName?.toLowerCase()}
+            {accountName?.toLowerCase() || "-"}
           </p>
         </div>
         <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
@@ -123,6 +154,8 @@ export const TransactionsDetailsModal = ({
               className={`rounded-[50%] h-[10px] w-[10px] ${
                 status === "READY" || status === "SUCCESSFUL"
                   ? "bg-light-green"
+                  : status?.toLowerCase() === "pending"
+                  ? " bg-[#FB9701]"
                   : "bg-failure-text"
               }`}
             />
@@ -130,6 +163,8 @@ export const TransactionsDetailsModal = ({
               className={`capitalize ${
                 status === "READY" || status === "SUCCESSFUL"
                   ? "text-light-green"
+                  : status?.toLowerCase() === "pending"
+                  ? " text-[#FB9701]"
                   : "text-failure-text"
               }`}
             >
@@ -140,7 +175,9 @@ export const TransactionsDetailsModal = ({
         {reasons?.length > 0 && (
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
             <p>Reason(s)</p>
-            <p className="max-w-[60%] text-right">{reasons?.join(", ")}</p>
+            <p className="max-w-[60%] text-right">
+              {reasons[reasons?.length - 1]}
+            </p>
           </div>
         )}
 
@@ -151,6 +188,14 @@ export const TransactionsDetailsModal = ({
             {dateTime ? format(new Date(dateTime), "dd-MM-yyyy p") : "N/A"}
           </p>
         </div>
+
+        <PrimaryButton
+          disabled={isPending}
+          loading={isPending}
+          title="Re-query"
+          onClick={handleRequery}
+          className="mt-10 w-full"
+        />
       </div>
     );
   };

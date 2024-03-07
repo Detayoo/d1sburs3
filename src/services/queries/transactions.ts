@@ -142,3 +142,16 @@ export const disburseFn = async ({
 
   return data;
 };
+
+export const requeryFn = async ({
+  reference,
+}: {
+  reference: string;
+}) => {
+  const { data } = await authenticatedApi().get("/disbursement/status", {
+    params: {
+      reference,
+    },
+  });
+  return data;
+};
