@@ -17,8 +17,7 @@ import {
   PrimaryButton,
 } from "@/components";
 import { extractAppServerError, handleScrollToTop } from "@/utils";
-import { stateType } from "@/types";
-import { BatchTransactionDetailResponse } from "@/types";
+import { BatchTransactionDetailResponse, stateType } from "@/types";
 import { disburseFn } from "@/services";
 import { useAuth } from "@/contexts";
 

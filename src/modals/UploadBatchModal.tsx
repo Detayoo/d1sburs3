@@ -17,7 +17,6 @@ import {
   importBatchSchema,
 } from "@/utils";
 import { uploadFileFn } from "@/services";
-// import { stateType } from "@/pages/bulk-transactions";
 import { stateType } from "@/types";
 
 export const UploadBatchModal = ({
@@ -44,7 +43,6 @@ export const UploadBatchModal = ({
     mutationFn: uploadFileFn,
     onSuccess: (data) => {
       closeModal();
-      // toast.success("upload successful");
       updateState({
         selected: data,
         showPreviewToast: true,
