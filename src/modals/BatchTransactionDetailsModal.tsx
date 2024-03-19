@@ -124,8 +124,10 @@ export const BatchTransactionsDetailsModal = ({
             text={batchReference}
             onCopy={() => toast.success("Copied successfully")}
           >
-            <div className="flex gap-x-2">
-              <p className="font-InterTight-Medium">{batchReference}</p>
+            <div className="flex gap-x-2 max-w-[70%] text-right">
+              <p className="font-InterTight-Medium">
+                {batchReference}
+              </p>
 
               <Image
                 src="/icons/copy-icon.svg"
@@ -140,7 +142,9 @@ export const BatchTransactionsDetailsModal = ({
 
         <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
           <p>Batch Name</p>
-          <p className="font-InterTight-Medium max-w-[70%] text-right">{batchName}</p>
+          <p className="font-InterTight-Medium max-w-[70%] text-right">
+            {batchName}
+          </p>
         </div>
         <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray w-full">
           <p className="w-[60%]">Total No. of Successful Transactions</p>
