@@ -8,7 +8,6 @@ import {
   EmptyContainer,
   ListLoader,
   Pagination,
-  PrimaryButton,
   Title,
 } from "@/components";
 import {
@@ -22,15 +21,7 @@ import {
   getAllBatchListFn,
   getBatchTransactionDetailFn,
 } from "@/services";
-import { BatchTransactionType, UploadFileResponse, stateType } from "@/types";
-
-// export type stateType = {
-//   currentPage?: number;
-//   download?: boolean;
-//   approve?: boolean;
-//   showPreviewToast?: boolean;
-//   selected?: UploadFileResponse;
-// };
+import { BatchTransactionType, stateType } from "@/types";
 
 const BulkTransactions = () => {
   const [selected, setSelected] = useState<any>({});
@@ -158,8 +149,8 @@ const BulkTransactions = () => {
                   key={index}
                   className="h-12 w-full text-light-text text-[12px] flex items-center px-[30px] justify-between cursor-pointer"
                 >
-                  <p className="w-[30%]">{transaction?.batchReference}</p>
-                  <p className="w-[20%] text-primary-wine">
+                  <p className="w-[25%] truncate">{transaction?.batchReference}</p>
+                  <p className="w-[30%] text-primary-wine truncate">
                     {transaction?.batchName || "N/A"}
                   </p>
                   <p className="w-[15%] lowercase">
@@ -273,8 +264,8 @@ const BulkTransactions = () => {
               </div> */}
             </div>
             <div className="bg-light-wine h-10 w-full uppercase text-[#303030] text-[12px] flex items-center px-[30px] justify-between">
-              <p className="w-[30%]">batch reference</p>
-              <p className="w-[20%]">batch name</p>
+              <p className="w-[25%]">batch reference</p>
+              <p className="w-[30%]">batch name</p>
               <p className="w-[15%]">time</p>
               <p className="w-[15%]">status</p>
             </div>
