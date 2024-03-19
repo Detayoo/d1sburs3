@@ -150,7 +150,7 @@ const BulkTransactions = () => {
                   className="h-12 w-full text-light-text text-[12px] flex items-center px-[30px] justify-between cursor-pointer"
                 >
                   <p className="w-[25%] truncate">{transaction?.batchReference}</p>
-                  <p className="w-[30%] text-primary-wine truncate">
+                  <p className="w-[30%] text-primary-wine truncate capitalize">
                     {transaction?.batchName || "N/A"}
                   </p>
                   <p className="w-[15%] lowercase">
