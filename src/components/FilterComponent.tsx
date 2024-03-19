@@ -84,6 +84,7 @@ export const Filter = ({
     updateState({
       filterObj: values,
       filterModal: false,
+      userPage: 1,
     });
     resetForm();
   };
