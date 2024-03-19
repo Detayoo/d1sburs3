@@ -117,7 +117,7 @@ export const UploadBatchModal = ({
               dirty,
             }) => {
               return (
-                <Form className="mt-8 h-[70vh] flex-1 flex flex-col gap-y-6 justify-between">
+                <Form autoComplete="off" className="mt-8 h-[70vh] flex-1 flex flex-col gap-y-6 justify-between">
                   <div>
                     <div className="flex flex-col gap-y-2">
                       <p className="text-[#471C2A] text-sm">Upload CSV</p>

@@ -77,7 +77,7 @@ const LoginPage = () => {
         onSubmit={onSubmit}
         validationSchema={loginSchema}
       >
-        {({ values, errors, touched, isValid, dirty, resetForm }) => (
+        {({ values, errors, touched, isValid }) => (
           <Form autoComplete="off" className="mt-5 flex flex-col">
             <TextField
               type="text"
@@ -104,7 +104,7 @@ const LoginPage = () => {
 
             <PrimaryButton
               loading={isPending}
-              disabled={!(isValid && dirty) || isPending}
+              disabled={!isValid || isPending}
               type="submit"
               title="Login"
               image="/icons/arrow-right.svg"

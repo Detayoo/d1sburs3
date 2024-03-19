@@ -115,7 +115,7 @@ export const InviteTeamMember = ({
             enableReinitialize
           >
             {({ values, errors, touched, isValid, dirty }) => (
-              <Form className="mt-[32px]">
+              <Form autoComplete="off" className="mt-[32px]">
                 <TextField
                   type="text"
                   name="firstName"

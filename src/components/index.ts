@@ -16,3 +16,4 @@ export * from "./ChangePassword";
 export * from "./UploadField";
 export * from "./Loader";
 export * from "./EmptyContainer";
+export * from "./IdleTimer";

@@ -1,5 +1,4 @@
 import { MutableRefObject } from "react";
-import { useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
 export const excerpt = (text: string, length?: number) => {
