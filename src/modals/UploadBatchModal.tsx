@@ -58,9 +58,9 @@ export const UploadBatchModal = ({
   const handleSubmit = async (
     values: FormikValues,
     {
-      setFieldValue,
+      resetForm,
     }: {
-      setFieldValue: any;
+      resetForm: any;
     }
   ) => {
     if (+fileSizeInMB(values?.file?.size) > 20) {
@@ -73,7 +73,8 @@ export const UploadBatchModal = ({
       await mutateAsync({
         payload: formData,
       });
-      setFieldValue("file", null);
+
+      resetForm();
     } catch (error) {}
   };
 
@@ -117,7 +118,10 @@ export const UploadBatchModal = ({
               dirty,
             }) => {
               return (
-                <Form autoComplete="off" className="mt-8 h-[70vh] flex-1 flex flex-col gap-y-6 justify-between">
+                <Form
+                  autoComplete="off"
+                  className="mt-8 h-[70vh] flex-1 flex flex-col gap-y-6 justify-between"
+                >
                   <div>
                     <div className="flex flex-col gap-y-2">
                       <p className="text-[#471C2A] text-sm">Upload CSV</p>
@@ -165,6 +169,7 @@ export const UploadBatchModal = ({
 
                   <div className="flex items-center gap-x-[14px]">
                     <PrimaryButton
+                      type="button"
                       onClick={() => {
                         resetForm();
                         closeModal();
@@ -175,6 +180,7 @@ export const UploadBatchModal = ({
                       textColor="text-primary-wine"
                     />
                     <PrimaryButton
+                      type="submit"
                       loading={isPending}
                       title="Import"
                       className="flex-1"

@@ -22,8 +22,8 @@ export const ViewJustUploadedBatch = ({
   return (
     <ModalContainer showModal={showModal} closeModal={closeModal}>
       <div
-        className={`absolute z-[100] w-[372px] h-[80px] top-[12rem] rounded-[4px] bg-white flex ${
-          showModal ? "right-[4rem]" : "right-[-10rem]"
+        className={`absolute z-[100] w-[372px] h-[80px] top-[4rem] rounded-[4px] bg-white flex ${
+          showModal ? "right-[1rem]" : "right-[-10rem]"
         } animation overflow-hidden`}
       >
         <div className="w-[48px] bg-[#DDF7E0]  h-full flex justify-center items-center">
