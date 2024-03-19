@@ -2,7 +2,6 @@ import { ErrorMessage } from "formik";
 import Image from "next/image";
 
 import { excerpt, getFileExtension } from "@/utils";
-import { useEffect } from "react";
 
 export const UploadField = ({
   name,

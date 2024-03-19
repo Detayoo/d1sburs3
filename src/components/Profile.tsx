@@ -5,6 +5,7 @@ import { useAuth } from "@/contexts";
 
 export const Profile = () => {
   const { user } = useAuth();
+
   const initialValues = {
     firstName: user.firstName ?? "",
     lastName: user?.lastName ?? "",
@@ -12,6 +13,7 @@ export const Profile = () => {
   };
 
   const avatarName = user?.firstName?.charAt(0) + user?.lastName?.charAt(0);
+
   return (
     <div className="mt-10 flex gap-x-8">
       <div className="w-[80px] h-[80px] bg-light-wine rounded-[50%] flex justify-center items-center text-[24px] text-primary-wine">
