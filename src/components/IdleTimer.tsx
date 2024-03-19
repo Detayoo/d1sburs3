@@ -6,7 +6,7 @@ import { useAuth } from "@/contexts";
 export const IdleTimer = () => {
   const { logout } = useAuth();
 
-  const timeout = 5 * 60 * 1000;
+  const timeout = 3 * 60 * 1000;
 
   const handleIdle = () => {
     toast.error(
