@@ -140,7 +140,7 @@ export const BatchTransactionsDetailsModal = ({
 
         <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
           <p>Batch Name</p>
-          <p className="font-InterTight-Medium">{batchName}</p>
+          <p className="font-InterTight-Medium max-w-[70%] text-right">{batchName}</p>
         </div>
         <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray w-full">
           <p className="w-[60%]">Total No. of Successful Transactions</p>
