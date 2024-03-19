@@ -22,14 +22,13 @@ export const Invites = ({
   updateState: ({}) => void;
   setShowInviteModal: (state: boolean) => void;
 }) => {
+  const queryClient = useQueryClient();
+
   const STATUS_OBJ = {
     isUsed: "bg-[#F9F4FF] text-primary-wine",
     isUnused: "bg-primary-wine text-white",
     isRevoked: "bg-primary-wine text-white",
   };
-
-  const queryClient = useQueryClient();
-
   const [itemOffset, setItemOffset] = useState(0);
   const [revokedId, setRevokedId] = useState("");
 
