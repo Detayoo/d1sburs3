@@ -2,7 +2,7 @@ import { SetStateAction, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { format } from "date-fns";
-import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueries } from "@tanstack/react-query";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
 
@@ -11,7 +11,6 @@ import {
   EmptyContainer,
   ListLoader,
   Pagination,
-  PrimaryButton,
   Title,
 } from "@/components";
 import { TransactionsDetailsModal } from "@/modals";
@@ -26,14 +25,11 @@ import {
   getTransactionDetailFn,
   removeTransactionFn,
 } from "@/services";
-// import { stateType } from ".";
-import { stateType } from "@/types";
-import { TransactionList } from "@/types";
+import { stateType, TransactionList } from "@/types";
 
 const Transactions = () => {
   const { id } = useRouter().query;
 
-  const [searchTerm, setSearchTerm] = useState("");
   const [selected, setSelected] = useState<any>({});
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [toBeRemoved, setToBeRemoved] = useState("");
@@ -50,7 +46,7 @@ const Transactions = () => {
   const [batchTransactionData, transactionDetailsData] = useQueries({
     queries: [
       {
-        queryKey: ["batch transaction list", state?.currentPage, searchTerm],
+        queryKey: ["batch transaction list", state?.currentPage],
         queryFn: () =>
           getBatchTransactionListFn({
             currentPage: state?.currentPage,
