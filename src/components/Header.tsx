@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import { useAuth } from "@/contexts";
 
 export const Header = ({ pageName }: { pageName: string }) => {
@@ -17,20 +15,15 @@ export const Header = ({ pageName }: { pageName: string }) => {
         </div>
         <div className="">
           <p className="text-[14px] capitalize">
-            {user?.firstName?.toLowerCase() + " " + user?.lastName?.toLowerCase()}
+            {user?.firstName?.toLowerCase() +
+              " " +
+              user?.lastName?.toLowerCase()}
           </p>
           <p className="text-[#00042D80] text-[12px]">{user?.email}</p>
           <p className="text-[10px] text-primary-wine capitalize">
             {user?.role?.toLowerCase() || ""}
           </p>
         </div>
-        {/* <Image
-          src="/icons/down-chevron.svg"
-          alt="chevron icon"
-          width={20}
-          height={20}
-          className="ml-[14px]"
-        /> */}
       </div>
     </div>
   );
