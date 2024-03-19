@@ -43,7 +43,8 @@ export const ViewJustUploadedBatch = ({
             {/* <p className="text-[#948D90] text-sm mt-1">
               Your batch import successful.
             </p> */}
-            <p
+            <button
+              type="button"
               onClick={() => {
                 updateState({
                   showPreviewToast: false,
@@ -56,7 +57,7 @@ export const ViewJustUploadedBatch = ({
               className="text-[#31C440] mt-1 text-sm cursor-pointer"
             >
               View Transaction Details
-            </p>
+            </button>
           </div>
           <Image
             onClick={() => {
