@@ -6,13 +6,14 @@ import { useAuth } from "@/contexts";
 export const IdleTimer = () => {
   const { logout } = useAuth();
 
+  const timeout = 5 * 60 * 1000;
+
   const handleIdle = () => {
     toast.error(
       "You have been inactive for a while, please login to continue using the portal"
     );
     logout();
   };
-  const timeout = 5 * 60 * 1000;
 
   useIdleTimer({
     timeout,
