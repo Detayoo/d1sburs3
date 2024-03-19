@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Form, Formik, FormikValues } from "formik";
+import { toast } from "react-toastify";
+import { useMutation } from "@tanstack/react-query";
 
 import { PasswordField, PrimaryButton } from ".";
 import { changePasswordSchema, extractAppServerError } from "@/utils";
-import { useMutation } from "@tanstack/react-query";
 import { changePasswordFn } from "@/services";
-import { toast } from "react-toastify";
 
 export const ChangePassword = () => {
   const [showPassword, setShowPassword] = useState(false);

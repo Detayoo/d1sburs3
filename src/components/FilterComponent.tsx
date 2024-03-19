@@ -3,8 +3,6 @@ import { Form, Formik, FormikValues } from "formik";
 
 import { ROLES, filterUsersSchema } from "@/utils";
 import { ModalContainer, PrimaryButton, SelectField } from "@/components";
-// import { stateType } from "@/pages/bulk-transactions";
-// import { stateType } from "@/types";
 
 export const FilterComponent = ({
   showModal,

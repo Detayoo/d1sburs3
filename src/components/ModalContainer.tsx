@@ -15,6 +15,7 @@ export const ModalContainer = ({
     >
       {children}
       <div
+        onKeyDown={() => {}}
         className="absolute top-0 left-0 w-full h-full bg-overlay z-[50]"
         onClick={closeModal}
       />

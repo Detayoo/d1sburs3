@@ -1,7 +1,5 @@
-"use client";
-
 import { SyntheticEvent } from "react";
-import DatePicker, { ReactDatePickerProps } from "react-datepicker";
+import DatePicker from "react-datepicker";
 
 export const DateComponent = ({
   selected,
