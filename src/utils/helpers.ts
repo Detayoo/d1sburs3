@@ -64,9 +64,9 @@ export const ROLES = ["ADMIN", "APPROVER", "INITIATOR"];
 
 export const getFileExtension = (filename: string) => {
   if (!filename) return;
-  const parts: any = filename.split(".");
-  if (parts.length === 1) {
+  const parts: any = filename?.split(".");
+  if (parts?.length === 1) {
     return "";
   }
-  return parts.pop().toLowerCase();
+  return parts?.pop()?.toLowerCase();
 };
