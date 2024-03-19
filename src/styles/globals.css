@@ -157,7 +157,7 @@ input[type="number"] {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 3px solid transparent;
-  border-top-color: var(--primary-wine);
+  border: 3px solid var(--primary-wine);
+  border-top-color: transparent;
   animation: spin 0.5s linear infinite;
 }
