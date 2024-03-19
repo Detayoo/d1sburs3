@@ -1,7 +1,6 @@
 import Image from "next/image";
 
 import { ModalContainer } from "@/components";
-// import { stateType } from "@/pages/bulk-transactions";
 import { stateType } from "@/types";
 
 export const ViewJustUploadedBatch = ({
@@ -40,9 +39,6 @@ export const ViewJustUploadedBatch = ({
             <p className="text-[#471C2A] text-sm font-InterTight-Medium">
               Batch Upload Successful
             </p>
-            {/* <p className="text-[#948D90] text-sm mt-1">
-              Your batch import successful.
-            </p> */}
             <button
               type="button"
               onClick={() => {
