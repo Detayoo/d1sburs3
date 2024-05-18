@@ -66,6 +66,7 @@ export type TransactionList = {
   accountNumber: string;
   amount: number;
   bank: string;
+  narration: string;
   transactionReference: string;
   status: string;
   reasons: string[];
@@ -91,6 +92,7 @@ export type SingleTransactionType = {
   status: string;
   dateTime: string;
   reasons: string[];
+  narration: string;
 };
 
 export interface SingleTransactionDetailResponse {
