@@ -146,13 +146,15 @@ const Transactions = () => {
                   <p className="w-[12%]">
                     &#8358;{formatMoney(transaction?.amount || 0)}
                   </p>
-                  <div className="w-[28%] flex gap-x-1 break-words">
+
+                  <p className="w-[20%] truncate">{transaction?.narration}</p>
+                  <div className="w-[25%] flex gap-x-1">
                     <CopyToClipboard
                       text={transaction?.transactionReference}
                       onCopy={() => toast.success("Copied successfully")}
                     >
                       <div className="flex gap-x-2">
-                        <p className="text-primary-wine break-words">
+                        <p className="text-primary-wine break-words truncate">
                           {transaction?.transactionReference}
                         </p>
 
@@ -166,7 +168,7 @@ const Transactions = () => {
                       </div>
                     </CopyToClipboard>
                   </div>
-                  <div className="w-[10%] flex gap-x-1 items-center">
+                  <div className="w-[10%] flex gap-x-1 items-center ml-6">
                     <div
                       className={`rounded-[50%] h-[10px] w-[10px] ${
                         transaction?.status === "READY" ||
@@ -195,7 +197,7 @@ const Transactions = () => {
                       setSelected(transaction);
                       setShowDetailsModal(true);
                     }}
-                    className="w-[10%] underline text-primary-wine cursor-pointer"
+                    className="w-[10%] underline text-primary-wine cursor-pointer ml-5 text-center"
                   >
                     View
                   </p>
@@ -279,9 +281,10 @@ const Transactions = () => {
                 <p className="w-[15%]">account name</p>
                 <p className="w-[15%]">account no</p>
                 <p className="w-[12%]">amount</p>
-                <p className="w-[28%]">transaction ref.</p>
-                <p className="w-[10%]">status</p>
-                <p className="w-[10%]">action</p>
+                <p className="w-[20%]">Narration</p>
+                <p className="w-[25%]">transaction ref.</p>
+                <p className="w-[10%] ml-6">status</p>
+                <p className="w-[10%] ml-4 text-center">action</p>
                 <p className="min-w-[5%]" />
               </div>
             </div>
