@@ -41,6 +41,7 @@ export const TransactionsDetailsModal = ({
     amount,
     bank,
     dateTime,
+    narration,
     reasons,
     status,
     transactionReference,
@@ -171,6 +172,11 @@ export const TransactionsDetailsModal = ({
               {status?.toLowerCase()}
             </p>
           </div>
+        </div>
+
+        <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
+          <p>Narration</p>
+          <p className="font-InterTight-Medium">{narration}</p>
         </div>
         {reasons?.length > 0 && (
           <div className="flex justify-between mb-7 pb-4 border-b border-b-faint-gray">
