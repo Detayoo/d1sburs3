@@ -12,6 +12,7 @@ import {
 } from "@/components";
 import { inviteTeamMemberFn } from "@/services";
 import {
+  ROLES,
   extractAppServerError,
   handleScrollToTop,
   inviteTeamSchema,
@@ -114,7 +115,7 @@ export const InviteTeamMember = ({
             validationSchema={inviteTeamSchema}
             enableReinitialize
           >
-            {({ values, errors, touched, isValid, dirty }) => (
+            {({ values, errors, touched, isValid }) => (
               <Form autoComplete="off" className="mt-[32px]">
                 <TextField
                   type="text"
@@ -171,9 +172,11 @@ export const InviteTeamMember = ({
                   divClass="mt-6"
                 >
                   <option value="">Select role</option>
-                  <option value="ADMIN">Admin</option>
-                  <option value="APPROVER">Approver</option>
-                  <option value="INITIATOR">Initiator</option>
+                  {ROLES.map((role) => (
+                    <option key={role} value={role} className="capitalize">
+                      {role?.toLowerCase()}
+                    </option>
+                  ))}
                 </SelectField>
 
                 <PrimaryButton

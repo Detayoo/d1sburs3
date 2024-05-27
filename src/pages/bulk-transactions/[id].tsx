@@ -131,7 +131,7 @@ const Transactions = () => {
             (transaction: TransactionList, index: number) => {
               return (
                 <div
-                  key={index}
+                  key={transaction?.id}
                   className="h-12 w-full text-light-text text-[12px] flex items-center px-[30px] justify-between"
                 >
                   <p className="w-[14%] lowercase">

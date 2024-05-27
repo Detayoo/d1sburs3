@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Router from "next/router";
-import { Formik, Form, FormikValues } from "formik";
+import { Formik, Form } from "formik";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
@@ -31,14 +31,12 @@ const LoginPage = () => {
       }
     },
     onError: (error) => {
-      toast.error(
-        extractAppServerError(error, ERRORS.SERVER_NETWORK_ERROR)
-      );
+      toast.error(extractAppServerError(error, ERRORS.SERVER_NETWORK_ERROR));
     },
   });
 
   const onSubmit = async (
-    values: FormikValues,
+    values: { email: string; password: string },
     {
       resetForm,
     }: {
