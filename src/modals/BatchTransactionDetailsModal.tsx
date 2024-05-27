@@ -61,7 +61,6 @@ export const BatchTransactionsDetailsModal = ({
   const {
     mutateAsync,
     isPending: approvalPending,
-    data: myData,
   } = useMutation({
     mutationFn: disburseFn,
     onSuccess: (data) => {
@@ -73,7 +72,7 @@ export const BatchTransactionsDetailsModal = ({
     },
     onError: (error) =>
       toast.error(
-        extractAppServerError(error, "Could not approve transaction, try again")
+        extractAppServerError(error, "Could not approve transaction, please try again")
       ),
   });
 

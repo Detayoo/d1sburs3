@@ -63,7 +63,7 @@ export const UploadBatchModal = ({
     }
   ) => {
     if (+fileSizeInMB(values?.file?.size) > 20) {
-      return toast.error("File must not exceed 20MB");
+      return toast.error("File size must not exceed 20MB");
     }
     const formData = new FormData();
     formData.append("transactions", values?.file);

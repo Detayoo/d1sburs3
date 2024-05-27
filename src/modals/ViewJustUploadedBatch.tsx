@@ -35,7 +35,7 @@ export const ViewJustUploadedBatch = ({
         </div>
 
         <div className="flex-1 flex justify-between p-4">
-          <div className="">
+          <div>
             <p className="text-[#471C2A] text-sm font-InterTight-Medium">
               Batch Upload Successful
             </p>
