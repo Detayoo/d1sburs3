@@ -11,6 +11,7 @@ import {
   UploadField,
 } from "@/components";
 import {
+  ERRORS,
   extractAppServerError,
   fileSizeInMB,
   handleScrollToTop,
@@ -50,9 +51,7 @@ export const UploadBatchModal = ({
       queryClient.invalidateQueries({ queryKey: ["all batch list"] });
     },
     onError: (error) =>
-      toast.error(
-        extractAppServerError(error, "Could not upload file, please try again")
-      ),
+      toast.error(extractAppServerError(error, ERRORS.FILE_UPLOAD_ERROR)),
   });
 
   const handleSubmit = async (

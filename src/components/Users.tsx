@@ -88,7 +88,7 @@ export const Users = ({
       toast.error(
         extractAppServerError(
           error,
-          "Could not change user's status, try again"
+          "Could not change user's password, try again"
         )
       ),
   });

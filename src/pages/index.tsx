@@ -11,7 +11,7 @@ import {
   TextField,
   Title,
 } from "@/components";
-import { extractAppServerError, loginSchema } from "@/utils";
+import { ERRORS, extractAppServerError, loginSchema } from "@/utils";
 import { loginFn } from "@/services";
 import { useAuth } from "@/contexts";
 
@@ -32,7 +32,7 @@ const LoginPage = () => {
     },
     onError: (error) => {
       toast.error(
-        extractAppServerError(error, "Could not sign in, please try again")
+        extractAppServerError(error, ERRORS.SERVER_NETWORK_ERROR)
       );
     },
   });
