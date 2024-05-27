@@ -1,9 +1,9 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import { AuthProvider } from "@/contexts";
 import { ToastContainer } from "react-toastify";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
+import { AuthProvider } from "@/contexts";
 import "@/styles/globals.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-toastify/dist/ReactToastify.css";
