@@ -58,8 +58,6 @@ const Teams = () => {
     setState({ ...state, ...payload });
   };
 
-  console.log("state is", state?.filterObj);
-
   const [inviteListData, usersListData] = useQueries({
     queries: [
       {

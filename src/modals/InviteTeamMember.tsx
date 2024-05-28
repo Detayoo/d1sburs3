@@ -114,7 +114,7 @@ export const InviteTeamMember = ({
             validationSchema={inviteTeamSchema}
             enableReinitialize
           >
-            {({ values, errors, touched, isValid, dirty }) => (
+            {({ values, errors, touched, isValid }) => (
               <Form autoComplete="off" className="mt-[32px]">
                 <TextField
                   type="text"
