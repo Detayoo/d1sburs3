@@ -289,7 +289,7 @@ const BulkTransactions = () => {
         closeModal={() => setShowUploadModal(false)}
         updateState={updateState}
       />
-      <ViewJustUploadedBatch
+      {/* <ViewJustUploadedBatch
         state={state}
         showModal={state?.showPreviewToast || false}
         closeModal={() =>
@@ -300,7 +300,7 @@ const BulkTransactions = () => {
         updateState={updateState}
         setShowDetailsModal={setShowDetailsModal}
         setSelected={setSelected}
-      />
+      /> */}
     </>
   );
 };

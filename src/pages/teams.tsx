@@ -58,6 +58,8 @@ const Teams = () => {
     setState({ ...state, ...payload });
   };
 
+  console.log("state is", state?.filterObj);
+
   const [inviteListData, usersListData] = useQueries({
     queries: [
       {
@@ -203,7 +205,7 @@ const Teams = () => {
               }
               className="ml-auto"
             />
-         )}
+          )}
         </div>
       </div>
       <div className="mt-9">{renderBody()}</div>

@@ -44,10 +44,11 @@ export const UploadBatchModal = ({
     mutationFn: uploadFileFn,
     onSuccess: (data) => {
       closeModal();
-      updateState({
-        selected: data,
-        showPreviewToast: true,
-      });
+      // updateState({
+      //   selected: data,
+      //   showPreviewToast: true,
+      // });
+      toast.success(data?.message)
       queryClient.invalidateQueries({ queryKey: ["all batch list"] });
     },
     onError: (error) =>

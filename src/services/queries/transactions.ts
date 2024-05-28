@@ -3,13 +3,14 @@ import {
   AllBatchTransactionsListResponse,
   BatchTransactionDetailResponse,
   BatchTransactionListResponse,
+  GenericRequestResponse,
   IBareResponse,
   SingleTransactionDetailResponse,
   UploadFileResponse,
 } from "@/types";
 
 export const uploadFileFn = async ({ payload }: { payload: FormData }) => {
-  const { data } = await authenticatedApi().post<UploadFileResponse>(
+  const { data } = await authenticatedApi().post<GenericRequestResponse>(
     "/disbursement/upload",
     payload,
     {
