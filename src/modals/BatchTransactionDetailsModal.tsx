@@ -18,7 +18,7 @@ import {
 } from "@/components";
 import { extractAppServerError, handleScrollToTop } from "@/utils";
 import { BatchTransactionDetailResponse, stateType } from "@/types";
-import { disburseFn } from "@/services";
+import { declineBatchFn, disburseFn } from "@/services";
 import { useAuth } from "@/contexts";
 
 export const BatchTransactionsDetailsModal = ({
@@ -58,10 +58,7 @@ export const BatchTransactionsDetailsModal = ({
 
   const queryClient = useQueryClient();
 
-  const {
-    mutateAsync,
-    isPending: approvalPending,
-  } = useMutation({
+  const { mutateAsync, isPending: approvalPending } = useMutation({
     mutationFn: disburseFn,
     onSuccess: (data) => {
       toast.success(data?.message);
@@ -72,7 +69,25 @@ export const BatchTransactionsDetailsModal = ({
     },
     onError: (error) =>
       toast.error(
-        extractAppServerError(error, "Could not approve transaction, please try again")
+        extractAppServerError(
+          error,
+          "Could not approve transaction, please try again"
+        )
+      ),
+  });
+  const { mutateAsync: declineAsync, isPending: declinePending } = useMutation({
+    mutationFn: declineBatchFn,
+    onSuccess: (data) => {
+      toast.success(data?.message);
+      queryClient.invalidateQueries({ queryKey: ["all batch list"] });
+      closeModal();
+    },
+    onError: (error) =>
+      toast.error(
+        extractAppServerError(
+          error,
+          "Could not decline transaction, please try again"
+        )
       ),
   });
 
@@ -83,6 +98,15 @@ export const BatchTransactionsDetailsModal = ({
       });
     } catch (error) {}
   };
+
+  const handleDecline = async () => {
+    try {
+      await declineAsync({
+        batchReference,
+      });
+    } catch (error) {}
+  };
+
   const renderModalContent = () => {
     if (batchTransactionDetailsData?.isFetching) {
       return (
@@ -124,9 +148,7 @@ export const BatchTransactionsDetailsModal = ({
             onCopy={() => toast.success("Copied successfully")}
           >
             <div className="flex gap-x-2 max-w-[70%] text-right">
-              <p className="font-InterTight-Medium">
-                {batchReference}
-              </p>
+              <p className="font-InterTight-Medium">{batchReference}</p>
 
               <Image
                 src="/icons/copy-icon.svg"
@@ -206,13 +228,22 @@ export const BatchTransactionsDetailsModal = ({
 
         <div className="mt-[50px]">
           {status === "NEW" && user?.role !== "INITIATOR" && (
-            <PrimaryButton
-              loading={approvalPending}
-              disabled={approvalPending}
-              onClick={handleDisburse}
-              title="Approve"
-              className="w-full"
-            />
+            <div className="w-full flex gap-x-4 justify-between items-center">
+              <PrimaryButton
+                loading={approvalPending}
+                disabled={approvalPending}
+                onClick={handleDisburse}
+                title="Approve"
+                className="w-[48%]"
+              />
+              <PrimaryButton
+                loading={declinePending}
+                disabled={declinePending}
+                onClick={handleDecline}
+                title="Decline"
+                className="w-[48%]"
+              />
+            </div>
           )}
 
           <PrimaryButton
