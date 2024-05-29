@@ -28,7 +28,16 @@ export const PrimaryButton = ({
   ...rest
 }: ButtonProps) => {
   const renderTitle = () => {
-    if (loading) return <Loader />;
+    if (loading)
+      return (
+        <Loader
+          className={
+            bgColor
+              ? "border-t-white border-primary-wine"
+              : "border-t-primary-wine border-white"
+          }
+        />
+      );
     return (
       <>
         {title} {!!image && <Image src={image} alt="" width={21} height={21} />}

@@ -1,11 +1,5 @@
 export const Loader = ({ className }: { className?: string }): JSX.Element => {
-  return (
-    <div
-      className={`${
-        className || "w-5 h-5 border-primary-white"
-      } loader__container`}
-    />
-  );
+  return <div className={` w-5 h-5 loader__container ${className} `} />;
 };
 
 export const ListLoader = () => {
