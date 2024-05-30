@@ -233,14 +233,14 @@ export const BatchTransactionsDetailsModal = ({
                 loading={approvalPending}
                 disabled={approvalPending || declinePending}
                 onClick={handleDisburse}
-                title="Approve Transactions"
+                title="Approve Transaction"
                 className="w-full"
               />
               <PrimaryButton
                 loading={declinePending}
                 disabled={declinePending || approvalPending}
                 onClick={handleDecline}
-                title="Decline Transactions"
+                title="Decline Transaction"
                 className="w-full"
                 textColor="text-white"
                 borderColor="border border-[#D80A0A]"
