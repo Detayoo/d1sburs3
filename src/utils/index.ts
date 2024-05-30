@@ -3,6 +3,7 @@ export * from "./helpers";
 export * from "./routes";
 export * from "./validators";
 export * from "./AuthenticatedRoute";
+export * from './errors';
 
 export const formatMoney = (text: string | number) => {
   return Intl.NumberFormat("NGN", {

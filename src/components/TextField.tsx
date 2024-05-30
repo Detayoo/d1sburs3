@@ -161,7 +161,7 @@ export const PasswordField = ({
       </label>
     </div>
     <div
-      className={`w-full h-12 px-3 ${
+      className={`w-full h-12 ${
         disabled && "bg-disabled-bg"
       } rounded-[5px] ${
         error
@@ -181,7 +181,7 @@ export const PasswordField = ({
           disabled={disabled}
           onChange={onChange}
           {...rest}
-          className={`w-full flex-1 h-full px-1 py-1 text-[15px] ${
+          className={`w-full flex-1 h-full px-1 py-1 ml-3 text-[15px] ${
             values
               ? "bg-transparent border-input-border"
               : disabled
@@ -198,7 +198,7 @@ export const PasswordField = ({
           maxLength={maxlength}
           disabled={disabled}
           {...rest}
-          className={`w-full flex-1 h-full px-1 py-1 text-[15px] ${
+          className={`w-full flex-1 h-full px-1 py-1 ml-3 text-[15px] ${
             values
               ? "bg-transparent border-input-border"
               : disabled
@@ -210,7 +210,7 @@ export const PasswordField = ({
 
       <button
         type="button"
-        className="text-primary-wine text-sm cursor-pointer"
+        className="text-primary-wine text-sm cursor-pointer mr-3"
         onClick={onClick}
       >
         {toggleText}

@@ -11,6 +11,7 @@ import {
   UploadField,
 } from "@/components";
 import {
+  ERRORS,
   extractAppServerError,
   fileSizeInMB,
   handleScrollToTop,
@@ -43,16 +44,15 @@ export const UploadBatchModal = ({
     mutationFn: uploadFileFn,
     onSuccess: (data) => {
       closeModal();
-      updateState({
-        selected: data,
-        showPreviewToast: true,
-      });
+      // updateState({
+      //   selected: data,
+      //   showPreviewToast: true,
+      // });
+      toast.success(data?.message)
       queryClient.invalidateQueries({ queryKey: ["all batch list"] });
     },
     onError: (error) =>
-      toast.error(
-        extractAppServerError(error, "Could not upload file, please try again")
-      ),
+      toast.error(extractAppServerError(error, ERRORS.FILE_UPLOAD_ERROR)),
   });
 
   const handleSubmit = async (
@@ -64,7 +64,7 @@ export const UploadBatchModal = ({
     }
   ) => {
     if (+fileSizeInMB(values?.file?.size) > 20) {
-      return toast.error("File must not exceed 20MB");
+      return toast.error("File size must not exceed 20MB");
     }
     const formData = new FormData();
     formData.append("transactions", values?.file);

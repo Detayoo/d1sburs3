@@ -77,7 +77,7 @@ export const TransactionsDetailsModal = ({
   const renderModalContent = () => {
     if (transactionDetailsData?.isFetching)
       return (
-        <div className="w-fulll h-screen flex justify-center items-center">
+        <div className="w-full h-screen flex justify-center items-center">
           <ListLoader />
         </div>
       );

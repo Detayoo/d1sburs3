@@ -1,4 +1,4 @@
-import { object, string } from "yup";
+import { object, string, ref } from "yup";
 
 export const importBatchSchema = object().shape({
   file: string().required("File is required"),
@@ -19,7 +19,9 @@ export const inviteTeamSchema = object().shape({
 export const changePasswordSchema = object().shape({
   old_password: string().required("Old password is required"),
   new_password: string().required("New password is required"),
-  confirm_password: string().required("Confirm your Password"),
+  confirm_password: string()
+    .required("Confirm your Password")
+    .oneOf([ref("new_password"), ""], "Both passwords must match"),
 });
 
 export const filterUsersSchema = object().shape({

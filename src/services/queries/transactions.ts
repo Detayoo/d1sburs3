@@ -3,13 +3,14 @@ import {
   AllBatchTransactionsListResponse,
   BatchTransactionDetailResponse,
   BatchTransactionListResponse,
+  GenericRequestResponse,
   IBareResponse,
   SingleTransactionDetailResponse,
   UploadFileResponse,
 } from "@/types";
 
 export const uploadFileFn = async ({ payload }: { payload: FormData }) => {
-  const { data } = await authenticatedApi().post<UploadFileResponse>(
+  const { data } = await authenticatedApi().post<GenericRequestResponse>(
     "/disbursement/upload",
     payload,
     {
@@ -143,11 +144,22 @@ export const disburseFn = async ({
   return data;
 };
 
-export const requeryFn = async ({
-  reference,
+export const declineBatchFn = async ({
+  batchReference,
 }: {
-  reference: string;
+  batchReference: string;
 }) => {
+  const { data } = await authenticatedApi().delete<IBareResponse>(
+    "/disbursement/decline-batch",
+    {
+      data: { batchReference },
+    }
+  );
+
+  return data;
+};
+
+export const requeryFn = async ({ reference }: { reference: string }) => {
   const { data } = await authenticatedApi().get("/disbursement/status", {
     params: {
       reference,

@@ -142,14 +142,17 @@ const BulkTransactions = () => {
             (transaction: BatchTransactionType, index: number) => {
               return (
                 <div
+                  onKeyDown={() => {}}
                   onClick={() => {
                     setSelected(transaction);
                     setShowDetailsModal(true);
                   }}
-                  key={index}
+                  key={transaction?.id}
                   className="h-12 w-full text-light-text text-[12px] flex items-center px-[30px] justify-between cursor-pointer"
                 >
-                  <p className="w-[25%] truncate">{transaction?.batchReference}</p>
+                  <p className="w-[25%] truncate">
+                    {transaction?.batchReference}
+                  </p>
                   <p className="w-[30%] text-primary-wine truncate capitalize">
                     {transaction?.batchName || "N/A"}
                   </p>
@@ -201,7 +204,7 @@ const BulkTransactions = () => {
     <>
       <Title name="Bulk Transactions" />
       <DashboardLayout pageName="Bulk Transactions">
-        <div className="bg-[#FBFCFF]">
+        <div className="bg-[#FBFCFF] -mt-2">
           <div className="flex justify-end items-center">
             {/* <div className="bg-inherit border border-primary-black/30 flex items-center px-2 gap-x-2 h-10 rounded-[3px] w-[30%]">
               <Image
@@ -241,7 +244,7 @@ const BulkTransactions = () => {
             </div>
           </div>
 
-          <div className="bg-white mt-[33px]">
+          <div className="bg-white mt-[20px]">
             <div className="flex justify-between items-center px-[30px] py-[20px]">
               <p className="text-[#471C2A] text-[15px] font-InterTight-Medium">
                 Bulk Transactions
@@ -286,7 +289,7 @@ const BulkTransactions = () => {
         closeModal={() => setShowUploadModal(false)}
         updateState={updateState}
       />
-      <ViewJustUploadedBatch
+      {/* <ViewJustUploadedBatch
         state={state}
         showModal={state?.showPreviewToast || false}
         closeModal={() =>
@@ -297,7 +300,7 @@ const BulkTransactions = () => {
         updateState={updateState}
         setShowDetailsModal={setShowDetailsModal}
         setSelected={setSelected}
-      />
+      /> */}
     </>
   );
 };

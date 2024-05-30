@@ -25,7 +25,7 @@ export const Filter = ({
       filterModal: false,
       userPage: 1,
     });
-    resetForm();
+    // resetForm();
   };
 
   return (
@@ -104,7 +104,10 @@ export const Filter = ({
                     onClick={() => {
                       resetForm();
                       updateState({
-                        filterObj: values,
+                        filterObj: {
+                          role: "",
+                          isActive: "",
+                        },
                         filterModal: false,
                       });
                     }}

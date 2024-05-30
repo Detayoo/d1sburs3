@@ -1,5 +1,5 @@
 import { SetStateAction, useState } from "react";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import Image from "next/image";
 import { format } from "date-fns";
 import { useMutation, useQueries } from "@tanstack/react-query";
@@ -131,7 +131,7 @@ const Transactions = () => {
             (transaction: TransactionList, index: number) => {
               return (
                 <div
-                  key={index}
+                  key={transaction?.id}
                   className="h-12 w-full text-light-text text-[12px] flex items-center px-[30px] justify-between"
                 >
                   <p className="w-[14%] lowercase">
@@ -236,6 +236,19 @@ const Transactions = () => {
     <>
       <Title name="Transactions" />
       <DashboardLayout pageName="Transactions">
+        <button
+          className="flex gap-x-1 items-center"
+          onClick={() => Router.back()}
+        >
+          <Image
+            src="/icons/wine-chevron.svg"
+            alt="chevron icon"
+            width={20}
+            height={20}
+            className="rotate-90"
+          />
+          <span className="text-[#471C2A] text-sm">Go back</span>
+        </button>
         <div className="bg-[#FBFCFF] py-4">
           {/* <div className="bg-inherit border border-primary-black/30 flex items-center px-2 gap-x-2 h-10 rounded-[3px] w-[30%] mb-[30px]">
             <Image

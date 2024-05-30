@@ -203,7 +203,7 @@ const Teams = () => {
               }
               className="ml-auto"
             />
-         )}
+          )}
         </div>
       </div>
       <div className="mt-9">{renderBody()}</div>
