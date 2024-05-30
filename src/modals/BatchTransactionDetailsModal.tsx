@@ -228,25 +228,23 @@ export const BatchTransactionsDetailsModal = ({
 
         <div className="mt-[50px]">
           {status === "NEW" && user?.role !== "INITIATOR" && (
-            <div className="w-full flex gap-x-4 justify-between items-center">
+            <div className="w-full flex flex-col gap-y-4">
               <PrimaryButton
-                // loading={approvalPending}
-                loading
+                loading={approvalPending}
                 disabled={approvalPending}
                 onClick={handleDisburse}
-                title="Approve"
-                className="w-[48%]"
+                title="Approve Transactions"
+                className="w-full"
               />
               <PrimaryButton
-                // loading={declinePending}
-                loading
+                loading={declinePending}
                 disabled={declinePending}
                 onClick={handleDecline}
-                title="Decline"
-                className="w-[48%]"
-                textColor="text-primary-wine"
-                borderColor="border border-primary-wine"
-                bgColor="bg-white"
+                title="Decline Transactions"
+                className="w-full"
+                textColor="text-white"
+                borderColor="border border-[#D80A0A]"
+                bgColor="bg-[#D80A0A]"
               />
             </div>
           )}
