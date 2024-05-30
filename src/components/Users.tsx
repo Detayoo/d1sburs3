@@ -126,6 +126,16 @@ export const Users = ({
         />
       );
     }
+
+    if (
+      usersListData?.data?.data?.users?.length === 0 &&
+      parentState?.filterObj?.role
+    ) {
+      return (
+        <EmptyContainer text1={`No user with the ${parentState?.filterObj?.role?.toLowerCase()} role was found`} />
+      );
+    }
+
     if (usersListData?.data?.data?.users?.length === 0) {
       return <EmptyContainer text1="No User Found" />;
     }
