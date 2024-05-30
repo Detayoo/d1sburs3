@@ -247,7 +247,7 @@ const Transactions = () => {
             height={20}
             className="rotate-90"
           />
-          <span className="text-primary-wine text-sm">Go back</span>
+          <span className="text-[#471C2A] text-sm">Go back</span>
         </button>
         <div className="bg-[#FBFCFF] py-4">
           {/* <div className="bg-inherit border border-primary-black/30 flex items-center px-2 gap-x-2 h-10 rounded-[3px] w-[30%] mb-[30px]">

@@ -204,7 +204,7 @@ const BulkTransactions = () => {
     <>
       <Title name="Bulk Transactions" />
       <DashboardLayout pageName="Bulk Transactions">
-        <div className="bg-[#FBFCFF]">
+        <div className="bg-[#FBFCFF] -mt-2">
           <div className="flex justify-end items-center">
             {/* <div className="bg-inherit border border-primary-black/30 flex items-center px-2 gap-x-2 h-10 rounded-[3px] w-[30%]">
               <Image
@@ -244,7 +244,7 @@ const BulkTransactions = () => {
             </div>
           </div>
 
-          <div className="bg-white mt-[33px]">
+          <div className="bg-white mt-[20px]">
             <div className="flex justify-between items-center px-[30px] py-[20px]">
               <p className="text-[#471C2A] text-[15px] font-InterTight-Medium">
                 Bulk Transactions
