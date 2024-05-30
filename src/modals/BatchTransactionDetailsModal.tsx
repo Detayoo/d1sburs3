@@ -231,14 +231,14 @@ export const BatchTransactionsDetailsModal = ({
             <div className="w-full flex flex-col gap-y-4">
               <PrimaryButton
                 loading={approvalPending}
-                disabled={approvalPending}
+                disabled={approvalPending || declinePending}
                 onClick={handleDisburse}
                 title="Approve Transactions"
                 className="w-full"
               />
               <PrimaryButton
                 loading={declinePending}
-                disabled={declinePending}
+                disabled={declinePending || approvalPending}
                 onClick={handleDecline}
                 title="Decline Transactions"
                 className="w-full"

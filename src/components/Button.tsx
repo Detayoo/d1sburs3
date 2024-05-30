@@ -33,7 +33,7 @@ export const PrimaryButton = ({
         <Loader
           className={
             bgColor
-              ? "border-t-white border-primary-wine"
+              ? "border-t-white border-red-500"
               : "border-t-primary-wine border-white"
           }
         />
