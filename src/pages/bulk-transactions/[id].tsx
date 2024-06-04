@@ -128,11 +128,11 @@ const Transactions = () => {
       return (
         <>
           {batchTransactionData?.data?.data?.disbursements?.map(
-            (transaction: TransactionList, index: number) => {
+            (transaction: TransactionList) => {
               return (
                 <div
                   key={transaction?.id}
-                  className="h-12 w-full text-light-text text-[12px] flex items-center px-[30px] justify-between"
+                  className="h-12 w-full text-light-text text-[12px] flex items-center px-[30px] justify-between gap-x-2"
                 >
                   <p className="w-[14%] lowercase">
                     {transaction?.dateTime
@@ -153,7 +153,7 @@ const Transactions = () => {
                       text={transaction?.transactionReference}
                       onCopy={() => toast.success("Copied successfully")}
                     >
-                      <div className="flex gap-x-2">
+                      <div className="flex">
                         <p className="text-primary-wine break-words truncate">
                           {transaction?.transactionReference}
                         </p>
@@ -197,7 +197,12 @@ const Transactions = () => {
                       setSelected(transaction);
                       setShowDetailsModal(true);
                     }}
-                    className="w-[10%] underline text-primary-wine cursor-pointer ml-5 text-center"
+                    className={`w-[10%] underline text-primary-wine cursor-pointer ml-5 ${
+                      transaction?.status?.toLowerCase() === "skip" ||
+                      transaction?.status?.toLowerCase() === "ready"
+                        ? ""
+                        : "text-center"
+                    }`}
                   >
                     View
                   </p>
@@ -289,7 +294,7 @@ const Transactions = () => {
             </div>
 
             <div>
-              <div className="bg-light-wine h-10 w-full uppercase text-[#303030] text-[12px] flex items-center px-[30px] justify-between">
+              <div className="bg-light-wine h-10 w-full uppercase text-[#303030] text-[12px] flex items-center px-[30px] justify-between gap-x-2">
                 <p className="w-[14%]">date & time</p>
                 <p className="w-[15%]">account name</p>
                 <p className="w-[15%]">account no</p>
