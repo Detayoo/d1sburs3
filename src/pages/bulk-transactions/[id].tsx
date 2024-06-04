@@ -168,7 +168,7 @@ const Transactions = () => {
                       </div>
                     </CopyToClipboard>
                   </div>
-                  <div className="w-[10%] flex gap-x-1 items-center ml-6">
+                  <div className="w-[12%] flex gap-x-1 items-center ml-6">
                     <div
                       className={`rounded-[50%] h-[10px] w-[10px] ${
                         transaction?.status === "READY" ||
@@ -235,7 +235,7 @@ const Transactions = () => {
   return (
     <>
       <Title name="Transactions" />
-      <DashboardLayout pageName="Transactions">
+      <DashboardLayout pageName="Transactions" pagination={state?.currentPage}>
         <button
           className="flex gap-x-1 items-center"
           onClick={() => Router.back()}
@@ -296,7 +296,7 @@ const Transactions = () => {
                 <p className="w-[12%]">amount</p>
                 <p className="w-[20%]">Narration</p>
                 <p className="w-[25%]">transaction ref.</p>
-                <p className="w-[10%] ml-6">status</p>
+                <p className="w-[12%] ml-6">status</p>
                 <p className="w-[10%] ml-4 text-center">action</p>
                 <p className="min-w-[5%]" />
               </div>
