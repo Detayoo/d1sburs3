@@ -203,7 +203,10 @@ const BulkTransactions = () => {
   return (
     <>
       <Title name="Bulk Transactions" />
-      <DashboardLayout pageName="Bulk Transactions">
+      <DashboardLayout
+        pageName="Bulk Transactions"
+        pagination={state?.currentPage}
+      >
         <div className="bg-[#FBFCFF] -mt-2">
           <div className="flex justify-end items-center">
             {/* <div className="bg-inherit border border-primary-black/30 flex items-center px-2 gap-x-2 h-10 rounded-[3px] w-[30%]">
