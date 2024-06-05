@@ -37,10 +37,10 @@ export const appErrorHandler = (error: unknown) => {
 
 export const extractAppServerError = (
   error: unknown,
-  defaultErrorMessage: string
+  defaultErrorMessage?: string
 ) => {
   if (error instanceof AxiosError) {
-    const message = error.response?.data?.message;
+    const message = error.response?.data?.message || error?.message;
 
     if (message) {
       return message;
@@ -50,7 +50,7 @@ export const extractAppServerError = (
   } else if (error instanceof Error) {
     return error?.message || defaultErrorMessage;
   } else {
-    return defaultErrorMessage;
+    return defaultErrorMessage || "Something happened, please try again";
   }
 };
 
